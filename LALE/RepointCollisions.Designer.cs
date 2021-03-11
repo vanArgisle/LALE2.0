@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBoxCopyData = new System.Windows.Forms.CheckBox();
             this.bAccept = new System.Windows.Forms.Button();
             this.bCancel = new System.Windows.Forms.Button();
             this.labelAddress = new System.Windows.Forms.Label();
@@ -36,20 +35,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nAddress)).BeginInit();
             this.SuspendLayout();
             // 
-            // checkBoxCopyData
-            // 
-            this.checkBoxCopyData.AutoSize = true;
-            this.checkBoxCopyData.Location = new System.Drawing.Point(27, 33);
-            this.checkBoxCopyData.Name = "checkBoxCopyData";
-            this.checkBoxCopyData.Size = new System.Drawing.Size(112, 17);
-            this.checkBoxCopyData.TabIndex = 13;
-            this.checkBoxCopyData.Text = "Copy existing data";
-            this.checkBoxCopyData.UseVisualStyleBackColor = true;
-            this.checkBoxCopyData.Visible = false;
-            // 
             // bAccept
             // 
-            this.bAccept.Location = new System.Drawing.Point(110, 55);
+            this.bAccept.Location = new System.Drawing.Point(110, 34);
             this.bAccept.Name = "bAccept";
             this.bAccept.Size = new System.Drawing.Size(75, 23);
             this.bAccept.TabIndex = 12;
@@ -59,7 +47,7 @@
             // 
             // bCancel
             // 
-            this.bCancel.Location = new System.Drawing.Point(27, 55);
+            this.bCancel.Location = new System.Drawing.Point(27, 34);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(75, 23);
             this.bCancel.TabIndex = 11;
@@ -93,8 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(207, 93);
-            this.Controls.Add(this.checkBoxCopyData);
+            this.ClientSize = new System.Drawing.Size(207, 64);
             this.Controls.Add(this.bAccept);
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.labelAddress);
@@ -111,8 +98,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox checkBoxCopyData;
         private System.Windows.Forms.Button bAccept;
         private System.Windows.Forms.Button bCancel;
         private System.Windows.Forms.Label labelAddress;

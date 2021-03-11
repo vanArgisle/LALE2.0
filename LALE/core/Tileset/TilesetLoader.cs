@@ -408,6 +408,53 @@ namespace LALE.Tileset
 
             if (!LAGame.overworldFlag)
             {
+                if (LAGame.dungeon == 0xFF) //0xFF = Color dungeon
+                {
+                    LAGame.gbROM.BufferLocation = 0x867D0;
+                    paletteLocation = LAGame.gbROM.BufferLocation;
+                    if (LAGame.map != 0x1 && LAGame.map != 0x13 && LAGame.map != 0xF)
+                        palette = LAGame.gbROM.GetPalette(LAGame.gbROM.BufferLocation);
+                    else
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            if (i == 7)
+                            {
+                                if (LAGame.map == 0x1)
+                                {
+                                    LAGame.gbROM.BufferLocation = 0xDACF0;
+                                    paletteLocation = LAGame.gbROM.BufferLocation;
+                                }
+                                else
+                                {
+                                    LAGame.gbROM.BufferLocation = 0xDACE0;
+                                    paletteLocation = LAGame.gbROM.BufferLocation;
+                                }
+                            }
+
+                            for (int k = 0; k < 4; k++)
+                            {
+                                palette[i, k] = LAGame.gbROM.GetRealColor(LAGame.gbROM.BufferLocation);
+                            }
+                        }
+                    }
+                    return;
+                }
+                else if (LAGame.dungeon > 0x09) //Indoor
+                {
+                    byte b = (byte)((LAGame.dungeon - 0x0A) << 1);
+                    LAGame.gbROM.BufferLocation = 0x84413 + b;
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation) + LAGame.map;
+                    b = (byte)LAGame.gbROM.ReadByte();
+                    palOffset = b;
+                    b *= 2;
+                    LAGame.gbROM.BufferLocation = 0x8443F + b;
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
+                    paletteLocation = LAGame.gbROM.BufferLocation;
+                    palette = LAGame.gbROM.GetPalette(LAGame.gbROM.BufferLocation);
+                    return;
+                }
+
                 LAGame.gbROM.BufferLocation = 0x8523A;
                 for (int i = 0; i < 0x2D; i++)
                 {
@@ -439,57 +486,11 @@ namespace LALE.Tileset
                     return;
                 }
 
-                if (LAGame.dungeon == 0xFF) //0xFF = Color dungeon
-                {
-                    LAGame.gbROM.BufferLocation = 0x867D0;
-                    paletteLocation = LAGame.gbROM.BufferLocation;
-                    if (LAGame.map != 0x1 && LAGame.map != 0x13 && LAGame.map != 0xF)
-                        palette = LAGame.gbROM.GetPalette(LAGame.gbROM.BufferLocation);
-                    else
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            if (i == 7)
-                                if (LAGame.map == 0x1)
-                                {
-                                    paletteLocation = LAGame.gbROM.BufferLocation;
-                                    LAGame.gbROM.BufferLocation = 0xDACF0;
-                                }
-                                else
-                                {
-                                    paletteLocation = LAGame.gbROM.BufferLocation;
-                                    LAGame.gbROM.BufferLocation = 0xDACE0;
-                                }
-
-                            for (int k = 0; k < 4; k++)
-                            {
-                                palette[i, k] = LAGame.gbROM.GetColor(LAGame.gbROM.BufferLocation);
-                            }
-                        }
-                    }
-                    return;
-                }
-                else if (LAGame.dungeon > 0x09) //Indoor
-                {
-                    byte b = (byte)((LAGame.dungeon - 0x0A) << 1);
-                    LAGame.gbROM.BufferLocation = 0x84413 + b;
-                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation)+ LAGame.map;
-                    b = (byte)LAGame.gbROM.ReadByte();
-                    palOffset = b;
-                    b *= 2;
-                    LAGame.gbROM.BufferLocation = 0x8443F + b;
-                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
-                    paletteLocation = LAGame.gbROM.BufferLocation;
-                    palette = LAGame.gbROM.GetPalette(LAGame.gbROM.BufferLocation);
-                    return;
-                }
-                else
-                {
+                
                     LAGame.gbROM.BufferLocation = 0x843EF + (LAGame.dungeon * 2);
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
                     paletteLocation = LAGame.gbROM.BufferLocation;
                     palette = LAGame.gbROM.GetPalette(LAGame.gbROM.BufferLocation);
-                }
             }
         }
 

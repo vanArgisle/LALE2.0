@@ -400,7 +400,7 @@ namespace LALE.Supporting
             byte b;
             while ((b = LAGame.gbROM.ReadByte()) != 0xFE) //0xFE = End of room
             {
-                //There is free space forroom 0xFF (dungeon >=6) but there is no room ending byte
+                //There is free space for room 0xFF (dungeon >=6) but there is no room ending byte
                 if (LAGame.dungeon == 0xFF && LAGame.gbROM.BufferLocation >= 0x2BF43)
                     break;
                 else if ((LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation >= 0x2FFFF && LAGame.dungeon != 0xFF)
@@ -637,12 +637,12 @@ namespace LALE.Supporting
                 LAGame.gbROM.BufferLocation = 0x2BF41;
                 outofbounds = true;
             }
-            else if ((LAGame.dungeon >= 6 || LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation >= 0x2FFFF)
+            else if ((LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation >= 0x2FFFF)
             {
                 LAGame.gbROM.BufferLocation = 0x2FFFD;
                 outofbounds = true;
             }
-            else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && LAGame.gbROM.BufferLocation >= 0x2BB77)
+            else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && LAGame.gbROM.BufferLocation >= 0x2BB77 && LAGame.dungeon != 0xFF)
             {
                 LAGame.gbROM.BufferLocation = 0x2BB75;
                 outofbounds = true;
@@ -672,12 +672,12 @@ namespace LALE.Supporting
                     LAGame.gbROM.WriteByte(0xFE);
                     return;
                 }
-                else if ((LAGame.dungeon >= 6 || LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2FFFF)
+                else if ((LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2FFFF)
                 {
                     LAGame.gbROM.WriteByte(0xFE);
                     return;
                 }
-                else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2BB77)
+                else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2BB77 && LAGame.dungeon != 0xFF)
                 {
                     LAGame.gbROM.WriteByte(0xFE);
                     return;
@@ -718,12 +718,12 @@ namespace LALE.Supporting
                         LAGame.gbROM.WriteByte(0xFE);
                         return;
                     }
-                    else if ((LAGame.dungeon >= 6 || LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2FFFF)
+                    else if ((LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2FFFF)
                     {
                         LAGame.gbROM.WriteByte(0xFE);
                         return;
                     }
-                    else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2BB77)
+                    else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && LAGame.gbROM.BufferLocation + objectSize >= 0x2BB77 && LAGame.dungeon != 0xFF)
                     {
                         LAGame.gbROM.WriteByte(0xFE);
                         return;
