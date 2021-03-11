@@ -556,5 +556,39 @@ namespace LALE
             fp.Unlock(true);
             return bmp;
         }
+
+        public Bitmap drawDungeonMinimapTiles(byte[,,] graphicsData, byte[] minimapGraphics)
+        {
+            Color[] bwPalette = new Color[] { Color.White, Color.LightGray, Color.FromArgb(44, 50, 89), Color.Black };
+            Color[] chestPalette = new Color[] { Color.FromArgb(248, 248, 168), Color.FromArgb(216, 168, 32), Color.FromArgb(136, 80, 0), Color.Black };
+
+            Bitmap bmp = new Bitmap(128, 128);
+            FastPixel fp = new FastPixel(bmp);
+            fp.rgbValues = new byte[128 * 128 * 4];
+            fp.Lock();
+            for (int y = 0; y < 8; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    byte miniD = minimapGraphics[x + (y * 8)];
+                    for (int y1 = 0; y1 < 8; y1++)
+                    {
+                        for (int x1 = 0; x1 < 8; x1++)
+                        {
+                            if (miniD == 0xEF) //Regular room
+                                fp.SetPixel(x1 + (x * 8), y1 + (y * 8), bwPalette[graphicsData[2, x1, y1]]);
+                            else if (miniD == 0x7D) //Empty room
+                                fp.SetPixel(x1 + (x * 8), y1 + (y * 8), Color.FromArgb(44, 50, 89));
+                            else if (miniD == 0xED) //Chest room
+                                fp.SetPixel(x1 + (x * 8), y1 + (y * 8), chestPalette[graphicsData[0, x1, y1]]);
+                            else if (miniD == 0xEE) //Boss room
+                                fp.SetPixel(x1 + (x * 8), y1 + (y * 8), bwPalette[graphicsData[1, x1, y1]]);
+                        }
+                    }
+                }
+            }
+            fp.Unlock(true);
+            return bmp;
+        }
     }
 }

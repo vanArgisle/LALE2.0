@@ -15,6 +15,7 @@ namespace LALE
         public bool raisingFloorFlag { get; set; }
         public bool sideviewFlag { get; set; }
         public bool specialFlag { get; set; }
+        public bool magnifyGlass { get; set; }
 
         public Game(byte[] buffer, string filename)
         {

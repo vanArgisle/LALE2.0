@@ -53,7 +53,7 @@ namespace LALE
             return s;
         }
 
-        public int getFreeSpace() //Temporary
+        public int getFreeSpaceOverworld()
         {
             List<Int32> unSortedPointers = new List<Int32>();
             int[] pointers = new int[262];
@@ -112,8 +112,6 @@ namespace LALE
                 LAGame.gbROM.BufferLocation = cMapPointer;
                 space = 0x2668B - cMapPointer;
             }
-            //else if (Map == 0x51 || Map == 0x63)
-            // space = ((int)pointers.GetValue(index + 2) - 3) - cMapPointer;
             else if (index < pointers.Length)
             {
                 while ((int)pointers.GetValue(index + 1) == cMapPointer)
@@ -123,7 +121,7 @@ namespace LALE
             return space;
         }
 
-        public int getFreeSpace(int mapToCheckSpace) //Temporary
+        public int getFreeSpaceOverworld(int mapToCheckSpace)
         {
             List<Int32> unSortedPointers = new List<Int32>();
             int[] pointers = new int[262];
@@ -182,13 +180,88 @@ namespace LALE
                 LAGame.gbROM.BufferLocation = cMapPointer;
                 space = 0x2668B - cMapPointer;
             }
-            //else if (Map == 0x51 || Map == 0x63)
-            // space = ((int)pointers.GetValue(index + 2) - 3) - cMapPointer;
             else
             {
                 while ((int)pointers.GetValue(index + 1) == cMapPointer)
                     index++;
                 space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
+            }
+            return space;
+        }
+
+        public int getFreeSpaceDungeon()
+        {
+            int[] pointers = new int[257];
+            List<Int32> unSortedPointers = new List<Int32>();
+            int cMapPointer = 0;
+            int map = 0;
+            int index;
+            int space = 0;
+            if (LAGame.dungeon == 0xFF)
+            {
+                pointers = new int[0x16];
+                while (map < 0x16)
+                {
+                    LAGame.gbROM.BufferLocation = 0x2BB77 + (map * 2);
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
+                    if (map == LAGame.map)
+                        cMapPointer = LAGame.gbROM.BufferLocation;
+                    pointers[map] = LAGame.gbROM.BufferLocation;
+                    map++;
+                }
+            }
+            else
+            {
+                while (map < 256)
+                {
+                    LAGame.gbROM.BufferLocation = 0x28000 + (map * 2);
+                    if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                        LAGame.gbROM.BufferLocation += 0x4000;
+                    else if (LAGame.dungeon == 0xFF)
+                        LAGame.gbROM.BufferLocation = 0x2BB77 + (map * 2);
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
+                    if (map == LAGame.map)
+                        cMapPointer = LAGame.gbROM.BufferLocation;
+                    pointers[map] = LAGame.gbROM.BufferLocation;
+                    if (LAGame.dungeon >= 0x1A || LAGame.dungeon < 0x6)
+                    {
+                        switch (map)
+                        {
+                            case 0xF5:
+                                {
+                                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(0x3198);
+                                    LAGame.gbROM.BufferLocation += 0x28000;
+                                    if (LAGame.magnifyGlass && map == LAGame.map)
+                                        cMapPointer = LAGame.gbROM.BufferLocation;
+                                    pointers[1 + 0xFF] = LAGame.gbROM.BufferLocation;
+                                    break;
+                                }
+
+                        }
+                    }
+                    map++;
+                }
+            }
+            foreach (int point in pointers)
+                unSortedPointers.Add(point);
+            Array.Sort(pointers);
+            index = Array.IndexOf(pointers, cMapPointer);
+
+            if (LAGame.dungeon == 0xFF && LAGame.map == 0x15)
+                space = 0x2BF43 - (cMapPointer + 3);
+            else if (LAGame.map != 0xFF || LAGame.dungeon == 0xFF && LAGame.map != 0x15)
+            {
+                while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                    index++;
+                space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
+            }
+            else
+            {
+                LAGame.gbROM.BufferLocation = cMapPointer;
+                if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
+                    space = 0x2BB77 - (cMapPointer + 3);
+                else
+                    space = 0x2FFFF - (cMapPointer + 2);
             }
             return space;
         }

@@ -60,22 +60,22 @@
             this.toolStripStatusLabelSpace = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelAddressPointer = new System.Windows.Forms.ToolStripStatusLabel();
-            this.gridBoxMap = new LALE.GridBox();
-            this.gridBoxTileset = new LALE.GridBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pMinimap = new LALE.GridBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cMagGlass1 = new System.Windows.Forms.CheckBox();
             this.cSideview = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.pMinimapD = new LALE.GridBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cMagGlass = new System.Windows.Forms.CheckBox();
             this.cSideview2 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nRegion = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSpecialMap = new System.Windows.Forms.CheckBox();
+            this.pMinimap = new LALE.GridBox();
+            this.pMinimapD = new LALE.GridBox();
+            this.gridBoxMap = new LALE.GridBox();
+            this.gridBoxTileset = new LALE.GridBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMap)).BeginInit();
             this.gBoxCollisions.SuspendLayout();
@@ -84,15 +84,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.nObjectID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nLength)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -501,49 +501,6 @@
             this.toolStripStatusLabelAddressPointer.Size = new System.Drawing.Size(79, 19);
             this.toolStripStatusLabelAddressPointer.Text = "Data Address:";
             // 
-            // gridBoxMap
-            // 
-            this.gridBoxMap.AllowMultiSelection = false;
-            this.gridBoxMap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.gridBoxMap.BoxSize = new System.Drawing.Size(16, 16);
-            this.gridBoxMap.CanvasSize = new System.Drawing.Size(160, 128);
-            this.gridBoxMap.HoverBox = true;
-            this.gridBoxMap.HoverColor = System.Drawing.Color.White;
-            this.gridBoxMap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.gridBoxMap.Location = new System.Drawing.Point(297, 58);
-            this.gridBoxMap.Name = "gridBoxMap";
-            this.gridBoxMap.Selectable = false;
-            this.gridBoxMap.SelectedIndex = -1;
-            this.gridBoxMap.SelectionColor = System.Drawing.Color.Red;
-            this.gridBoxMap.SelectionRectangle = new System.Drawing.Rectangle(-1, 0, 1, 1);
-            this.gridBoxMap.Size = new System.Drawing.Size(164, 132);
-            this.gridBoxMap.TabIndex = 5;
-            this.gridBoxMap.TabStop = false;
-            this.gridBoxMap.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseDoubleClick);
-            this.gridBoxMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseDown);
-            this.gridBoxMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseMove);
-            this.gridBoxMap.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseUp);
-            // 
-            // gridBoxTileset
-            // 
-            this.gridBoxTileset.AllowMultiSelection = false;
-            this.gridBoxTileset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.gridBoxTileset.BoxSize = new System.Drawing.Size(16, 16);
-            this.gridBoxTileset.CanvasSize = new System.Drawing.Size(260, 260);
-            this.gridBoxTileset.HoverBox = true;
-            this.gridBoxTileset.HoverColor = System.Drawing.Color.White;
-            this.gridBoxTileset.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.gridBoxTileset.Location = new System.Drawing.Point(12, 58);
-            this.gridBoxTileset.Name = "gridBoxTileset";
-            this.gridBoxTileset.Selectable = true;
-            this.gridBoxTileset.SelectedIndex = 0;
-            this.gridBoxTileset.SelectionColor = System.Drawing.Color.Red;
-            this.gridBoxTileset.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
-            this.gridBoxTileset.Size = new System.Drawing.Size(260, 260);
-            this.gridBoxTileset.TabIndex = 4;
-            this.gridBoxTileset.TabStop = false;
-            this.gridBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxTileset_MouseClick);
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -568,27 +525,6 @@
             this.tabPage1.Text = "Overworld";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // pMinimap
-            // 
-            this.pMinimap.AllowMultiSelection = false;
-            this.pMinimap.BackColor = System.Drawing.SystemColors.Control;
-            this.pMinimap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pMinimap.BoxSize = new System.Drawing.Size(8, 8);
-            this.pMinimap.CanvasSize = new System.Drawing.Size(128, 128);
-            this.pMinimap.HoverBox = true;
-            this.pMinimap.HoverColor = System.Drawing.Color.White;
-            this.pMinimap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pMinimap.Location = new System.Drawing.Point(13, 7);
-            this.pMinimap.Name = "pMinimap";
-            this.pMinimap.Selectable = true;
-            this.pMinimap.SelectedIndex = -2;
-            this.pMinimap.SelectionColor = System.Drawing.Color.Red;
-            this.pMinimap.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
-            this.pMinimap.Size = new System.Drawing.Size(132, 132);
-            this.pMinimap.TabIndex = 13;
-            this.pMinimap.TabStop = false;
-            this.pMinimap.Click += new System.EventHandler(this.pMinimap_Click);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.cMagGlass1);
@@ -606,6 +542,7 @@
             // cMagGlass1
             // 
             this.cMagGlass1.AutoSize = true;
+            this.cMagGlass1.Enabled = false;
             this.cMagGlass1.Location = new System.Drawing.Point(6, 105);
             this.cMagGlass1.Name = "cMagGlass1";
             this.cMagGlass1.Size = new System.Drawing.Size(106, 17);
@@ -617,19 +554,18 @@
             // cSideview
             // 
             this.cSideview.AutoSize = true;
-            this.cSideview.Enabled = false;
             this.cSideview.Location = new System.Drawing.Point(6, 85);
             this.cSideview.Name = "cSideview";
             this.cSideview.Size = new System.Drawing.Size(73, 17);
             this.cSideview.TabIndex = 19;
             this.cSideview.Text = "Side View";
             this.cSideview.UseVisualStyleBackColor = true;
+            this.cSideview.CheckedChanged += new System.EventHandler(this.cSideview_CheckedChanged);
             // 
             // comboBox1
             // 
-            this.comboBox1.DisplayMember = "0";
+            this.comboBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Level 1",
@@ -645,26 +581,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(74, 21);
             this.comboBox1.TabIndex = 14;
-            // 
-            // pMinimapD
-            // 
-            this.pMinimapD.AllowMultiSelection = false;
-            this.pMinimapD.BackColor = System.Drawing.SystemColors.Control;
-            this.pMinimapD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pMinimapD.BoxSize = new System.Drawing.Size(8, 8);
-            this.pMinimapD.CanvasSize = new System.Drawing.Size(64, 64);
-            this.pMinimapD.HoverBox = true;
-            this.pMinimapD.HoverColor = System.Drawing.Color.White;
-            this.pMinimapD.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pMinimapD.Location = new System.Drawing.Point(6, 11);
-            this.pMinimapD.Name = "pMinimapD";
-            this.pMinimapD.Selectable = true;
-            this.pMinimapD.SelectedIndex = -2;
-            this.pMinimapD.SelectionColor = System.Drawing.Color.Red;
-            this.pMinimapD.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
-            this.pMinimapD.Size = new System.Drawing.Size(68, 68);
-            this.pMinimapD.TabIndex = 14;
-            this.pMinimapD.TabStop = false;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // tabPage3
             // 
@@ -737,6 +654,91 @@
             this.checkBoxSpecialMap.UseVisualStyleBackColor = true;
             this.checkBoxSpecialMap.CheckedChanged += new System.EventHandler(this.checkBoxSpecialMap_CheckedChanged);
             // 
+            // pMinimap
+            // 
+            this.pMinimap.AllowMultiSelection = false;
+            this.pMinimap.BackColor = System.Drawing.SystemColors.Control;
+            this.pMinimap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pMinimap.BoxSize = new System.Drawing.Size(8, 8);
+            this.pMinimap.CanvasSize = new System.Drawing.Size(128, 128);
+            this.pMinimap.HoverBox = true;
+            this.pMinimap.HoverColor = System.Drawing.Color.White;
+            this.pMinimap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pMinimap.Location = new System.Drawing.Point(13, 7);
+            this.pMinimap.Name = "pMinimap";
+            this.pMinimap.Selectable = true;
+            this.pMinimap.SelectedIndex = -2;
+            this.pMinimap.SelectionColor = System.Drawing.Color.Red;
+            this.pMinimap.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
+            this.pMinimap.Size = new System.Drawing.Size(132, 132);
+            this.pMinimap.TabIndex = 13;
+            this.pMinimap.TabStop = false;
+            this.pMinimap.Click += new System.EventHandler(this.pMinimap_Click);
+            // 
+            // pMinimapD
+            // 
+            this.pMinimapD.AllowMultiSelection = false;
+            this.pMinimapD.BackColor = System.Drawing.SystemColors.Control;
+            this.pMinimapD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pMinimapD.BoxSize = new System.Drawing.Size(8, 8);
+            this.pMinimapD.CanvasSize = new System.Drawing.Size(64, 64);
+            this.pMinimapD.HoverBox = true;
+            this.pMinimapD.HoverColor = System.Drawing.Color.White;
+            this.pMinimapD.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pMinimapD.Location = new System.Drawing.Point(6, 11);
+            this.pMinimapD.Name = "pMinimapD";
+            this.pMinimapD.Selectable = true;
+            this.pMinimapD.SelectedIndex = -2;
+            this.pMinimapD.SelectionColor = System.Drawing.Color.Red;
+            this.pMinimapD.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
+            this.pMinimapD.Size = new System.Drawing.Size(68, 68);
+            this.pMinimapD.TabIndex = 14;
+            this.pMinimapD.TabStop = false;
+            this.pMinimapD.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pMinimapD_MouseClick);
+            // 
+            // gridBoxMap
+            // 
+            this.gridBoxMap.AllowMultiSelection = false;
+            this.gridBoxMap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.gridBoxMap.BoxSize = new System.Drawing.Size(16, 16);
+            this.gridBoxMap.CanvasSize = new System.Drawing.Size(160, 128);
+            this.gridBoxMap.HoverBox = true;
+            this.gridBoxMap.HoverColor = System.Drawing.Color.White;
+            this.gridBoxMap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.gridBoxMap.Location = new System.Drawing.Point(297, 58);
+            this.gridBoxMap.Name = "gridBoxMap";
+            this.gridBoxMap.Selectable = false;
+            this.gridBoxMap.SelectedIndex = -1;
+            this.gridBoxMap.SelectionColor = System.Drawing.Color.Red;
+            this.gridBoxMap.SelectionRectangle = new System.Drawing.Rectangle(-1, 0, 1, 1);
+            this.gridBoxMap.Size = new System.Drawing.Size(164, 132);
+            this.gridBoxMap.TabIndex = 5;
+            this.gridBoxMap.TabStop = false;
+            this.gridBoxMap.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseDoubleClick);
+            this.gridBoxMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseDown);
+            this.gridBoxMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseMove);
+            this.gridBoxMap.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridBoxMap_MouseUp);
+            // 
+            // gridBoxTileset
+            // 
+            this.gridBoxTileset.AllowMultiSelection = false;
+            this.gridBoxTileset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.gridBoxTileset.BoxSize = new System.Drawing.Size(16, 16);
+            this.gridBoxTileset.CanvasSize = new System.Drawing.Size(260, 260);
+            this.gridBoxTileset.HoverBox = true;
+            this.gridBoxTileset.HoverColor = System.Drawing.Color.White;
+            this.gridBoxTileset.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.gridBoxTileset.Location = new System.Drawing.Point(12, 58);
+            this.gridBoxTileset.Name = "gridBoxTileset";
+            this.gridBoxTileset.Selectable = true;
+            this.gridBoxTileset.SelectedIndex = 0;
+            this.gridBoxTileset.SelectionColor = System.Drawing.Color.Red;
+            this.gridBoxTileset.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.gridBoxTileset.Size = new System.Drawing.Size(260, 260);
+            this.gridBoxTileset.TabIndex = 4;
+            this.gridBoxTileset.TabStop = false;
+            this.gridBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxTileset_MouseClick);
+            // 
             // LALE2
             // 
             this.ClientSize = new System.Drawing.Size(893, 366);
@@ -756,6 +758,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "LALE2";
             this.Text = "LALE";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LALE_KeyDown);
@@ -770,17 +773,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.nLength)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

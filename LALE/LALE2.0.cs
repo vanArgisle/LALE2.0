@@ -86,8 +86,18 @@ namespace LALE
             TileDrawer tileDrawer = new TileDrawer();
 
             if (gridBoxTileset.Image != null)
-                pMinimap.Image = tileDrawer.drawOverworldMinimapTiles(minimapLoader.loadMinimapOverworld(), minimapLoader.minimapGraphics, minimapLoader.overworldPal, minimapLoader.palette);
-            pMinimap.Invalidate();
+            {
+                if (LAGame.overworldFlag)
+                {
+                    pMinimap.Image = tileDrawer.drawOverworldMinimapTiles(minimapLoader.loadMinimapOverworld(), minimapLoader.minimapGraphics, minimapLoader.overworldPal, minimapLoader.palette);
+                    //pMinimap.Invalidate();
+                }
+                else
+                {
+                    minimapLoader.loadMinimapDData();
+                    pMinimapD.Image = tileDrawer.drawDungeonMinimapTiles(minimapLoader.loadMinimapDungeon(), minimapLoader.minimapGraphics);
+                }
+            }
 
         }
         /// <summary>
@@ -95,7 +105,7 @@ namespace LALE
         /// </summary>
         private void loadMap()
         {
-
+            //We can assume that overlay checked means overworld
             if (radioButtonOverlay.Checked)
             {
                 gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.GetOverlayMapData());
@@ -107,17 +117,33 @@ namespace LALE
             }
             else if (radioButtonCollisions.Checked)
             {
-                mapTileData.LoadCollisionDataOverworld();
-                gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData());
-                if (collisionBordersToolStripMenuItem.Checked)
-                    gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
+                if (LAGame.overworldFlag)
+                {
+                    mapTileData.LoadCollisionDataOverworld();
+                    gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData());
+                    if (collisionBordersToolStripMenuItem.Checked)
+                        gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
 
-                collisionSnapshotsUndo.Clear();
-                collisionSnapshotsRedo.Clear();
+                    collisionSnapshotsUndo.Clear();
+                    collisionSnapshotsRedo.Clear();
 
-                SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
-                collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+                    SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+                    collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+                }
+                else
+                {
+                    mapTileData.getWallsandFloor();
+                    mapTileData.loadCollisionDataDungeon();
+
+                    gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.loadMapDataDungeon());
+                    if (collisionBordersToolStripMenuItem.Checked)
+                        gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
+
+                    SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
+                    collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+                }
             }
             toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + mapTileData.mapAddress.ToString("X");
             saveSnapshot();
@@ -125,9 +151,16 @@ namespace LALE
 
         private void numericUpDownMap_ValueChanged(object sender, EventArgs e)
         {
+            //Clear redo/undo lists.
+            mapSnapshotsUndo = new List<byte[]>(); //Snapshot feature for the Ctrl+Z undo function
+            mapSnapshotsRedo = new List<byte[]>(); //Snapshot feature for the Ctrl+Y redo function
+            collisionSnapshotsUndo = new List<List<CollisionObject>>();
+            collisionSnapshotsRedo = new List<List<CollisionObject>>();
+
             LAGame.map = (byte)numericUpDownMap.Value;
             loadTileset();
             loadMap();
+
 
             pMinimap.SelectedIndex = (int)numericUpDownMap.Value;
 
@@ -136,20 +169,28 @@ namespace LALE
                 collisionListView();
             }
 
-            switch (LAGame.map)
+            if (LAGame.overworldFlag)
             {
-                case 0x06:
-                case 0x0E:
-                case 0x1B:
-                case 0x2B:
-                case 0x79:
-                case 0x8C:
-                    checkBoxSpecialMap.Enabled = true;
-                    break;
-                default:
-                    checkBoxSpecialMap.Checked = false;
-                    checkBoxSpecialMap.Enabled = false;
-                    break;
+                switch (LAGame.map)
+                {
+                    case 0x06:
+                    case 0x0E:
+                    case 0x1B:
+                    case 0x2B:
+                    case 0x79:
+                    case 0x8C:
+                        checkBoxSpecialMap.Enabled = true;
+                        break;
+                    default:
+                        checkBoxSpecialMap.Checked = false;
+                        checkBoxSpecialMap.Enabled = false;
+                        break;
+                }
+            }
+            else
+            {
+                checkBoxSpecialMap.Checked = false;
+                checkBoxSpecialMap.Enabled = false;
             }
         }
 
@@ -293,13 +334,19 @@ namespace LALE
         /// </summary>
         private void redrawMap()
         {
-            if (radioButtonCollisions.Checked)
+            if (radioButtonCollisions.Checked && LAGame.overworldFlag)
             {
                 gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData());
                 if (collisionBordersToolStripMenuItem.Checked)
                     gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
             }
-            else
+            else if (radioButtonCollisions.Checked && !LAGame.overworldFlag)
+            {
+                gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.loadMapDataDungeon());
+                if (collisionBordersToolStripMenuItem.Checked)
+                    gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
+            }
+            else if (radioButtonOverlay.Checked)
                 gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.overlayMapData);
 
         }
@@ -433,7 +480,10 @@ namespace LALE
                         else
                             mapTileData.collisionObjects[ind].vFlip = false;
 
-                        mapTileData.saveCollisionOverworldData();
+                        if (LAGame.overworldFlag)
+                            mapTileData.saveCollisionOverworldData();
+                        else
+                            mapTileData.saveCollisionDungeonData();
                         drawSelectedObject();
                     }
                 }
@@ -510,7 +560,7 @@ namespace LALE
                 if (changedFlag) //Create the snapshot
                 {
                     List<CollisionObject> mapData = new List<CollisionObject>();
-                    foreach (CollisionObject o  in mapTileData.collisionObjects)
+                    foreach (CollisionObject o in mapTileData.collisionObjects)
                     {
                         mapData.Add(new CollisionObject(o));
                     }
@@ -549,11 +599,16 @@ namespace LALE
                 collisionListView();
                 drawSelectedObject();
 
-                mapTileData.saveCollisionOverworldData();
+                if (LAGame.overworldFlag)
+                    mapTileData.saveCollisionOverworldData();
+                else
+                    mapTileData.saveCollisionDungeonData();
 
                 SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
-
+                if (LAGame.overworldFlag)
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+                else
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
             }
             else
             {
@@ -602,11 +657,16 @@ namespace LALE
                 collisionListView();
                 drawSelectedObject();
 
-                mapTileData.saveCollisionOverworldData();
+                if (LAGame.overworldFlag)
+                    mapTileData.saveCollisionOverworldData();
+                else
+                    mapTileData.saveCollisionDungeonData();
 
                 SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
-
+                if (LAGame.overworldFlag)
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+                else
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
             }
             else
             {
@@ -725,17 +785,17 @@ namespace LALE
             if (nSelected.Value == -1)
                 return;
             CollisionObject o = new CollisionObject();
-            if (LAGame.overworldFlag)
-                o = mapTileData.collisionObjects[(byte)nSelected.Value];
-            else
-                o = mapTileData.collisionObjects[(byte)nSelected.Value];
+            o = mapTileData.collisionObjects[(byte)nSelected.Value];
             if (comDirection.SelectedIndex == 0)
                 o.direction = 8;
             else
                 o.direction = 0xC;
 
             saveSnapshot();
-            mapTileData.saveCollisionOverworldData();
+            if (LAGame.overworldFlag)
+                mapTileData.saveCollisionOverworldData();
+            else
+                mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
         }
 
@@ -743,6 +803,7 @@ namespace LALE
         {
             if (nSelected.Value == -1)
                 return;
+
             CollisionObject o = new CollisionObject();
             if (LAGame.overworldFlag)
                 o = mapTileData.collisionObjects[(byte)nSelected.Value];
@@ -761,19 +822,35 @@ namespace LALE
 
             if (autoRepointCollisionsToolStripMenuItem.Checked)
             {
-                if (spaceCalculator.getUsedSpace() > spaceCalculator.getFreeSpace())
+                if (LAGame.overworldFlag)
+                {
+                    if (spaceCalculator.getUsedSpace() > spaceCalculator.getFreeSpaceOverworld())
+                    {
+                        CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
+                        collisionRepointer.expandCollisionAddress();
+                    }
+                }
+                else if (spaceCalculator.getUsedSpace() > spaceCalculator.getFreeSpaceDungeon())
                 {
                     CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
                     collisionRepointer.expandCollisionAddress();
                 }
+
             }
 
+            collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
 
             saveSnapshot();
-            mapTileData.saveCollisionOverworldData();
+            if (LAGame.overworldFlag)
+                mapTileData.saveCollisionOverworldData();
+            else
+                mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
 
-            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
+            if (LAGame.overworldFlag)
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+            else
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
         }
 
         private void nObjectID_ValueChanged(object sender, EventArgs e)
@@ -787,6 +864,8 @@ namespace LALE
             o = mapTileData.collisionObjects[(int)nSelected.Value];
             o.id = (byte)nObjectID.Value;
             o.getOverworldObjs(o);
+            o = o.objectIDs[0];
+
             mapTileData.collisionObjects[(int)nSelected.Value] = o;
 
             //Do the text for the list
@@ -798,7 +877,10 @@ namespace LALE
             CollisionList.Items[(int)nSelected.Value] = s;
 
             saveSnapshot();
-            mapTileData.saveCollisionOverworldData();
+            if (LAGame.overworldFlag)
+                mapTileData.saveCollisionOverworldData();
+            else
+                mapTileData.saveCollisionDungeonData();
             pObject.Invalidate();
         }
 
@@ -813,12 +895,20 @@ namespace LALE
             if (nSelected.Value != -1)
                 selectedCollisionObject = mapTileData.collisionObjects[(int)nSelected.Value];
 
-            mapTileData.saveCollisionOverworldData();
+            if (LAGame.overworldFlag)
+                mapTileData.saveCollisionOverworldData();
+            else
+                mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
 
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
 
+            collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+
+            if (LAGame.overworldFlag)
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+            else
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
         }
 
         private void gridBoxMap_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -902,7 +992,7 @@ namespace LALE
                 }
                 if (selectedCollisionObject != null)
                 {
-                    if (selectedCollisionObject.id < 0xF5 || selectedCollisionObject.id >= 0xFE)
+                    if (selectedCollisionObject.multiTileFlag == false)
                     {
                         pObject.Width = (selectedCollisionObject.width * 16) + 4;
                         pObject.Height = (selectedCollisionObject.height * 16) + 4;
@@ -927,20 +1017,61 @@ namespace LALE
 
         private void bAdd_Click(object sender, EventArgs e)
         {
-            if ((LAGame.map < 0x80 && collisionDataAddress + 2 >= 0x2668B) || (LAGame.map > 0x7F && collisionDataAddress + 2 >= 0x69E73))
+            if (LAGame.overworldFlag)
             {
-                MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if ((LAGame.map < 0x80 && collisionDataAddress + 2 >= 0x2668B) || (LAGame.map > 0x7F && collisionDataAddress + 2 >= 0x69E73))
+                {
+                    MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
+            else
+            {
+                if (LAGame.dungeon == 0xFF)
+                {
+                    if (collisionDataAddress + 2 >= 0x2BF43)
+                    {
+                        MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
+                {
+                    if (collisionDataAddress + 2 >= 0x2BB77)
+                    {
+                        MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                {
+                    if (collisionDataAddress + 2 >= 0x2FFFF)
+                    {
+                        MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+
 
             CollisionObject O = new CollisionObject();
             O.id = (byte)gridBoxTileset.SelectedIndex;
             O.xPos = 0;
             O.yPos = 0;
             O.length = 1;
-            O.getOverworldObjs(O);
-
-            selectedCollisionObject = O.objectIDs[0];
+            if (LAGame.overworldFlag)
+            {
+                O.getOverworldObjs(O);
+                selectedCollisionObject = O.objectIDs[0];
+            }
+            else
+            {
+                O.dungeonDoors(LAGame, O);
+                if (O.objectIDs.Count > 0)
+                    selectedCollisionObject = O.objectIDs[0];
+                else
+                    selectedCollisionObject = O;
+            }
 
             if (nSelected.Value == -1)
                 mapTileData.collisionObjects.Add(selectedCollisionObject);
@@ -948,25 +1079,43 @@ namespace LALE
                 mapTileData.collisionObjects.Insert((byte)nSelected.Value, selectedCollisionObject);
             collisionListView();
 
-            if (nSelected.Value == -1)
-                nSelected.Value = mapTileData.collisionObjects.Count - 1;
-
             //Repoint map collisions if able to
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
             if (autoRepointCollisionsToolStripMenuItem.Checked)
             {
-                if (spaceCalculator.getUsedSpace() > spaceCalculator.getFreeSpace())
+                if (LAGame.overworldFlag)
+                {
+                    if (spaceCalculator.getUsedSpace() > spaceCalculator.getFreeSpaceOverworld())
+                    {
+                        CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
+                        collisionRepointer.expandCollisionAddress();
+                    }
+                }
+                else if (spaceCalculator.getUsedSpace() > spaceCalculator.getFreeSpaceDungeon())
                 {
                     CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
                     collisionRepointer.expandCollisionAddress();
                 }
             }
 
-            mapTileData.saveCollisionOverworldData();
+
+            if (nSelected.Value == -1)
+                nSelected.Value = mapTileData.collisionObjects.Count - 1;
+
+
+
+            if (LAGame.overworldFlag)
+                mapTileData.saveCollisionOverworldData();
+            else
+                mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
             saveSnapshot();
 
-            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
+            if (LAGame.overworldFlag)
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+            else
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
+
             collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
         }
 
@@ -990,10 +1139,19 @@ namespace LALE
             saveSnapshot();
             redrawMap();
 
-            mapTileData.saveCollisionOverworldData();
+            if (LAGame.overworldFlag)
+                mapTileData.saveCollisionOverworldData();
+            else
+                mapTileData.saveCollisionDungeonData();
 
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
+
+            collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+
+            if (LAGame.overworldFlag)
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+            else
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
         }
 
         private void clearOverlayToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1007,7 +1165,8 @@ namespace LALE
                     i++;
                 }
                 saveSnapshot();
-                mapTileData.saveOverlayOverworldMapData();
+                if (LAGame.overworldFlag)
+                    mapTileData.saveOverlayOverworldMapData();
                 redrawMap();
             }
         }
@@ -1020,7 +1179,10 @@ namespace LALE
                 collisionRepointer.trimCollisionAddress();
 
                 SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpace().ToString();
+                if (LAGame.overworldFlag)
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+                else
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
             }
         }
 
@@ -1046,14 +1208,26 @@ namespace LALE
                 //Check if were on the overworld tab
                 if (tabControl1.SelectedIndex == 0)
                 {
+                    LAGame.dungeon = 0;
+                    LAGame.overworldFlag = true;
                     radioButtonOverlay.Enabled = true;
+                    cSideview.Checked = false;
                     loadMinimap();
+                    loadTileset();
+                    loadMap();
+                    if (radioButtonCollisions.Checked)
+                        collisionListView();
                 }
                 else if (tabControl1.SelectedIndex == 1)
                 {
-                    //loadMinimap();
+                    loadMinimap();
+                    LAGame.overworldFlag = false;
                     radioButtonOverlay.Enabled = false;
                     radioButtonCollisions.Checked = true;
+                    comboBox1.SelectedIndex = 0;
+                    loadTileset();
+                    loadMap();
+                    collisionListView();
                 }
             }
         }
@@ -1075,9 +1249,47 @@ namespace LALE
             LAGame.specialFlag = checkBoxSpecialMap.Checked;
             loadMap();
             redrawMap();
-            
+
             if (radioButtonCollisions.Checked)
                 collisionListView();
+        }
+
+        private void pMinimapD_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (gridBoxTileset.Image != null)
+            {
+                int s = (e.X / 8) + ((e.Y / 8) * 8);
+                loadMinimap();
+                numericUpDownMap.Value = minimapLoader.roomIndexes[s];
+                loadTileset();
+                //loadMap(); No need to load map since numericUpDownMap value was changed.
+                collisionListView();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == 8)
+            {
+                LAGame.dungeon = 0xFF;
+                numericUpDownMap.Maximum = 0x15;
+            }
+            else
+            {
+                LAGame.dungeon = (byte)(comboBox1.SelectedIndex);
+                numericUpDownMap.Maximum = 0xFF;
+            }
+            loadTileset();
+            loadMap();
+            collisionListView();
+            loadMinimap();
+        }
+
+        private void cSideview_CheckedChanged(object sender, EventArgs e)
+        {
+            LAGame.sideviewFlag = cSideview.Checked;
+            loadTileset();
+            loadMap();
         }
     }
 }

@@ -12,8 +12,9 @@ namespace LALE.Core
         private Game LAGame;
         public byte[] minimapGraphics { get; set; }
         public byte[] overworldPal { get; set; }
+        public byte[] roomIndexes { get; set; }
 
-        public Color[,] palette = new Color[8, 4];
+    public Color[,] palette = new Color[8, 4];
         public MinimapLoader(Game gameValues)
         {
             LAGame = gameValues;
@@ -40,6 +41,27 @@ namespace LALE.Core
             LAGame.gbROM.ReadTiles(16, 8, tiles, ref data);
             return data;
         }
+
+        public void loadMinimapDData()
+        {
+            roomIndexes = new byte[64];
+
+            minimapGraphics = LAGame.gbROM.ReadBytes(0xA49A + (64 * LAGame.dungeon), 64);
+            if (LAGame.dungeon == 0xFF)
+                minimapGraphics = LAGame.gbROM.ReadBytes(0xA49A + (64 * 0x9), 64);
+            roomIndexes = LAGame.gbROM.ReadBytes(0x50220 + (64 * LAGame.dungeon), 64);
+            if (LAGame.dungeon == 0xFF)
+                roomIndexes = LAGame.gbROM.ReadBytes(0x504E0, 64);
+        }
+
+        public byte[,,] loadMinimapDungeon()
+        {
+            byte[] tiles = LAGame.gbROM.ReadBytes(0xCBFD0, 0x30);
+            byte[,,] data = new byte[3, 16, 16];
+            LAGame.gbROM.ReadTiles(3, 1, tiles, ref data);
+            return data;
+        }
+
         public Color GetColor(int offset)
         {
             int value = LAGame.gbROM.ReadByte(offset) + (LAGame.gbROM.ReadByte(offset + 1) << 8);

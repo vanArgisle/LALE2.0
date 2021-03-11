@@ -295,7 +295,7 @@ namespace LALE.Tileset
                     LAGame.gbROM.BufferLocation += 0x4000;
                 else if (LAGame.dungeon == 0xFF)
                     LAGame.gbROM.BufferLocation = 0x2BB77;
-                LAGame.gbROM.BufferLocation = LAGame.gbROM.Get3BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2));
+                LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2));
                 byte b = LAGame.gbROM.ReadByte();
                 return b;
             }

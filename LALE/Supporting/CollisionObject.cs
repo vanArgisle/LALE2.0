@@ -16,10 +16,15 @@ namespace LALE
         public byte length { get; set; }
         public byte direction { get; set; }
         public byte[] tiles { get; set; }
+        //Large objects that have multiple tiles
         public bool multiTileFlag { get; set; }
         public bool hFlip { get; set; }
         public bool vFlip { get; set; }
         public bool is3Byte { get; set; }
+        //Horizontal and vertical doors for dungeons
+        public bool isDoor1 { get; set; }
+        public bool isDoor2 { get; set; }
+        public bool isEntrance { get; set; }
 
         public List<CollisionObject> objectIDs = new List<CollisionObject>();
 
@@ -143,13 +148,83 @@ namespace LALE
 
         }
 
+
+        public void dungeonDoors(Game LAGame, CollisionObject ob)
+        {
+            int door = ob.id;
+            ob.height = 1;
+            ob.width = 1;
+            byte[] tiles;
+            //These are the actual locations of what tiles each value represents.
+            switch (door)
+            {
+                case 0xEC: LAGame.gbROM.BufferLocation = 0x35EF; break; // Key Doors
+                case 0xED: LAGame.gbROM.BufferLocation = 0x360A; break;
+                case 0xEE: LAGame.gbROM.BufferLocation = 0x3625; break;
+                case 0xEF: LAGame.gbROM.BufferLocation = 0x3640; break;
+
+                case 0xF4: LAGame.gbROM.BufferLocation = 0x36A7; break;  // Open Doors      
+                case 0xF5: LAGame.gbROM.BufferLocation = 0x36DF; break;
+                case 0xF6: LAGame.gbROM.BufferLocation = 0x36F3; break;
+                case 0xF7: LAGame.gbROM.BufferLocation = 0x3707; break;
+
+                case 0xF0: LAGame.gbROM.BufferLocation = 0x36A7; break;  // Closed Doors      
+                case 0xF1: LAGame.gbROM.BufferLocation = 0x36DF; break;
+                case 0xF2: LAGame.gbROM.BufferLocation = 0x36F3; break;
+                case 0xF3: LAGame.gbROM.BufferLocation = 0x3707; break;
+
+                case 0xF8: LAGame.gbROM.BufferLocation = 0x371B; break; // Boss Door
+
+                case 0xF9: LAGame.gbROM.BufferLocation = 0x3753; break; // ?? Stairs maybe
+                case 0xFA: LAGame.gbROM.BufferLocation = 0x3762; break; // FLip Wall
+                case 0xFB: LAGame.gbROM.BufferLocation = 0x3771; break; // One-way Arrow
+
+                case 0xFC: LAGame.gbROM.BufferLocation = 0x378D; break; // Dungeon Entrances
+
+                case 0xFD: LAGame.gbROM.BufferLocation = 0x37AB; break; //Indoor Entrances
+            }
+            if (door == 0xEC || door == 0xED || door == 0xF0 || door == 0xF1 || door == 0xF4 || door == 0xF5 || door == 0xF8 || door == 0xFA || door == 0xFB || door == 0xFD)
+            {
+                tiles = new byte[2];
+                ob.width = 2;
+                ob.height = 1;
+                for (int i = 0; i < 2; i++)
+                    tiles[i] = LAGame.gbROM.ReadByte();
+                ob.tiles = tiles;
+                ob.multiTileFlag = true;
+                objectIDs.Add(ob);
+            }
+            else if (door == 0xEE || door == 0xEF || door == 0xF2 || door == 0xF3 || door == 0xF6 || door == 0xF7)
+            {
+                tiles = new byte[2];
+                ob.width = 1;
+                ob.height = 2;
+                for (int i = 0; i < 2; i++)
+                    tiles[i] = LAGame.gbROM.ReadByte();
+                ob.tiles = tiles;
+                ob.multiTileFlag = true;
+                objectIDs.Add(ob);
+            }
+            else if (door == 0xFC)//Dungeon entrance
+            {
+                tiles = new byte[13];
+                ob.width = 4;
+                ob.height = 3;
+                for (int i = 0; i < 13; i++)
+                    tiles[i] = LAGame.gbROM.ReadByte();
+                ob.tiles = tiles;
+                ob.multiTileFlag = true;
+                objectIDs.Add(ob);
+            }
+        }
         public bool Equals(CollisionObject o)
         {
             if (this.id == o.id &&
             this.xPos == o.xPos &&
             this.yPos == o.yPos &&
             this.height == o.height &&
-            this.length == o.length)
+            this.length == o.length &&
+            this.width == o.width)
             {
                 if (this.is3Byte)
                 {

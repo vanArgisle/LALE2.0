@@ -15,6 +15,7 @@ namespace LALE
     {
         private Game LAGame;
         private TilesetLoader tilesetLoader;
+        private CollisionObject[,] wallTiles = new CollisionObject[16, 64];
 
         public MapData(Game gameValues)
         {
@@ -45,9 +46,51 @@ namespace LALE
             gridBoxTileset.Image = tileDrawer.drawTileset(tilesetLoader.loadTileset(), tilesetLoader.paletteTiles, tilesetLoader.formationData, tilesetLoader.palette);
 
             byte[] mapData = new byte[80];
-            for (int i = 0; i < 80; i++)
-                mapData[i] = (byte)(numericUpDownPresetTiles.Value);
+            if (LAGame.overworldFlag)
+            {
+                for (int i = 0; i < 80; i++)
+                    mapData[i] = (byte)(numericUpDownPresetTiles.Value);
+            }
+            else
+            {
+                loadWalls();
+                byte b = (byte)numericUpDownPresetTiles.Value;
+                for (int i = 0; i < 80; i++)
+                    mapData[i] = (byte)((b) & 0x0F);
+                for (int i = 0; i < 64; i++)
+                {
+                    CollisionObject o = wallTiles[(byte)(b >> 4), i];
+                    if (o != null)
+                        mapData[o.xPos + (o.yPos * 10)] = (byte)o.id;
+                }
+            }
             gridBoxMap.Image = tileDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapData);
+        }
+        public void loadWalls()
+        {
+            LAGame.gbROM.BufferLocation = 0x50917;
+            for (int i = 0; i < 9; i++)
+            {
+                byte b = 0;
+                int count = 0;
+                List<CollisionObject> listt = new List<CollisionObject>();
+                while ((b = LAGame.gbROM.ReadByte()) != 0xFF)
+                {
+                    CollisionObject t = new CollisionObject();
+                    t.yPos = (byte)(b / 16);
+                    t.xPos = (byte)(b - (t.yPos * 16));
+                    listt.Add(t);
+                    count++;
+                }
+                byte[] buffer = LAGame.gbROM.ReadBytes(count);
+                for (int k = 0; k < count; k++)
+                {
+                    CollisionObject t = listt[k];
+                    t.id = buffer[k];
+                    listt[k] = t;
+                    wallTiles[i, k] = listt[k];
+                }
+            }
         }
 
         private void numericUpDownSOG_ValueChanged(object sender, EventArgs e)
@@ -74,41 +117,70 @@ namespace LALE
 
         private void getMusicOffset()
         {
-            LAGame.gbROM.BufferLocation = 0x8000 + LAGame.map;
+            if (LAGame.overworldFlag)
+                LAGame.gbROM.BufferLocation = 0x8000 + LAGame.map;
+            else
+            {
+                LAGame.gbROM.BufferLocation = 0x8100 + LAGame.dungeon;
+                if (LAGame.dungeon == 0xFF)
+                    LAGame.gbROM.BufferLocation = 0x8109;
+                if (LAGame.map == 0xB5 && LAGame.dungeon < 0x1A && LAGame.dungeon >= 6)
+                    LAGame.gbROM.BufferLocation = 0x810F;
+            }
         }
 
         private void getTilePresetOffset()
         {
-            int secondhalf;
-            int i = -1;
-            if (LAGame.specialFlag)
+            if (LAGame.overworldFlag)
             {
-                switch (LAGame.map)
+                int secondhalf;
+                int i = -1;
+                if (LAGame.specialFlag)
                 {
-                    case 0x06: i = 0x31F4; break;
-                    case 0x0E: i = 0x31C4; break;
-                    case 0x1B: i = 0x3204; break;
-                    case 0x2B: i = 0x3214; break;
-                    case 0x79: i = 0x31E4; break;
-                    case 0x8C: i = 0x31D4; break;
+                    switch (LAGame.map)
+                    {
+                        case 0x06: i = 0x31F4; break;
+                        case 0x0E: i = 0x31C4; break;
+                        case 0x1B: i = 0x3204; break;
+                        case 0x2B: i = 0x3214; break;
+                        case 0x79: i = 0x31E4; break;
+                        case 0x8C: i = 0x31D4; break;
+                    }
                 }
-            }
-            if (i > 0)
-            {
-                secondhalf = LAGame.gbROM.Get2BytePointerAtAddress(i) + 1;
-                if (LAGame.map > 0x7F)
-                    secondhalf += 0x68000;
+                if (i > 0)
+                {
+                    secondhalf = LAGame.gbROM.Get2BytePointerAtAddress(i) + 1;
+                    if (LAGame.map > 0x7F)
+                        secondhalf += 0x68000;
+                    else
+                        secondhalf += 0x24000;
+                    LAGame.gbROM.BufferLocation = secondhalf;
+                }
                 else
-                    secondhalf += 0x24000;
-                LAGame.gbROM.BufferLocation = secondhalf;
+                {
+                    secondhalf = 0x24000 + (LAGame.map * 2);
+                    secondhalf = LAGame.gbROM.Get2BytePointerAtAddress(secondhalf) + 1;
+                    if (LAGame.map > 0x7F)
+                        secondhalf = 0x68000 + (secondhalf - 0x24000);
+                    LAGame.gbROM.BufferLocation = secondhalf;
+                }
             }
             else
             {
-                secondhalf = 0x24000 + (LAGame.map * 2);
-                secondhalf = LAGame.gbROM.Get2BytePointerAtAddress(secondhalf) + 1;
-                if (LAGame.map > 0x7F)
-                    secondhalf = 0x68000 + (secondhalf - 0x24000);
-                LAGame.gbROM.BufferLocation = secondhalf;
+                if (LAGame.magnifyGlass && LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.magnifyGlass && LAGame.map == 0xF5 && LAGame.dungeon < 6)
+                {
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(0x3198);
+                    LAGame.gbROM.BufferLocation += 0x28001;
+                }
+                else
+                {
+                    LAGame.gbROM.BufferLocation = 0x28000;
+                    if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                        LAGame.gbROM.BufferLocation += 0x4000;
+                    else if (LAGame.dungeon == 0xFF)
+                        LAGame.gbROM.BufferLocation = 0x2BB77;
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2)) + 1;
+                }
             }
             //byte TilePreset = LAGame.gbROM.ReadByte();
             //byte[] TilePreset = new byte[2];
@@ -204,7 +276,7 @@ namespace LALE
                     LAGame.gbROM.BufferLocation += 0x4000;
                 else if (LAGame.dungeon == 0xFF)
                     LAGame.gbROM.BufferLocation = 0x2BB77;
-                LAGame.gbROM.BufferLocation = LAGame.gbROM.Get3BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2));
+                LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2));
             }
         }
     }

@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\MinimapLoader.cs" />
+    <Compile Include="Supporting\MinimapLoader.cs" />
     <Compile Include="RepointCollisions.cs">
       <SubType>Form</SubType>
     </Compile>
