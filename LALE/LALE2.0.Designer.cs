@@ -63,15 +63,23 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.cMagGlass1 = new System.Windows.Forms.CheckBox();
             this.cSideview = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.cMagGlass = new System.Windows.Forms.CheckBox();
             this.cSideview2 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nRegion = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSpecialMap = new System.Windows.Forms.CheckBox();
+            this.saveROMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxRaisingTile = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.warpEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButtonWarpEditor = new System.Windows.Forms.ToolStripButton();
             this.pMinimap = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
             this.gridBoxMap = new LALE.GridBox();
@@ -89,6 +97,7 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).BeginInit();
@@ -100,7 +109,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fIleToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.viewToolStripMenuItem});
+            this.viewToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(893, 24);
@@ -110,7 +120,8 @@
             // fIleToolStripMenuItem
             // 
             this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openROMToolStripMenuItem});
+            this.openROMToolStripMenuItem,
+            this.saveROMToolStripMenuItem});
             this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
             this.fIleToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fIleToolStripMenuItem.Text = "File";
@@ -201,7 +212,7 @@
             // 
             this.numericUpDownMap.Enabled = false;
             this.numericUpDownMap.Hexadecimal = true;
-            this.numericUpDownMap.Location = new System.Drawing.Point(341, 32);
+            this.numericUpDownMap.Location = new System.Drawing.Point(341, 53);
             this.numericUpDownMap.Maximum = new decimal(new int[] {
             255,
             0,
@@ -215,7 +226,7 @@
             // labelMap
             // 
             this.labelMap.AutoSize = true;
-            this.labelMap.Location = new System.Drawing.Point(294, 34);
+            this.labelMap.Location = new System.Drawing.Point(294, 55);
             this.labelMap.Name = "labelMap";
             this.labelMap.Size = new System.Drawing.Size(31, 13);
             this.labelMap.TabIndex = 3;
@@ -225,7 +236,7 @@
             // 
             this.radioButtonOverlay.AutoSize = true;
             this.radioButtonOverlay.Enabled = false;
-            this.radioButtonOverlay.Location = new System.Drawing.Point(400, 196);
+            this.radioButtonOverlay.Location = new System.Drawing.Point(400, 217);
             this.radioButtonOverlay.Name = "radioButtonOverlay";
             this.radioButtonOverlay.Size = new System.Drawing.Size(61, 17);
             this.radioButtonOverlay.TabIndex = 6;
@@ -238,7 +249,7 @@
             // 
             this.radioButtonCollisions.AutoSize = true;
             this.radioButtonCollisions.Enabled = false;
-            this.radioButtonCollisions.Location = new System.Drawing.Point(297, 196);
+            this.radioButtonCollisions.Location = new System.Drawing.Point(297, 217);
             this.radioButtonCollisions.Name = "radioButtonCollisions";
             this.radioButtonCollisions.Size = new System.Drawing.Size(68, 17);
             this.radioButtonCollisions.TabIndex = 7;
@@ -249,7 +260,7 @@
             // 
             // buttonMapData
             // 
-            this.buttonMapData.Location = new System.Drawing.Point(297, 219);
+            this.buttonMapData.Location = new System.Drawing.Point(297, 240);
             this.buttonMapData.Name = "buttonMapData";
             this.buttonMapData.Size = new System.Drawing.Size(164, 23);
             this.buttonMapData.TabIndex = 8;
@@ -275,7 +286,7 @@
             this.gBoxCollisions.Controls.Add(this.label9);
             this.gBoxCollisions.Controls.Add(this.nLength);
             this.gBoxCollisions.Enabled = false;
-            this.gBoxCollisions.Location = new System.Drawing.Point(482, 27);
+            this.gBoxCollisions.Location = new System.Drawing.Point(482, 48);
             this.gBoxCollisions.Name = "gBoxCollisions";
             this.gBoxCollisions.Size = new System.Drawing.Size(211, 299);
             this.gBoxCollisions.TabIndex = 24;
@@ -458,7 +469,7 @@
             // labelSelectedTile
             // 
             this.labelSelectedTile.AutoSize = true;
-            this.labelSelectedTile.Location = new System.Drawing.Point(9, 321);
+            this.labelSelectedTile.Location = new System.Drawing.Point(9, 342);
             this.labelSelectedTile.Name = "labelSelectedTile";
             this.labelSelectedTile.Size = new System.Drawing.Size(77, 13);
             this.labelSelectedTile.TabIndex = 25;
@@ -471,7 +482,7 @@
             this.toolStripStatusLabelSpace,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabelAddressPointer});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 342);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 391);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(893, 24);
             this.statusStrip1.TabIndex = 26;
@@ -507,7 +518,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Enabled = false;
-            this.tabControl1.Location = new System.Drawing.Point(699, 34);
+            this.tabControl1.Location = new System.Drawing.Point(699, 55);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(173, 179);
@@ -527,7 +538,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.cMagGlass1);
+            this.tabPage2.Controls.Add(this.checkBoxRaisingTile);
             this.tabPage2.Controls.Add(this.cSideview);
             this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.pMinimapD);
@@ -538,18 +549,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Dungeon";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // cMagGlass1
-            // 
-            this.cMagGlass1.AutoSize = true;
-            this.cMagGlass1.Enabled = false;
-            this.cMagGlass1.Location = new System.Drawing.Point(6, 105);
-            this.cMagGlass1.Name = "cMagGlass1";
-            this.cMagGlass1.Size = new System.Drawing.Size(106, 17);
-            this.cMagGlass1.TabIndex = 21;
-            this.cMagGlass1.Text = "Magnifying Glass";
-            this.cMagGlass1.UseVisualStyleBackColor = true;
-            this.cMagGlass1.Visible = false;
             // 
             // cSideview
             // 
@@ -585,7 +584,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.cMagGlass);
+            this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.cSideview2);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.nRegion);
@@ -597,27 +596,16 @@
             this.tabPage3.Text = "Indoor";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // cMagGlass
-            // 
-            this.cMagGlass.AutoSize = true;
-            this.cMagGlass.Location = new System.Drawing.Point(9, 69);
-            this.cMagGlass.Name = "cMagGlass";
-            this.cMagGlass.Size = new System.Drawing.Size(106, 17);
-            this.cMagGlass.TabIndex = 20;
-            this.cMagGlass.Text = "Magnifying Glass";
-            this.cMagGlass.UseVisualStyleBackColor = true;
-            this.cMagGlass.Visible = false;
-            // 
             // cSideview2
             // 
             this.cSideview2.AutoSize = true;
-            this.cSideview2.Enabled = false;
             this.cSideview2.Location = new System.Drawing.Point(9, 46);
             this.cSideview2.Name = "cSideview2";
             this.cSideview2.Size = new System.Drawing.Size(73, 17);
             this.cSideview2.TabIndex = 19;
             this.cSideview2.Text = "Side View";
             this.cSideview2.UseVisualStyleBackColor = true;
+            this.cSideview2.CheckedChanged += new System.EventHandler(this.cSideview_CheckedChanged);
             // 
             // label1
             // 
@@ -630,7 +618,6 @@
             // 
             // nRegion
             // 
-            this.nRegion.Enabled = false;
             this.nRegion.Hexadecimal = true;
             this.nRegion.Location = new System.Drawing.Point(56, 14);
             this.nRegion.Maximum = new decimal(new int[] {
@@ -641,18 +628,114 @@
             this.nRegion.Name = "nRegion";
             this.nRegion.Size = new System.Drawing.Size(98, 20);
             this.nRegion.TabIndex = 0;
+            this.nRegion.ValueChanged += new System.EventHandler(this.nRegion_ValueChanged);
             // 
             // checkBoxSpecialMap
             // 
             this.checkBoxSpecialMap.AutoSize = true;
             this.checkBoxSpecialMap.Enabled = false;
-            this.checkBoxSpecialMap.Location = new System.Drawing.Point(297, 248);
+            this.checkBoxSpecialMap.Location = new System.Drawing.Point(297, 269);
             this.checkBoxSpecialMap.Name = "checkBoxSpecialMap";
             this.checkBoxSpecialMap.Size = new System.Drawing.Size(118, 17);
             this.checkBoxSpecialMap.TabIndex = 28;
             this.checkBoxSpecialMap.Text = "View Alternate Map";
             this.checkBoxSpecialMap.UseVisualStyleBackColor = true;
             this.checkBoxSpecialMap.CheckedChanged += new System.EventHandler(this.checkBoxSpecialMap_CheckedChanged);
+            // 
+            // saveROMToolStripMenuItem
+            // 
+            this.saveROMToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveROMToolStripMenuItem.Image")));
+            this.saveROMToolStripMenuItem.Name = "saveROMToolStripMenuItem";
+            this.saveROMToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveROMToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.saveROMToolStripMenuItem.Text = "Save ROM";
+            this.saveROMToolStripMenuItem.Click += new System.EventHandler(this.saveROMToolStripMenuItem_Click);
+            // 
+            // checkBoxRaisingTile
+            // 
+            this.checkBoxRaisingTile.AutoSize = true;
+            this.checkBoxRaisingTile.Location = new System.Drawing.Point(6, 108);
+            this.checkBoxRaisingTile.Name = "checkBoxRaisingTile";
+            this.checkBoxRaisingTile.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxRaisingTile.TabIndex = 20;
+            this.checkBoxRaisingTile.Text = "Raising tiles";
+            this.checkBoxRaisingTile.UseVisualStyleBackColor = true;
+            this.checkBoxRaisingTile.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(9, 69);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(82, 17);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "Raising tiles";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonOpen,
+            this.toolStripButtonSave,
+            this.toolStripSeparator2,
+            this.toolStripButtonWarpEditor});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(893, 25);
+            this.toolStrip1.TabIndex = 29;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButtonOpen
+            // 
+            this.toolStripButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpen.Image")));
+            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
+            this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonOpen.Text = "Open ROM";
+            this.toolStripButtonOpen.Click += new System.EventHandler(this.openROMToolStripMenuItem_Click);
+            // 
+            // toolStripButtonSave
+            // 
+            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
+            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSave.Name = "toolStripButtonSave";
+            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSave.Text = "Save ROM";
+            this.toolStripButtonSave.Click += new System.EventHandler(this.saveROMToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.warpEditorToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // warpEditorToolStripMenuItem
+            // 
+            this.warpEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("warpEditorToolStripMenuItem.Image")));
+            this.warpEditorToolStripMenuItem.Name = "warpEditorToolStripMenuItem";
+            this.warpEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.warpEditorToolStripMenuItem.Text = "Warp Editor";
+            this.warpEditorToolStripMenuItem.Click += new System.EventHandler(this.warpEditorToolStripMenuItem_Click);
+            // 
+            // toolStripButtonWarpEditor
+            // 
+            this.toolStripButtonWarpEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonWarpEditor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonWarpEditor.Image")));
+            this.toolStripButtonWarpEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonWarpEditor.Name = "toolStripButtonWarpEditor";
+            this.toolStripButtonWarpEditor.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonWarpEditor.Text = "Warp Editor";
+            this.toolStripButtonWarpEditor.Click += new System.EventHandler(this.warpEditorToolStripMenuItem_Click);
             // 
             // pMinimap
             // 
@@ -705,7 +788,7 @@
             this.gridBoxMap.HoverBox = true;
             this.gridBoxMap.HoverColor = System.Drawing.Color.White;
             this.gridBoxMap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.gridBoxMap.Location = new System.Drawing.Point(297, 58);
+            this.gridBoxMap.Location = new System.Drawing.Point(297, 79);
             this.gridBoxMap.Name = "gridBoxMap";
             this.gridBoxMap.Selectable = false;
             this.gridBoxMap.SelectedIndex = -1;
@@ -728,7 +811,7 @@
             this.gridBoxTileset.HoverBox = true;
             this.gridBoxTileset.HoverColor = System.Drawing.Color.White;
             this.gridBoxTileset.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.gridBoxTileset.Location = new System.Drawing.Point(12, 58);
+            this.gridBoxTileset.Location = new System.Drawing.Point(12, 79);
             this.gridBoxTileset.Name = "gridBoxTileset";
             this.gridBoxTileset.Selectable = true;
             this.gridBoxTileset.SelectedIndex = 0;
@@ -741,7 +824,8 @@
             // 
             // LALE2
             // 
-            this.ClientSize = new System.Drawing.Size(893, 366);
+            this.ClientSize = new System.Drawing.Size(893, 415);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.checkBoxSpecialMap);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
@@ -755,6 +839,7 @@
             this.Controls.Add(this.labelMap);
             this.Controls.Add(this.numericUpDownMap);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -780,6 +865,8 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).EndInit();
@@ -838,16 +925,24 @@
         private System.Windows.Forms.TabPage tabPage1;
         private GridBox pMinimap;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.CheckBox cMagGlass1;
         private System.Windows.Forms.CheckBox cSideview;
         private System.Windows.Forms.ComboBox comboBox1;
         private GridBox pMinimapD;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.CheckBox cMagGlass;
         private System.Windows.Forms.CheckBox cSideview2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nRegion;
         private System.Windows.Forms.CheckBox checkBoxSpecialMap;
+        private System.Windows.Forms.ToolStripMenuItem saveROMToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxRaisingTile;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem warpEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonWarpEditor;
     }
 }
 

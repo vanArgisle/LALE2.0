@@ -70,7 +70,7 @@ namespace LALE.Supporting
             }
             else
             {
-                if (LAGame.magnifyGlass && LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.magnifyGlass && LAGame.map == 0xF5 && LAGame.dungeon < 6)
+                if (LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon < 6)
                     LAGame.gbROM.BufferLocation = 0x3198;
                 else
                 {
@@ -109,7 +109,7 @@ namespace LALE.Supporting
             }
             else
             {
-                if (LAGame.magnifyGlass && mapPointer.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.magnifyGlass && mapPointer.map == 0xF5 && LAGame.dungeon < 6)
+                if (LAGame.specialFlag && mapPointer.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.specialFlag && mapPointer.map == 0xF5 && LAGame.dungeon < 6)
                     LAGame.gbROM.BufferLocation = 0x3198;
                 else
                 {
@@ -181,8 +181,8 @@ namespace LALE.Supporting
         }
         public void expandCollisionAddress()
         {
-            getCollisionListForRewriteAndIndex();
             int index = getCollisionPointerListsAndIndex();
+            getCollisionListForRewriteAndIndex();
             List<MapPointer> maps = new List<MapPointer>();
 
             if (LAGame.overworldFlag)
@@ -752,7 +752,7 @@ namespace LALE.Supporting
                     GameMapData gameData = new GameMapData();
                     gameData = LoadCollisionDataDungeon(map, false);
 
-                    if (map == LAGame.map && !LAGame.specialFlag && !LAGame.magnifyGlass)
+                    if (map == LAGame.map && !LAGame.specialFlag)
                     {
                         gameData.collisionObjects = mapTileData.collisionObjects;
                         gameData.warpObjects = mapTileData.warpObjects;
@@ -760,7 +760,7 @@ namespace LALE.Supporting
                     }
                     gameMapData.Add(gameData);
 
-                    if (map == LAGame.map && !LAGame.specialFlag && !LAGame.magnifyGlass)
+                    if (map == LAGame.map && !LAGame.specialFlag)
                     {
                         index = gameMapData.IndexOf(gameData);
                     }
@@ -776,7 +776,7 @@ namespace LALE.Supporting
                     else
                         gameData = LoadCollisionDataDungeon(map, false);
 
-                    if (map == LAGame.map && !LAGame.specialFlag && !LAGame.magnifyGlass)
+                    if (map == LAGame.map && !LAGame.specialFlag)
                     {
                         gameData.collisionObjects = mapTileData.collisionObjects;
                         gameData.warpObjects = mapTileData.warpObjects;
@@ -784,7 +784,7 @@ namespace LALE.Supporting
                     }
                     gameMapData.Add(gameData);
 
-                    if (map == LAGame.map && !LAGame.specialFlag && !LAGame.magnifyGlass)
+                    if (map == LAGame.map && !LAGame.specialFlag)
                     {
                         index = gameMapData.IndexOf(gameData);
                     }
@@ -833,7 +833,7 @@ namespace LALE.Supporting
                                     gameData = LoadCollisionDataDungeon(map, true);
                                     gameData.specialFlag = true;
 
-                                    if (map == LAGame.map && LAGame.magnifyGlass)
+                                    if (map == LAGame.map && LAGame.specialFlag)
                                     {
                                         gameData.collisionObjects = mapTileData.collisionObjects;
                                         gameData.warpObjects = mapTileData.warpObjects;
@@ -841,7 +841,7 @@ namespace LALE.Supporting
 
                                     gameMapData.Add(gameData);
 
-                                    if (map == LAGame.map && LAGame.magnifyGlass)
+                                    if (map == LAGame.map && LAGame.specialFlag)
                                     {
                                         index = gameMapData.IndexOf(gameData);
                                     }
@@ -887,9 +887,9 @@ namespace LALE.Supporting
 
                     pointerToBe = (0x2BB77 + (map * 2));
 
-                    pointer.mapAddress = pointerToBe;
+                    pointer.mapAddress = LAGame.gbROM.Get2BytePointerAtAddress(pointerToBe);
 
-                    if (map == LAGame.map && LAGame.magnifyGlass == false)
+                    if (map == LAGame.map && LAGame.specialFlag == false)
                         cMapPointer = pointer;
 
                     bank1Maps.Add(pointer);
@@ -963,9 +963,10 @@ namespace LALE.Supporting
                         if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
                             pointerToBe += 0x4000;
 
-                        pointer.mapAddress = pointerToBe;
+                        
+                        pointer.mapAddress = LAGame.gbROM.Get2BytePointerAtAddress(pointerToBe);
 
-                        if (map == LAGame.map && LAGame.magnifyGlass == false)
+                        if (map == LAGame.map && LAGame.specialFlag == false)
                             cMapPointer = pointer;
 
                         bank1Maps.Add(pointer);
@@ -989,7 +990,7 @@ namespace LALE.Supporting
                                 pointerToBe += 0x28000;
                                 specialMapPointer.mapAddress = pointerToBe;
 
-                                if (map == LAGame.map && LAGame.magnifyGlass == true)
+                                if (map == LAGame.map && LAGame.specialFlag == true)
                                     cMapPointer = specialMapPointer;
 
                                 bank1Maps.Add(specialMapPointer);

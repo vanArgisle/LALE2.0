@@ -14,6 +14,7 @@ namespace LALE
 
         private Game LAGame;
         private ROM gbROMoriginal;
+        private String filename;
         private TileDrawer tilesetDrawer;
         private MapTileData mapTileData;
         private MinimapLoader minimapLoader;
@@ -46,7 +47,9 @@ namespace LALE
                 BinaryReader br = new BinaryReader(File.OpenRead(ofd.FileName));
                 gbROMoriginal = new ROM(br.ReadBytes((Int32)br.BaseStream.Length), ofd.FileName);
                 LAGame = new Game(gbROMoriginal.Buffer, ofd.FileName);
+                filename = ofd.FileName;
 
+                br.Close();
                 InitializeLALE();
             }
         }
@@ -189,8 +192,15 @@ namespace LALE
             }
             else
             {
-                checkBoxSpecialMap.Checked = false;
-                checkBoxSpecialMap.Enabled = false;
+                if ((LAGame.map == 0xF5 && LAGame.dungeon < 6) || LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A)
+                {
+                    checkBoxSpecialMap.Enabled = true;
+                }
+                else
+                {
+                    checkBoxSpecialMap.Checked = false;
+                    checkBoxSpecialMap.Enabled = false;
+                }
             }
         }
 
@@ -1220,7 +1230,23 @@ namespace LALE
                 }
                 else if (tabControl1.SelectedIndex == 1)
                 {
-                    loadMinimap();
+                   
+                    LAGame.dungeon = 0;
+                    LAGame.overworldFlag = false;
+                    radioButtonOverlay.Enabled = false;
+                    radioButtonCollisions.Checked = true;
+
+                    loadTileset();
+                    loadMap();
+
+                    comboBox1.SelectedIndex = 0;
+
+                    loadMinimap();   
+                    collisionListView();
+                }
+                else
+                {
+                    LAGame.dungeon = 0;
                     LAGame.overworldFlag = false;
                     radioButtonOverlay.Enabled = false;
                     radioButtonCollisions.Checked = true;
@@ -1287,9 +1313,89 @@ namespace LALE
 
         private void cSideview_CheckedChanged(object sender, EventArgs e)
         {
-            LAGame.sideviewFlag = cSideview.Checked;
+            LAGame.sideviewFlag = !LAGame.sideviewFlag;
             loadTileset();
             loadMap();
+        }
+
+        private void nRegion_ValueChanged(object sender, EventArgs e)
+        {
+            LAGame.dungeon = (byte)nRegion.Value;
+
+            loadTileset();
+            loadMap();
+            collisionListView();
+            loadMinimap();
+        }
+
+        private void saveROMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BinaryWriter bw = new BinaryWriter(File.Open(filename, FileMode.Open));
+            bw.Write(LAGame.gbROM.Buffer);
+            bw.Close();
+        }
+
+        private void checkBoxRaisingTile_CheckedChanged(object sender, EventArgs e)
+        {
+            LAGame.raisingFloorFlag = !LAGame.raisingFloorFlag;
+            loadTileset();
+            loadMap();
+        }
+
+        private void warpEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                if (radioButtonCollisions.Checked)
+                {
+                    List<Warps> warpObjects = new List<Warps>();
+                    foreach (Warps w in mapTileData.warpObjects)
+                        warpObjects.Add(new Warps(w));
+
+                    WarpEditor WarpEditorForm = new WarpEditor(warpObjects);
+                    WarpEditorForm.ShowDialog();
+
+                    if (WarpEditorForm.DialogResult == DialogResult.OK)
+                    {
+                        SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                        List<Warps> backup = mapTileData.warpObjects;
+
+                        mapTileData.warpObjects = warpObjects;
+
+                        if (LAGame.overworldFlag)
+                        {
+                            if (spaceCalculator.getUsedSpace() <= spaceCalculator.getFreeSpaceOverworld())
+                            {
+                                mapTileData.saveCollisionOverworldData();
+
+                                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+                                collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+                            }
+                            else
+                            {
+                                MessageBox.Show("You are trying to add more warp objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                mapTileData.warpObjects = backup;
+                            }
+                        }
+                        else
+                        {
+                            if (spaceCalculator.getUsedSpace() <= spaceCalculator.getFreeSpaceDungeon())
+                            {
+                                mapTileData.saveCollisionDungeonData();
+
+                                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpace().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
+                                collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpace();
+                            }
+                            else
+                            {
+                                MessageBox.Show("You are trying to add more warp objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                mapTileData.warpObjects = backup;
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 }

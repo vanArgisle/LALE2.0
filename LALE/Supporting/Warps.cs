@@ -13,5 +13,19 @@ namespace LALE.Core
         public byte map { get; set; }
         public byte x { get; set; }
         public byte y { get; set; }
+
+        public Warps()
+        {
+
+        }
+        
+        public Warps(Warps w)
+        {
+            this.type = w.type;
+            this.region = w.region;
+            this.map = w.map;
+            this.x = w.x;
+            this.y = w.y;
+        }
     }
 }

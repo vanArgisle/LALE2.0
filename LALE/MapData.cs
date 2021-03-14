@@ -167,7 +167,7 @@ namespace LALE
             }
             else
             {
-                if (LAGame.magnifyGlass && LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.magnifyGlass && LAGame.map == 0xF5 && LAGame.dungeon < 6)
+                if (LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon < 6)
                 {
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(0x3198);
                     LAGame.gbROM.BufferLocation += 0x28001;
