@@ -163,7 +163,7 @@ namespace LALE.Supporting
 
         private int getCollisionDataDungeonOffset(GameMapData mapData)
         {
-            if (mapData.specialFlag && mapData.map == 0xF5 && LAGame.dungeon >= 0x1A || mapData.specialFlag && mapData.map == 0xF5 && LAGame.dungeon < 6)
+            if ((mapData.specialFlag && mapData.map == 0xF5 && LAGame.dungeon >= 0x1A) || mapData.specialFlag && mapData.map == 0xF5 && LAGame.dungeon < 6)
             {
                 LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(0x3198);
                 LAGame.gbROM.BufferLocation += 0x28000;
@@ -276,6 +276,25 @@ namespace LALE.Supporting
                 if (mapData.map == 0xFF && LAGame.dungeon != 0xFF || (LAGame.map == 0x15 && LAGame.dungeon == 0xFF))
                     mapAddressToRepoint = getCollisionDataDungeonOffset(mapData);
             }
+
+
+            if (LAGame.overworldFlag)
+            {
+                if (mapData.map < 0x80 && mapAddressToRepoint >= 0x2668D)
+                    mapAddressToRepoint = 0x2668B;
+                else if (mapData.map > 0x7F && mapAddressToRepoint >= 0x69E75)
+                    mapAddressToRepoint = 0x69E73;
+            }
+            else
+            {
+                if (LAGame.dungeon == 0xFF && mapAddressToRepoint >= 0x2BF43)
+                    mapAddressToRepoint = 0x2BF41;
+                else if ((LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A) && mapAddressToRepoint >= 0x2FFFF && LAGame.dungeon != 0xFF)
+                    mapAddressToRepoint = 0x2FFFD;
+                else if ((LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A) && mapAddressToRepoint >= 0x2BB77 && LAGame.dungeon != 0xFF)
+                    mapAddressToRepoint = 0x2BB75;
+            }
+
 
             if (nextMapPointer != null)
             {

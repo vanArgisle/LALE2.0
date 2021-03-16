@@ -1147,7 +1147,7 @@ namespace LALE
                 if (LAGame.specialFlag && LAGame.dungeon >= 0x1A && LAGame.map == 0xF5 || LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon < 6)
                 {
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(0x3198);
-                    LAGame.gbROM.BufferLocation += 0x28001; //Skip animation and tile preset
+                    LAGame.gbROM.BufferLocation += 0x28001; //Skip animation
                 }
                 else
                 {
@@ -1156,7 +1156,7 @@ namespace LALE
                         LAGame.gbROM.BufferLocation += 0x4000;
                     else if (LAGame.dungeon == 0xFF)
                         LAGame.gbROM.BufferLocation = 0x2BB77;
-                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2)) + 1; //skip animation and tile preset    
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2)) + 1; //skip animation   
                 }
                 byte b = (byte)((dungeonWalls * 0x10) + dungeonFloor);
                 LAGame.gbROM.WriteByte(b);

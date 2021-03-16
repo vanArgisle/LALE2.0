@@ -249,12 +249,6 @@ namespace LALE
 
             if (LAGame.dungeon == 0xFF && LAGame.map == 0x15)
                 space = 0x2BF43 - (cMapPointer + 3);
-            else if (LAGame.dungeon == 0xFF && LAGame.map != 0x15 || LAGame.map != 0xFF)
-            {
-                while ((int)pointers.GetValue(index + 1) == cMapPointer)
-                    index++;
-                space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
-            }
             else
             {
                 LAGame.gbROM.BufferLocation = cMapPointer;
@@ -263,6 +257,21 @@ namespace LALE
                 else
                     space = 0x2FFFF - (cMapPointer + 2);
             }
+
+            try
+            {
+                if (LAGame.dungeon == 0xFF && LAGame.map != 0x15 || LAGame.map != 0xFF)
+                {
+                    while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                        index++;
+                    space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Out of bounds map lower than FF");
+            }
+
             return space;
         }
     }
