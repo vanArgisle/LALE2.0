@@ -25,6 +25,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openROMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveROMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -33,6 +34,15 @@
             this.autoRepointCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collisionBordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.warpEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chestEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startPositionEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.patchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeIntroMusicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeIntroMusicToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removePatchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreIntroMusicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numericUpDownMap = new System.Windows.Forms.NumericUpDown();
             this.labelMap = new System.Windows.Forms.Label();
             this.radioButtonOverlay = new System.Windows.Forms.RadioButton();
@@ -62,28 +72,31 @@
             this.toolStripStatusLabelAddressPointer = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pMinimap = new LALE.GridBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBoxRaisingTile = new System.Windows.Forms.CheckBox();
             this.cSideview = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.pMinimapD = new LALE.GridBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.cSideview2 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nRegion = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSpecialMap = new System.Windows.Forms.CheckBox();
-            this.saveROMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxRaisingTile = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.warpEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonWarpEditor = new System.Windows.Forms.ToolStripButton();
-            this.pMinimap = new LALE.GridBox();
-            this.pMinimapD = new LALE.GridBox();
+            this.toolStripButtonChests = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonStartEditor = new System.Windows.Forms.ToolStripButton();
             this.gridBoxMap = new LALE.GridBox();
             this.gridBoxTileset = new LALE.GridBox();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMap)).BeginInit();
             this.gBoxCollisions.SuspendLayout();
@@ -94,12 +107,12 @@
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).BeginInit();
             this.SuspendLayout();
@@ -110,7 +123,9 @@
             this.fIleToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.toolsToolStripMenuItem});
+            this.toolsToolStripMenuItem,
+            this.patchesToolStripMenuItem,
+            this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(893, 24);
@@ -134,6 +149,15 @@
             this.openROMToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.openROMToolStripMenuItem.Text = "Open ROM";
             this.openROMToolStripMenuItem.Click += new System.EventHandler(this.openROMToolStripMenuItem_Click);
+            // 
+            // saveROMToolStripMenuItem
+            // 
+            this.saveROMToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveROMToolStripMenuItem.Image")));
+            this.saveROMToolStripMenuItem.Name = "saveROMToolStripMenuItem";
+            this.saveROMToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveROMToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.saveROMToolStripMenuItem.Text = "Save ROM";
+            this.saveROMToolStripMenuItem.Click += new System.EventHandler(this.saveROMToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -208,6 +232,79 @@
             this.collisionBordersToolStripMenuItem.Text = "Collision Borders";
             this.collisionBordersToolStripMenuItem.Click += new System.EventHandler(this.collisionBordersToolStripMenuItem_Click);
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.warpEditorToolStripMenuItem,
+            this.chestEditorToolStripMenuItem,
+            this.startPositionEditorToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // warpEditorToolStripMenuItem
+            // 
+            this.warpEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("warpEditorToolStripMenuItem.Image")));
+            this.warpEditorToolStripMenuItem.Name = "warpEditorToolStripMenuItem";
+            this.warpEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.warpEditorToolStripMenuItem.Text = "Warp Editor";
+            this.warpEditorToolStripMenuItem.Click += new System.EventHandler(this.warpEditorToolStripMenuItem_Click);
+            // 
+            // chestEditorToolStripMenuItem
+            // 
+            this.chestEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("chestEditorToolStripMenuItem.Image")));
+            this.chestEditorToolStripMenuItem.Name = "chestEditorToolStripMenuItem";
+            this.chestEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.chestEditorToolStripMenuItem.Text = "Chest Editor";
+            this.chestEditorToolStripMenuItem.Click += new System.EventHandler(this.chestEditorToolStripMenuItem_Click);
+            // 
+            // startPositionEditorToolStripMenuItem
+            // 
+            this.startPositionEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startPositionEditorToolStripMenuItem.Image")));
+            this.startPositionEditorToolStripMenuItem.Name = "startPositionEditorToolStripMenuItem";
+            this.startPositionEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.startPositionEditorToolStripMenuItem.Text = "Start Position Editor";
+            this.startPositionEditorToolStripMenuItem.Click += new System.EventHandler(this.startPositionEditorToolStripMenuItem_Click);
+            // 
+            // patchesToolStripMenuItem
+            // 
+            this.patchesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeIntroMusicToolStripMenuItem,
+            this.removePatchesToolStripMenuItem});
+            this.patchesToolStripMenuItem.Name = "patchesToolStripMenuItem";
+            this.patchesToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.patchesToolStripMenuItem.Text = "Patches";
+            // 
+            // removeIntroMusicToolStripMenuItem
+            // 
+            this.removeIntroMusicToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeIntroMusicToolStripMenuItem1});
+            this.removeIntroMusicToolStripMenuItem.Name = "removeIntroMusicToolStripMenuItem";
+            this.removeIntroMusicToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.removeIntroMusicToolStripMenuItem.Text = "Apply Patches";
+            // 
+            // removeIntroMusicToolStripMenuItem1
+            // 
+            this.removeIntroMusicToolStripMenuItem1.Name = "removeIntroMusicToolStripMenuItem1";
+            this.removeIntroMusicToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.removeIntroMusicToolStripMenuItem1.Text = "Remove Intro Music";
+            this.removeIntroMusicToolStripMenuItem1.Click += new System.EventHandler(this.removeIntroMusicToolStripMenuItem_Click);
+            // 
+            // removePatchesToolStripMenuItem
+            // 
+            this.removePatchesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreIntroMusicToolStripMenuItem});
+            this.removePatchesToolStripMenuItem.Name = "removePatchesToolStripMenuItem";
+            this.removePatchesToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.removePatchesToolStripMenuItem.Text = "Remove Patches";
+            // 
+            // restoreIntroMusicToolStripMenuItem
+            // 
+            this.restoreIntroMusicToolStripMenuItem.Name = "restoreIntroMusicToolStripMenuItem";
+            this.restoreIntroMusicToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.restoreIntroMusicToolStripMenuItem.Text = "Restore Intro Music";
+            this.restoreIntroMusicToolStripMenuItem.Click += new System.EventHandler(this.restoreIntroMusicToolStripMenuItem_Click);
+            // 
             // numericUpDownMap
             // 
             this.numericUpDownMap.Enabled = false;
@@ -235,6 +332,7 @@
             // radioButtonOverlay
             // 
             this.radioButtonOverlay.AutoSize = true;
+            this.radioButtonOverlay.Checked = true;
             this.radioButtonOverlay.Enabled = false;
             this.radioButtonOverlay.Location = new System.Drawing.Point(400, 217);
             this.radioButtonOverlay.Name = "radioButtonOverlay";
@@ -536,6 +634,27 @@
             this.tabPage1.Text = "Overworld";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // pMinimap
+            // 
+            this.pMinimap.AllowMultiSelection = false;
+            this.pMinimap.BackColor = System.Drawing.SystemColors.Control;
+            this.pMinimap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pMinimap.BoxSize = new System.Drawing.Size(8, 8);
+            this.pMinimap.CanvasSize = new System.Drawing.Size(128, 128);
+            this.pMinimap.HoverBox = true;
+            this.pMinimap.HoverColor = System.Drawing.Color.White;
+            this.pMinimap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pMinimap.Location = new System.Drawing.Point(13, 7);
+            this.pMinimap.Name = "pMinimap";
+            this.pMinimap.Selectable = true;
+            this.pMinimap.SelectedIndex = -2;
+            this.pMinimap.SelectionColor = System.Drawing.Color.Red;
+            this.pMinimap.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
+            this.pMinimap.Size = new System.Drawing.Size(132, 132);
+            this.pMinimap.TabIndex = 13;
+            this.pMinimap.TabStop = false;
+            this.pMinimap.Click += new System.EventHandler(this.pMinimap_Click);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.checkBoxRaisingTile);
@@ -549,6 +668,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Dungeon";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRaisingTile
+            // 
+            this.checkBoxRaisingTile.AutoSize = true;
+            this.checkBoxRaisingTile.Location = new System.Drawing.Point(6, 108);
+            this.checkBoxRaisingTile.Name = "checkBoxRaisingTile";
+            this.checkBoxRaisingTile.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxRaisingTile.TabIndex = 20;
+            this.checkBoxRaisingTile.Text = "Raising tiles";
+            this.checkBoxRaisingTile.UseVisualStyleBackColor = true;
+            this.checkBoxRaisingTile.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
             // 
             // cSideview
             // 
@@ -582,6 +712,27 @@
             this.comboBox1.TabIndex = 14;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // pMinimapD
+            // 
+            this.pMinimapD.AllowMultiSelection = false;
+            this.pMinimapD.BackColor = System.Drawing.SystemColors.Control;
+            this.pMinimapD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pMinimapD.BoxSize = new System.Drawing.Size(8, 8);
+            this.pMinimapD.CanvasSize = new System.Drawing.Size(64, 64);
+            this.pMinimapD.HoverBox = true;
+            this.pMinimapD.HoverColor = System.Drawing.Color.White;
+            this.pMinimapD.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pMinimapD.Location = new System.Drawing.Point(6, 11);
+            this.pMinimapD.Name = "pMinimapD";
+            this.pMinimapD.Selectable = true;
+            this.pMinimapD.SelectedIndex = -2;
+            this.pMinimapD.SelectionColor = System.Drawing.Color.Red;
+            this.pMinimapD.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
+            this.pMinimapD.Size = new System.Drawing.Size(68, 68);
+            this.pMinimapD.TabIndex = 14;
+            this.pMinimapD.TabStop = false;
+            this.pMinimapD.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pMinimapD_MouseClick);
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.checkBox1);
@@ -595,6 +746,17 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Indoor";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(9, 69);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(82, 17);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "Raising tiles";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
             // 
             // cSideview2
             // 
@@ -642,44 +804,15 @@
             this.checkBoxSpecialMap.UseVisualStyleBackColor = true;
             this.checkBoxSpecialMap.CheckedChanged += new System.EventHandler(this.checkBoxSpecialMap_CheckedChanged);
             // 
-            // saveROMToolStripMenuItem
-            // 
-            this.saveROMToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveROMToolStripMenuItem.Image")));
-            this.saveROMToolStripMenuItem.Name = "saveROMToolStripMenuItem";
-            this.saveROMToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveROMToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.saveROMToolStripMenuItem.Text = "Save ROM";
-            this.saveROMToolStripMenuItem.Click += new System.EventHandler(this.saveROMToolStripMenuItem_Click);
-            // 
-            // checkBoxRaisingTile
-            // 
-            this.checkBoxRaisingTile.AutoSize = true;
-            this.checkBoxRaisingTile.Location = new System.Drawing.Point(6, 108);
-            this.checkBoxRaisingTile.Name = "checkBoxRaisingTile";
-            this.checkBoxRaisingTile.Size = new System.Drawing.Size(82, 17);
-            this.checkBoxRaisingTile.TabIndex = 20;
-            this.checkBoxRaisingTile.Text = "Raising tiles";
-            this.checkBoxRaisingTile.UseVisualStyleBackColor = true;
-            this.checkBoxRaisingTile.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 69);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(82, 17);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "Raising tiles";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonOpen,
             this.toolStripButtonSave,
             this.toolStripSeparator2,
-            this.toolStripButtonWarpEditor});
+            this.toolStripButtonWarpEditor,
+            this.toolStripButtonChests,
+            this.toolStripButtonStartEditor});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(893, 25);
@@ -711,22 +844,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.warpEditorToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // warpEditorToolStripMenuItem
-            // 
-            this.warpEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("warpEditorToolStripMenuItem.Image")));
-            this.warpEditorToolStripMenuItem.Name = "warpEditorToolStripMenuItem";
-            this.warpEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.warpEditorToolStripMenuItem.Text = "Warp Editor";
-            this.warpEditorToolStripMenuItem.Click += new System.EventHandler(this.warpEditorToolStripMenuItem_Click);
-            // 
             // toolStripButtonWarpEditor
             // 
             this.toolStripButtonWarpEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -737,47 +854,25 @@
             this.toolStripButtonWarpEditor.Text = "Warp Editor";
             this.toolStripButtonWarpEditor.Click += new System.EventHandler(this.warpEditorToolStripMenuItem_Click);
             // 
-            // pMinimap
+            // toolStripButtonChests
             // 
-            this.pMinimap.AllowMultiSelection = false;
-            this.pMinimap.BackColor = System.Drawing.SystemColors.Control;
-            this.pMinimap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pMinimap.BoxSize = new System.Drawing.Size(8, 8);
-            this.pMinimap.CanvasSize = new System.Drawing.Size(128, 128);
-            this.pMinimap.HoverBox = true;
-            this.pMinimap.HoverColor = System.Drawing.Color.White;
-            this.pMinimap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pMinimap.Location = new System.Drawing.Point(13, 7);
-            this.pMinimap.Name = "pMinimap";
-            this.pMinimap.Selectable = true;
-            this.pMinimap.SelectedIndex = -2;
-            this.pMinimap.SelectionColor = System.Drawing.Color.Red;
-            this.pMinimap.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
-            this.pMinimap.Size = new System.Drawing.Size(132, 132);
-            this.pMinimap.TabIndex = 13;
-            this.pMinimap.TabStop = false;
-            this.pMinimap.Click += new System.EventHandler(this.pMinimap_Click);
+            this.toolStripButtonChests.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonChests.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonChests.Image")));
+            this.toolStripButtonChests.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonChests.Name = "toolStripButtonChests";
+            this.toolStripButtonChests.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonChests.Text = "Chest Editor";
+            this.toolStripButtonChests.Click += new System.EventHandler(this.chestEditorToolStripMenuItem_Click);
             // 
-            // pMinimapD
+            // toolStripButtonStartEditor
             // 
-            this.pMinimapD.AllowMultiSelection = false;
-            this.pMinimapD.BackColor = System.Drawing.SystemColors.Control;
-            this.pMinimapD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pMinimapD.BoxSize = new System.Drawing.Size(8, 8);
-            this.pMinimapD.CanvasSize = new System.Drawing.Size(64, 64);
-            this.pMinimapD.HoverBox = true;
-            this.pMinimapD.HoverColor = System.Drawing.Color.White;
-            this.pMinimapD.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pMinimapD.Location = new System.Drawing.Point(6, 11);
-            this.pMinimapD.Name = "pMinimapD";
-            this.pMinimapD.Selectable = true;
-            this.pMinimapD.SelectedIndex = -2;
-            this.pMinimapD.SelectionColor = System.Drawing.Color.Red;
-            this.pMinimapD.SelectionRectangle = new System.Drawing.Rectangle(-2, 0, 1, 1);
-            this.pMinimapD.Size = new System.Drawing.Size(68, 68);
-            this.pMinimapD.TabIndex = 14;
-            this.pMinimapD.TabStop = false;
-            this.pMinimapD.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pMinimapD_MouseClick);
+            this.toolStripButtonStartEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonStartEditor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStartEditor.Image")));
+            this.toolStripButtonStartEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStartEditor.Name = "toolStripButtonStartEditor";
+            this.toolStripButtonStartEditor.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonStartEditor.Text = "Start Position Editor";
+            this.toolStripButtonStartEditor.Click += new System.EventHandler(this.startPositionEditorToolStripMenuItem_Click);
             // 
             // gridBoxMap
             // 
@@ -822,6 +917,36 @@
             this.gridBoxTileset.TabStop = false;
             this.gridBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxTileset_MouseClick);
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.creditsToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.creditsToolStripMenuItem.Text = "Credits";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.creditsToolStripMenuItem1});
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem1.Text = "Help";
+            // 
+            // creditsToolStripMenuItem1
+            // 
+            this.creditsToolStripMenuItem1.Name = "creditsToolStripMenuItem1";
+            this.creditsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.creditsToolStripMenuItem1.Text = "Credits";
+            this.creditsToolStripMenuItem1.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            // 
             // LALE2
             // 
             this.ClientSize = new System.Drawing.Size(893, 415);
@@ -860,15 +985,15 @@
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).EndInit();
             this.ResumeLayout(false);
@@ -943,6 +1068,19 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem warpEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButtonWarpEditor;
+        private System.Windows.Forms.ToolStripMenuItem chestEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonChests;
+        private System.Windows.Forms.ToolStripMenuItem startPositionEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStartEditor;
+        private System.Windows.Forms.ToolStripMenuItem patchesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeIntroMusicToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeIntroMusicToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removePatchesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreIntroMusicToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem1;
     }
 }
 

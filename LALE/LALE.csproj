@@ -47,6 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChestEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChestEditor.Designer.cs">
+      <DependentUpon>ChestEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Credits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Credits.Designer.cs">
+      <DependentUpon>Credits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartEditor.Designer.cs">
+      <DependentUpon>StartEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Supporting\MinimapLoader.cs" />
     <Compile Include="RepointCollisions.cs">
       <SubType>Form</SubType>
@@ -56,6 +74,7 @@
     </Compile>
     <Compile Include="Supporting\CollisionObject.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Supporting\Patches.cs" />
     <Compile Include="Supporting\Warps.cs" />
     <Compile Include="MapData.cs">
       <SubType>Form</SubType>
@@ -90,6 +109,12 @@
     <Compile Include="WarpEditor.Designer.cs">
       <DependentUpon>WarpEditor.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ChestEditor.resx">
+      <DependentUpon>ChestEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Credits.resx">
+      <DependentUpon>Credits.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GridBox.resx">
       <DependentUpon>GridBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +135,9 @@
     </Compile>
     <EmbeddedResource Include="RepointCollisions.resx">
       <DependentUpon>RepointCollisions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartEditor.resx">
+      <DependentUpon>StartEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WarpEditor.resx">
       <DependentUpon>WarpEditor.cs</DependentUpon>

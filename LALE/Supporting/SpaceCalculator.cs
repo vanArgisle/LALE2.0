@@ -258,20 +258,24 @@ namespace LALE
                     space = 0x2FFFF - (cMapPointer + 2);
             }
 
-            try
+            if (index < pointers.Length)
             {
                 if (LAGame.dungeon == 0xFF && LAGame.map != 0x15 || LAGame.map != 0xFF)
                 {
-                    while ((int)pointers.GetValue(index + 1) == cMapPointer)
-                        index++;
+                    try
+                    {
+                        while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                            index++;
+                    }
+                    catch
+                    {
+                        index--;
+                        Console.WriteLine("Out of bounds map lower than FF");
+                    }
                     space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
                 }
             }
-            catch
-            {
-                Console.WriteLine("Out of bounds map lower than FF");
-            }
-
+   
             return space;
         }
     }

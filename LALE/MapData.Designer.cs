@@ -38,8 +38,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownPresetTiles = new System.Windows.Forms.NumericUpDown();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.gridBoxTileset = new GridBox();
-            this.gridBoxMap = new GridBox();
+            this.gridBoxTileset = new LALE.GridBox();
+            this.gridBoxMap = new LALE.GridBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSOG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnimations)).BeginInit();
@@ -208,6 +208,7 @@
             this.Controls.Add(this.label1);
             this.Name = "MapData";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Map Data";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSOG)).EndInit();

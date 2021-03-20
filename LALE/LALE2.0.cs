@@ -65,6 +65,10 @@ namespace LALE
             radioButtonOverlay.Enabled = true;
             radioButtonOverlay.Checked = true;
             tabControl1.Enabled = true;
+
+            loadTileset();
+            loadMap();
+            loadMinimap();
         }
 
         /// <summary>
@@ -1396,6 +1400,48 @@ namespace LALE
                 }
 
             }
+        }
+
+        private void chestEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                ChestEditor ChestEditorForm = new ChestEditor(LAGame);
+                ChestEditorForm.ShowDialog();
+            }
+        }
+
+        private void startPositionEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                StartEditor StartEditorForm = new StartEditor(LAGame);
+                StartEditorForm.ShowDialog();
+            }
+        }
+
+        private void removeIntroMusicToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                Patches patchFile = new Patches(LAGame);
+                patchFile.defaultMusic(true);
+            }
+        }
+
+        private void restoreIntroMusicToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                Patches patchFile = new Patches(LAGame);
+                patchFile.defaultMusic(false);
+            }
+        }
+
+        private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Credits creditsForm = new Credits();
+            creditsForm.ShowDialog();
         }
     }
 }
