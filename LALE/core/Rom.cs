@@ -270,10 +270,10 @@ namespace LALE
 			bufferLocation = Location;
 			byte[] bytes = new byte[Count];
 			for (int i = 0; i < Count;   i++)
-			 {
-				 bytes[i] = ReadByte();
-			  }
-			  return bytes;
+			{
+				  bytes[i] = ReadByte();
+			}
+			return bytes;
 		 }
 
 		public byte[] Get2BytePointer(int Address)

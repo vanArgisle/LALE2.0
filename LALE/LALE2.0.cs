@@ -97,7 +97,6 @@ namespace LALE
                 if (LAGame.overworldFlag)
                 {
                     pMinimap.Image = tileDrawer.drawOverworldMinimapTiles(minimapLoader.loadMinimapOverworld(), minimapLoader.minimapGraphics, minimapLoader.overworldPal, minimapLoader.palette);
-                    //pMinimap.Invalidate();
                 }
                 else
                 {
@@ -1398,7 +1397,10 @@ namespace LALE
                         }
                     }
                 }
-
+                else
+                {
+                    MessageBox.Show("You must be in collision editing mode to edit warps");
+                }
             }
         }
 
@@ -1442,6 +1444,57 @@ namespace LALE
         {
             Credits creditsForm = new Credits();
             creditsForm.ShowDialog();
+        }
+
+        private void signEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                if (LAGame.overworldFlag)
+                {
+                    SignEditor SignEditorForm = new SignEditor(LAGame);
+                    SignEditorForm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("You must be on the overworld to edit sign pointers");
+                }
+            }
+        }
+
+        private void owlStatueEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                OwlStatueEditor OwlStatueEditorForm = new OwlStatueEditor(LAGame);
+                OwlStatueEditorForm.ShowDialog();
+            }
+        }
+
+        private void portalEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                PortalEditor PortalEditorForm = new PortalEditor(LAGame);
+                PortalEditorForm.ShowDialog();
+            }
+        }
+
+        private void minimapEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                MinimapEditor MinimapEditorForm = new MinimapEditor(LAGame);
+                MinimapEditorForm.ShowDialog();
+
+                if (MinimapEditorForm.DialogResult == DialogResult.OK)
+                {
+                    LAGame = new Game(MinimapEditorForm.LAGame);
+                    mapTileData = new MapTileData(LAGame);
+                    loadMinimap();
+                    loadMap();
+                }
+            }
         }
     }
 }

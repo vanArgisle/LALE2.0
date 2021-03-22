@@ -29,7 +29,7 @@ namespace LALE
 
         public Game(Game gameValues)
         {
-            gbROM = new ROM(gameValues.gbROM.Buffer, gameValues.gbROM.Filename);
+            gbROM = new ROM((byte[])gameValues.gbROM.Buffer.Clone(), gameValues.gbROM.Filename);
             dungeon = gameValues.dungeon;
             map = gameValues.map;
             overworldFlag = gameValues.overworldFlag;

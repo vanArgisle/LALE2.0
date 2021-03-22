@@ -59,6 +59,30 @@
     <Compile Include="Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
+    <Compile Include="MinimapEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MinimapEditor.Designer.cs">
+      <DependentUpon>MinimapEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortalEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PortalEditor.Designer.cs">
+      <DependentUpon>PortalEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OwlStatueEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OwlStatueEditor.Designer.cs">
+      <DependentUpon>OwlStatueEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SignEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SignEditor.Designer.cs">
+      <DependentUpon>SignEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="StartEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +148,15 @@
     <EmbeddedResource Include="MapData.resx">
       <DependentUpon>MapData.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MinimapEditor.resx">
+      <DependentUpon>MinimapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortalEditor.resx">
+      <DependentUpon>PortalEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OwlStatueEditor.resx">
+      <DependentUpon>OwlStatueEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -135,6 +168,9 @@
     </Compile>
     <EmbeddedResource Include="RepointCollisions.resx">
       <DependentUpon>RepointCollisions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SignEditor.resx">
+      <DependentUpon>SignEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartEditor.resx">
       <DependentUpon>StartEditor.cs</DependentUpon>

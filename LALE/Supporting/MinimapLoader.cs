@@ -21,7 +21,7 @@ namespace LALE.Core
         }
         public byte[,,] loadMinimapOverworld()
         {
-            minimapGraphics = new byte[64];
+            minimapGraphics = new byte[256];
             overworldPal = new byte[256];
 
             minimapGraphics = LAGame.gbROM.ReadBytes(0x81697, 0x100);
