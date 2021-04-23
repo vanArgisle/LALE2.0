@@ -589,7 +589,7 @@ namespace LALE
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, this);
 
             //This method is only for saving when used space < free space. Use collision repointer class for the other way around.
-            if (spaceCalculator.getUsedSpace() <= spaceCalculator.getFreeSpaceOverworld())
+            if (spaceCalculator.getUsedSpaceCollisions() <= spaceCalculator.getFreeSpaceOverworld())
             {
                 byte b;
                 getCollisionDataOverworldOffset();
@@ -1142,7 +1142,7 @@ namespace LALE
         {
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, this);
             //This method is only for saving when used space < free space. Use collision repointer class for the other way around.
-            if (spaceCalculator.getUsedSpace() <= spaceCalculator.getFreeSpaceDungeon())
+            if (spaceCalculator.getUsedSpaceCollisions() <= spaceCalculator.getFreeSpaceDungeon())
             {
                 if (LAGame.specialFlag && LAGame.dungeon >= 0x1A && LAGame.map == 0xF5 || LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon < 6)
                 {

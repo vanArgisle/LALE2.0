@@ -1,5 +1,6 @@
 ﻿
 using LALE.Core;
+using LALE.Supporting;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +18,7 @@ namespace LALE
             mapTileData = mtd;
         }
 
-        public int getUsedSpace()
+        public int getUsedSpaceCollisions()
         {
             int s = 0;
             foreach (CollisionObject o in mapTileData.collisionObjects)
@@ -35,7 +36,7 @@ namespace LALE
             return s;
         }
 
-        public int getUsedSpace(List<CollisionObject> collisionObjects, List<Warps> warpObjects)
+        public int getUsedSpaceCollisions(List<CollisionObject> collisionObjects, List<Warps> warpObjects)
         {
             int s = 0;
             foreach (CollisionObject o in collisionObjects)
@@ -276,6 +277,63 @@ namespace LALE
                 }
             }
    
+            return space;
+        }
+
+        public int getUsedSpaceEntities(List<Entity> entities)
+        {
+            int s = 0;
+            foreach (Entity e in entities)
+                s += 2;
+            return s;
+        }
+
+        public int getFreeSpaceEntities()
+        {
+            List<Int32>  unSortedPointers = new List<Int32>();
+            int[] pointers = new int[256];
+            int cMapPointer = 0;
+            int map = 0;
+            int index;
+            int space = 0;
+            while (map < 256)
+            {
+                if (LAGame.overworldFlag)
+                    LAGame.gbROM.BufferLocation = 0x58000;
+                else
+                {
+                    LAGame.gbROM.BufferLocation = 0x58200;
+                    if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                        LAGame.gbROM.BufferLocation = 0x58400;
+                    else if (LAGame.dungeon == 0xFF)
+                        LAGame.gbROM.BufferLocation = 0x58600;
+                }
+                LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (map * 2));
+                if (map == LAGame.map)
+                    cMapPointer = LAGame.gbROM.BufferLocation;
+                pointers[map] = LAGame.gbROM.BufferLocation;
+                map++;
+            }
+            foreach (int point in pointers)
+                unSortedPointers.Add(point);
+            Array.Sort(pointers);
+            index = Array.IndexOf(pointers, cMapPointer);
+            if (LAGame.map == 0xFF)
+            {
+                LAGame.gbROM.BufferLocation = cMapPointer;
+                if (LAGame.overworldFlag)
+                    space = 0x59663 - cMapPointer;
+                else if (LAGame.dungeon >= 0x1A || LAGame.dungeon < 6)
+                    space = 0x58CA3 - cMapPointer;
+                else
+                    space = 0x59185 - cMapPointer;
+            }
+            else
+            {
+                while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                    index++;
+                space = ((int)pointers.GetValue(index + 1) - 1) - cMapPointer;
+            }
             return space;
         }
     }

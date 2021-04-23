@@ -21,6 +21,9 @@ namespace LALE.Tileset
         public byte[,] formationData;
         public int animations { get; set; } = -1;
         public int SpecialObjectGraphics { get; set; } = -1;
+        public int paletteLocation { get; set; }
+
+        public byte paletteIndexOffset { get; set; }
         public Color[,] palette { get; set; } = new Color[8, 4];
 
         public Tile[] paletteTiles { get; set; }
@@ -360,16 +363,13 @@ namespace LALE.Tileset
 
         public void loadPalette()
         {
-            byte palOffset;
-            int paletteLocation;
-
             paletteTiles = loadPaletteFlipIndexes();
 
             if (LAGame.overworldFlag)
             {            
                 LAGame.gbROM.BufferLocation = 0x842EF + LAGame.map;
                 byte b = LAGame.gbROM.ReadByte();
-                palOffset = b;
+                paletteIndexOffset = b;
 
                 b *= 2;
                 LAGame.gbROM.BufferLocation = 0x842B1 + b;
@@ -421,15 +421,9 @@ namespace LALE.Tileset
                             if (i == 7)
                             {
                                 if (LAGame.map == 0x1)
-                                {
                                     LAGame.gbROM.BufferLocation = 0xDACF0;
-                                    paletteLocation = LAGame.gbROM.BufferLocation;
-                                }
                                 else
-                                {
                                     LAGame.gbROM.BufferLocation = 0xDACE0;
-                                    paletteLocation = LAGame.gbROM.BufferLocation;
-                                }
                             }
 
                             for (int k = 0; k < 4; k++)
@@ -446,7 +440,7 @@ namespace LALE.Tileset
                     LAGame.gbROM.BufferLocation = 0x84413 + b;
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation) + LAGame.map;
                     b = (byte)LAGame.gbROM.ReadByte();
-                    palOffset = b;
+                    paletteIndexOffset = b;
                     b *= 2;
                     LAGame.gbROM.BufferLocation = 0x8443F + b;
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
@@ -475,7 +469,7 @@ namespace LALE.Tileset
                         continue;
                     }
                     byte b = LAGame.gbROM.ReadByte();
-                    palOffset = b;
+                    paletteIndexOffset = b;
                     LAGame.gbROM.BufferLocation = 0x851F6;
                     b &= 0x3F;
                     b <<= 1;

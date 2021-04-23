@@ -65,6 +65,12 @@
     <Compile Include="MinimapEditor.Designer.cs">
       <DependentUpon>MinimapEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="PaletteEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PaletteEditor.Designer.cs">
+      <DependentUpon>PaletteEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="PortalEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +95,8 @@
     <Compile Include="StartEditor.Designer.cs">
       <DependentUpon>StartEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supporting\Entity.cs" />
+    <Compile Include="Supporting\EntityLoader.cs" />
     <Compile Include="Supporting\MinimapLoader.cs" />
     <Compile Include="RepointCollisions.cs">
       <SubType>Form</SubType>
@@ -150,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MinimapEditor.resx">
       <DependentUpon>MinimapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaletteEditor.resx">
+      <DependentUpon>PaletteEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PortalEditor.resx">
       <DependentUpon>PortalEditor.cs</DependentUpon>

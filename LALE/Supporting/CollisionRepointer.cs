@@ -221,7 +221,7 @@ namespace LALE.Supporting
 
             if (LAGame.overworldFlag)
             {
-                if ((spaceCalculator.getUsedSpace() < spaceCalculator.getFreeSpaceOverworld()))
+                if ((spaceCalculator.getUsedSpaceCollisions() < spaceCalculator.getFreeSpaceOverworld()))
                 {
                     int gameDataIndex = getCollisionListForRewriteAndIndex();
                     int bankIndex = getCollisionPointerListsAndIndex();
@@ -241,7 +241,7 @@ namespace LALE.Supporting
                         saveCollisionOverworldData(gameMapData[gameDataIndex]);
                 }
             }
-            else if (spaceCalculator.getUsedSpace() < spaceCalculator.getFreeSpaceDungeon())
+            else if (spaceCalculator.getUsedSpaceCollisions() < spaceCalculator.getFreeSpaceDungeon())
             {
                 int gameDataIndex = getCollisionListForRewriteAndIndex();
                 int bankIndex = getCollisionPointerListsAndIndex();
@@ -261,9 +261,9 @@ namespace LALE.Supporting
         {
             int mapAddressToRepoint;
             if (LAGame.overworldFlag)
-                mapAddressToRepoint = getCollisionDataOverworldOffset(mapData) + spaceCalculator.getUsedSpace(mapData.collisionObjects, mapData.warpObjects) + 3;
+                mapAddressToRepoint = getCollisionDataOverworldOffset(mapData) + spaceCalculator.getUsedSpaceCollisions(mapData.collisionObjects, mapData.warpObjects) + 3;
             else
-                mapAddressToRepoint = getCollisionDataDungeonOffset(mapData) + spaceCalculator.getUsedSpace(mapData.collisionObjects, mapData.warpObjects) + 3;
+                mapAddressToRepoint = getCollisionDataDungeonOffset(mapData) + spaceCalculator.getUsedSpaceCollisions(mapData.collisionObjects, mapData.warpObjects) + 3;
             //Plus 1 for animation, 1 for tile preset and 1 for 0xFE room ending byte
 
             if (LAGame.overworldFlag)

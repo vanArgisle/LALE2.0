@@ -372,6 +372,29 @@ namespace LALE
 			return colors;
 		}
 
+		public void WritePalette(System.Drawing.Color[,] palette)
+        {
+			int r, g, blu;
+
+			for (int k = 0; k < 8; k++)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					r = palette[k, i].R / 8;
+					g = palette[k, i].G / 8;
+					blu = palette[k, i].B / 8;
+					blu *= 4;
+					g *= 2;
+
+					blu *= 256;
+					g *= 16;
+					int value = r + g + blu;
+					WriteByte((byte)(value & 0xFF));
+					WriteByte((byte)(value >> 8));
+				}
+			}
+		}
+
 		//Not mine
 		public void ReadTiles(int width, int height, int offset, ref byte[,,] target)
 		{

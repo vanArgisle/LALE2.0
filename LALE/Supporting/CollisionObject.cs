@@ -54,6 +54,7 @@ namespace LALE
         public void getOverworldObjs(CollisionObject objects)
         {
             CollisionObject obj = new CollisionObject();
+        
             obj.height = 1;
             obj.width = 1;
             switch (objects.id)
@@ -155,6 +156,9 @@ namespace LALE
             ob.height = 1;
             ob.width = 1;
             byte[] tiles;
+            objectIDs = new List<CollisionObject>();
+            ob.multiTileFlag = false;
+
             //These are the actual locations of what tiles each value represents.
             switch (door)
             {
@@ -192,9 +196,9 @@ namespace LALE
                     tiles[i] = LAGame.gbROM.ReadByte();
                 ob.tiles = tiles;
                 ob.multiTileFlag = true;
-                objectIDs.Add(ob);
+                //objectIDs.Add(ob);
             }
-            else if (door == 0xEE || door == 0xEF || door == 0xF2 || door == 0xF3 || door == 0xF6 || door == 0xF7)
+            else if (door == 0xEE || door == 0xEF || door == 0xF2 || door == 0xF3 || door == 0xF6 || door == 0xF7 || door == 0xF9)
             {
                 tiles = new byte[2];
                 ob.width = 1;
@@ -203,7 +207,7 @@ namespace LALE
                     tiles[i] = LAGame.gbROM.ReadByte();
                 ob.tiles = tiles;
                 ob.multiTileFlag = true;
-                objectIDs.Add(ob);
+                //objectIDs.Add(ob);
             }
             else if (door == 0xFC)//Dungeon entrance
             {
@@ -214,8 +218,9 @@ namespace LALE
                     tiles[i] = LAGame.gbROM.ReadByte();
                 ob.tiles = tiles;
                 ob.multiTileFlag = true;
-                objectIDs.Add(ob);
+                
             }
+            objectIDs.Add(ob);
         }
         public bool Equals(CollisionObject o)
         {
