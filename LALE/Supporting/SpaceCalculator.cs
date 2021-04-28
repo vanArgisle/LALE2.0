@@ -59,7 +59,7 @@ namespace LALE
             List<Int32> unSortedPointers = new List<Int32>();
             int[] pointers = new int[262];
             int cMapPointer = 0;
-            
+
             int map = 0;
             int index;
             int space = 0;
@@ -115,8 +115,16 @@ namespace LALE
             }
             else if (index < pointers.Length)
             {
-                while ((int)pointers.GetValue(index + 1) == cMapPointer)
-                    index++;
+                try
+                {
+                    while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                        index++;
+                }
+                catch
+                {
+                    index--;
+                    Console.WriteLine("Out of bounds map lower than FF/7F");
+                }
                 space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
             }
             return space;
@@ -171,20 +179,28 @@ namespace LALE
                 unSortedPointers.Add(point);
             Array.Sort(pointers);
             index = Array.IndexOf(pointers, cMapPointer);
-            if (mapToCheckSpace == 0xFF)
+            if (mapToCheckSpace == 0xFF || index == pointers.Length - 1)
             {
                 LAGame.gbROM.BufferLocation = cMapPointer;
                 space = 0x69E73 - cMapPointer;
             }
-            else if (mapToCheckSpace == 0x7F)
+            else if (mapToCheckSpace == 0x7F || index == pointers.Length - 1)
             {
                 LAGame.gbROM.BufferLocation = cMapPointer;
                 space = 0x2668B - cMapPointer;
             }
-            else
+            else if (index < pointers.Length)
             {
-                while ((int)pointers.GetValue(index + 1) == cMapPointer)
-                    index++;
+                try
+                {
+                    while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                        index++;
+                }
+                catch
+                {
+                    index--;
+                    Console.WriteLine("Out of bounds map lower than FF/7F");
+                }
                 space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
             }
             return space;
@@ -248,18 +264,20 @@ namespace LALE
             Array.Sort(pointers);
             index = Array.IndexOf(pointers, cMapPointer);
 
-            if (LAGame.dungeon == 0xFF && LAGame.map == 0x15)
-                space = 0x2BF43 - (cMapPointer + 3);
-            else
+            if (index == pointers.Length - 1)
             {
-                LAGame.gbROM.BufferLocation = cMapPointer;
-                if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
-                    space = 0x2BB77 - (cMapPointer + 3);
+                if (LAGame.dungeon == 0xFF && LAGame.map == 0x15)
+                    space = 0x2BF43 - (cMapPointer + 3);
                 else
-                    space = 0x2FFFF - (cMapPointer + 2);
+                {
+                    LAGame.gbROM.BufferLocation = cMapPointer;
+                    if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
+                        space = 0x2BB77 - (cMapPointer + 3);
+                    else
+                        space = 0x2FFFF - (cMapPointer + 2);
+                }
             }
-
-            if (index < pointers.Length)
+            else if (index < pointers.Length)
             {
                 if (LAGame.dungeon == 0xFF && LAGame.map != 0x15 || LAGame.map != 0xFF)
                 {
@@ -276,7 +294,7 @@ namespace LALE
                     space = ((int)pointers.GetValue(index + 1) - 3) - cMapPointer;
                 }
             }
-   
+
             return space;
         }
 
@@ -290,7 +308,7 @@ namespace LALE
 
         public int getFreeSpaceEntities()
         {
-            List<Int32>  unSortedPointers = new List<Int32>();
+            List<Int32> unSortedPointers = new List<Int32>();
             int[] pointers = new int[256];
             int cMapPointer = 0;
             int map = 0;
@@ -318,9 +336,10 @@ namespace LALE
                 unSortedPointers.Add(point);
             Array.Sort(pointers);
             index = Array.IndexOf(pointers, cMapPointer);
-            if (LAGame.map == 0xFF)
+
+            LAGame.gbROM.BufferLocation = cMapPointer;
+            if (index == pointers.Length - 1)
             {
-                LAGame.gbROM.BufferLocation = cMapPointer;
                 if (LAGame.overworldFlag)
                     space = 0x59663 - cMapPointer;
                 else if (LAGame.dungeon >= 0x1A || LAGame.dungeon < 6)
@@ -328,10 +347,18 @@ namespace LALE
                 else
                     space = 0x59185 - cMapPointer;
             }
-            else
+            else if (index < pointers.Length)
             {
-                while ((int)pointers.GetValue(index + 1) == cMapPointer)
-                    index++;
+                try
+                {
+                    while ((int)pointers.GetValue(index + 1) == cMapPointer)
+                        index++;
+                }
+                catch
+                {
+                    index--;
+                    Console.WriteLine("Out of bounds map lower than FF");
+                }
                 space = ((int)pointers.GetValue(index + 1) - 1) - cMapPointer;
             }
             return space;

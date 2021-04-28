@@ -113,6 +113,7 @@
             this.nEntitySelected = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.cEntities = new System.Windows.Forms.CheckBox();
+            this.SpriteBox = new LALE.GridBox();
             this.pMinimap = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
             this.gridBoxMap = new LALE.GridBox();
@@ -134,6 +135,7 @@
             this.groupBoxEntities.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nEntityID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntitySelected)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpriteBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).BeginInit();
@@ -1056,6 +1058,7 @@
             this.nEntityID.Name = "nEntityID";
             this.nEntityID.Size = new System.Drawing.Size(101, 20);
             this.nEntityID.TabIndex = 54;
+            this.nEntityID.ValueChanged += new System.EventHandler(this.nEntityID_ValueChanged);
             // 
             // nEntitySelected
             // 
@@ -1096,6 +1099,25 @@
             this.cEntities.Text = "View/Edit Entities";
             this.cEntities.UseVisualStyleBackColor = true;
             this.cEntities.CheckedChanged += new System.EventHandler(this.cEntities_CheckedChanged);
+            // 
+            // SpriteBox
+            // 
+            this.SpriteBox.AllowMultiSelection = false;
+            this.SpriteBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SpriteBox.BoxSize = new System.Drawing.Size(16, 16);
+            this.SpriteBox.CanvasSize = new System.Drawing.Size(20, 20);
+            this.SpriteBox.HoverBox = true;
+            this.SpriteBox.HoverColor = System.Drawing.Color.White;
+            this.SpriteBox.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.SpriteBox.Location = new System.Drawing.Point(673, 353);
+            this.SpriteBox.Name = "SpriteBox";
+            this.SpriteBox.Selectable = false;
+            this.SpriteBox.SelectedIndex = 0;
+            this.SpriteBox.SelectionColor = System.Drawing.Color.Red;
+            this.SpriteBox.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.SpriteBox.Size = new System.Drawing.Size(20, 20);
+            this.SpriteBox.TabIndex = 52;
+            this.SpriteBox.TabStop = false;
             // 
             // pMinimap
             // 
@@ -1185,6 +1207,7 @@
             // LALE2
             // 
             this.ClientSize = new System.Drawing.Size(885, 462);
+            this.Controls.Add(this.SpriteBox);
             this.Controls.Add(this.groupBoxEntities);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.checkBoxSpecialMap);
@@ -1232,6 +1255,7 @@
             this.groupBoxEntities.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nEntityID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntitySelected)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpriteBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).EndInit();
@@ -1341,6 +1365,7 @@
         private System.Windows.Forms.NumericUpDown nEntitySelected;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox cEntities;
+        private GridBox SpriteBox;
     }
 }
 

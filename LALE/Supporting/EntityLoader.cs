@@ -20,7 +20,24 @@ namespace LALE.Supporting
         public void loadEntities()
         {
             entities = new List<Entity>();
+            getEntityLocation();
 
+            byte b;
+            while ((b = LAGame.gbROM.ReadByte()) != 0xFF) //0xFF = End of room
+            {
+                Entity ent = new Entity(LAGame); // 2-Byte tiles
+                ent.yPos = (byte)(b >> 4);
+                ent.xPos = (byte)(b & 0xF);
+                ent.id = LAGame.gbROM.ReadByte();
+                int temp = LAGame.gbROM.BufferLocation;
+                ent.loadSprite();
+                LAGame.gbROM.BufferLocation = temp;
+                entities.Add(ent);
+            }
+        }
+
+        private void getEntityLocation()
+        {  
             if (LAGame.overworldFlag)
                 LAGame.gbROM.BufferLocation = 0x58000;
             else
@@ -33,15 +50,17 @@ namespace LALE.Supporting
             }
             LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2));
             entityAddress = LAGame.gbROM.BufferLocation;
-            byte b;
-            while ((b = LAGame.gbROM.ReadByte()) != 0xFF) //0xFE = End of room
+        }
+        public void saveEntities()
+        {
+            getEntityLocation();
+            foreach (Entity selectedEntity in entities)
             {
-                Entity ent = new Entity(); // 2-Byte tiles
-                ent.yPos = (byte)(b >> 4);
-                ent.xPos = (byte)(b & 0xF);
-                ent.id = LAGame.gbROM.ReadByte();
-                entities.Add(ent);
+                byte b = (byte)((selectedEntity.yPos * 0x10) + selectedEntity.xPos);
+                LAGame.gbROM.WriteByte(b);
+                LAGame.gbROM.WriteByte(selectedEntity.id);
             }
+            LAGame.gbROM.WriteByte(0xFF);
         }
     }
 }

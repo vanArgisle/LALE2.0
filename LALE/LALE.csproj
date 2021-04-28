@@ -89,6 +89,7 @@
     <Compile Include="SignEditor.Designer.cs">
       <DependentUpon>SignEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sprite.cs" />
     <Compile Include="StartEditor.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -843,25 +843,33 @@ namespace LALE
                                     }
                                     continue;
                                 }
-                                if (obj.hFlip && obj.vFlip)
+                                try
                                 {
-                                    byte id = obj.tiles[(h * obj.width) + w];
-                                    mapData[(obj.xPos + (w - 1)) + ((obj.yPos + (h - 1)) * 10)] = id;
+                                    if (obj.hFlip && obj.vFlip)
+                                    {
+                                        byte id = obj.tiles[(h * obj.width) + w];
+                                        mapData[(obj.xPos + (w - 1)) + ((obj.yPos + (h - 1)) * 10)] = id;
+                                    }
+                                    else if (obj.hFlip)
+                                    {
+                                        byte id = obj.tiles[(h * obj.width) + w];
+                                        mapData[(obj.xPos + (w - 1)) + ((obj.yPos + h) * 10)] = id;
+                                    }
+                                    else if (obj.vFlip)
+                                    {
+                                        byte id = obj.tiles[(h * obj.width) + w];
+                                        mapData[(obj.xPos + w) + ((obj.yPos + (h - 1)) * 10)] = id;
+                                    }
+                                    else
+                                    {
+                                        byte id = obj.tiles[(h * obj.width) + w];
+                                        mapData[(obj.xPos + w) + ((obj.yPos + h) * 10)] = id;
+                                    }
                                 }
-                                else if (obj.hFlip)
+                                catch
                                 {
-                                    byte id = obj.tiles[(h * obj.width) + w];
-                                    mapData[(obj.xPos + (w - 1)) + ((obj.yPos + h) * 10)] = id;
-                                }
-                                else if (obj.vFlip)
-                                {
-                                    byte id = obj.tiles[(h * obj.width) + w];
-                                    mapData[(obj.xPos + w) + ((obj.yPos + (h - 1)) * 10)] = id;
-                                }
-                                else
-                                {
-                                    byte id = obj.tiles[(h * obj.width) + w];
-                                    mapData[(obj.xPos + w) + ((obj.yPos + h) * 10)] = id;
+                                    System.Console.WriteLine("Out of bounds drawing of tile");
+                                    continue;
                                 }
                                 dx++;
                                 if (w >= (obj.width - 1))

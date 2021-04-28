@@ -1,4 +1,5 @@
-﻿using LALE.Tileset;
+﻿using LALE.Supporting;
+using LALE.Tileset;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -589,6 +590,69 @@ namespace LALE
             }
             fp.Unlock(true);
             return bmp;
+        }
+
+        public Bitmap drawSelectedEntity(Bitmap image, Entity selectedEntity)
+        {
+            FastPixel fp = new FastPixel(image);
+            Color border = Color.White;
+            fp.rgbValues = new byte[160 * 128 * 4];
+            fp.Lock();
+
+            int x = selectedEntity.xPos * 16;
+            int y = selectedEntity.yPos * 16;
+            for (int yy = 0; yy < 16; yy++)
+            {
+                for (int xx = 0; xx < 16; xx++)
+                {
+                    if (yy > 0 && yy != 15)
+                    {
+                        if (xx == 0 || xx == 15)
+                        {
+                            fp.SetPixel(x + xx, y + yy, border);
+                        }
+                    }
+                    else
+                    {
+                        fp.SetPixel(x + xx, y + yy, border);
+                    }
+                }
+            }
+
+            fp.Unlock(true);
+            return image;
+        }
+
+        public Bitmap drawEntities(Bitmap image, List<Entity> entities)
+        {
+            FastPixel fp = new FastPixel(image);
+            fp.rgbValues = new byte[160 * 128 * 4];
+            fp.Lock();
+
+
+            foreach (Entity selectedEntity in entities)
+            {
+                FastPixel src = new FastPixel(selectedEntity.sprite);
+                src.rgbValues = new byte[16 * 16 * 4];
+                src.Lock();
+
+                int x = selectedEntity.xPos * 16;
+                int y = selectedEntity.yPos * 16;
+
+                for (int yy = 0; yy < 16; yy++)
+                {
+                    for (int xx = 0; xx < 16; xx++)
+                    {
+                        fp.SetPixel(x + xx, y + yy, src.GetPixel(xx, yy));
+                    }
+                }
+
+                src.Unlock(true);
+            }
+
+            
+            fp.Unlock(true);
+            return image;
         }
     }
 }

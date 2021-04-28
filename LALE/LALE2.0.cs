@@ -18,6 +18,7 @@ namespace LALE
         private TileDrawer tilesetDrawer;
         private MapTileData mapTileData;
         private MinimapLoader minimapLoader;
+        private EntityLoader entityLoader;
         private int collisionDataAddress;
 
         private byte selectedTile;
@@ -153,6 +154,8 @@ namespace LALE
                     collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpaceCollisions();
                 }
             }
+            if (cEntities.Checked)
+                drawEntities();
             toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + mapTileData.mapAddress.ToString("X");
             saveSnapshot();
         }
@@ -378,7 +381,7 @@ namespace LALE
             if (gridBoxMap.Image == null)
                 return;
 
-            if (radioButtonOverlay.Checked)//Overlay mouse down event
+            if (radioButtonOverlay.Checked && !cEntities.Checked)//Overlay mouse down event
             {
                 if (e.Button == MouseButtons.Left)
                 {
@@ -395,7 +398,7 @@ namespace LALE
                     selectTile(mapTileData.overlayMapData[e.X / 16 + (e.Y / 16) * 10]);
                 }
             }
-            else //Collision mouse down event
+            else if (radioButtonCollisions.Checked && !cEntities.Checked) //Collision mouse down event
             {
                 if (e.Button == MouseButtons.Left)
                 {
@@ -408,6 +411,21 @@ namespace LALE
                     }
                     else
                         selectCollision(null, ind);
+                }
+            }
+            else if (cEntities.Checked)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    int ind = getSelectedEntityID(e.X, e.Y);
+                    if (ind > -1)
+                    {
+                        selectEntity(ind);
+                        selectedObjectOrigX = entityLoader.entities[ind].xPos;
+                        selectedObjectOrigY = entityLoader.entities[ind].yPos;
+                    }
+                    else
+                        selectEntity(ind);
                 }
             }
             lastMapHoverPoint = new Point(e.X / 16, e.Y / 16);
@@ -439,7 +457,7 @@ namespace LALE
 
             toolStripStatusLabelHoverCoords.Text = "X: " + (e.X / 16).ToString("X") + " Y: " + (e.Y / 16).ToString("X");
             //Overlay mouse movement
-            if (radioButtonOverlay.Checked)
+            if (radioButtonOverlay.Checked && !cEntities.Checked)
             {
                 if (e.Button == MouseButtons.Left)
                 {
@@ -454,7 +472,7 @@ namespace LALE
                     }
                 }
             }
-            else //Collision editor mouse movement
+            else if (radioButtonCollisions.Checked && !cEntities.Checked)//Collision editor mouse movement
             {
                 TileDrawer tileDrawer = new TileDrawer();
                 int ind = (int)nCollisionSelected.Value;
@@ -507,6 +525,33 @@ namespace LALE
                         else
                             mapTileData.saveCollisionDungeonData();
                         drawSelectedObject();
+                    }
+                }
+            }
+            else if (cEntities.Checked)
+            {
+                int ind = (int)nEntitySelected.Value;
+                int x = e.X / 16;
+                int y = e.Y / 16;
+
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (ind > -1)
+                    {
+                        if (selectedObjectOrigX == 0xF)
+                            selectedObjectOrigX = -1;
+                        if (selectedObjectOrigY == 0xF)
+                            selectedObjectOrigY = -1;
+                        if (selectedObjectOrigX + (x - lastMapHoverPoint.X) < 0 || selectedObjectOrigX + (x - lastMapHoverPoint.X) > 9)
+                            return;
+                        if (selectedObjectOrigY + (y - lastMapHoverPoint.Y) < 0 || selectedObjectOrigY + (y - lastMapHoverPoint.Y) > 7)
+                            return;
+
+                        entityLoader.entities[ind].xPos = (byte)(selectedObjectOrigX + (x - lastMapHoverPoint.X));
+                        entityLoader.entities[ind].yPos = (byte)(selectedObjectOrigY + (y - lastMapHoverPoint.Y));
+                       
+                        entityLoader.saveEntities();
+                        drawEntities();
                     }
                 }
             }
@@ -940,7 +985,7 @@ namespace LALE
 
         private void gridBoxMap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (radioButtonCollisions.Checked)
+            if (radioButtonCollisions.Checked && !cEntities.Checked)
             {
                 if (e.Button == MouseButtons.Right)
                 {
@@ -1022,7 +1067,7 @@ namespace LALE
                     if (selectedCollisionObject.multiTileFlag == false)
                     {
                         pObject.Width = (selectedCollisionObject.width * 16) + 4;
-                        pObject.Height = (selectedCollisionObject.height * 16) + 4;
+                        pObject.Height = (selectedCollisionObject.height * 16) + 4; 
                         e.Graphics.DrawImage(gridBoxTileset.Image, new Rectangle(0, 0, 16, 16), (selectedCollisionObject.id % 16) * 16, (selectedCollisionObject.id / 16) * 16, 16, 16, GraphicsUnit.Pixel);
                     }
                     else
@@ -1347,9 +1392,12 @@ namespace LALE
 
         private void saveROMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BinaryWriter bw = new BinaryWriter(File.Open(filename, FileMode.Open));
-            bw.Write(LAGame.gbROM.Buffer);
-            bw.Close();
+            if (LAGame != null)
+            {
+                BinaryWriter bw = new BinaryWriter(File.Open(filename, FileMode.Open));
+                bw.Write(LAGame.gbROM.Buffer);
+                bw.Close();
+            }
         }
 
         private void checkBoxRaisingTile_CheckedChanged(object sender, EventArgs e)
@@ -1558,24 +1606,26 @@ namespace LALE
 
         private void loadEntities()
         {
-            EntityLoader entityLoader = new EntityLoader(LAGame);
+            entityLoader = new EntityLoader(LAGame);
             entityLoader.loadEntities();
 
             nEntitySelected.Maximum = entityLoader.entities.Count - 1;
 
             if (nEntitySelected.Value != -1)
             {
-                Entity ent = new Entity();
-                ent = entityLoader.entities[(byte)nEntitySelected.Value];
-                nEntityID.Value = (byte)ent.id;
-                selectedEntity = ent;
-                toolStripStatusLabelHoverCoords.Text = "X: " + ent.xPos.ToString("X") + " Y: " + ent.yPos.ToString("X");
+                selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
+                nEntityID.Value = (byte)selectedEntity.id;           
+                SpriteBox.Image = selectedEntity.sprite;
+                toolStripStatusLabelHoverCoords.Text = "X: " + selectedEntity.xPos.ToString("X") + " Y: " + selectedEntity.yPos.ToString("X");
             }
 
+            drawEntities();
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
 
             toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
             toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + entityLoader.entityAddress.ToString("X");
+
+            
         }
 
         private void nEntitySelected_ValueChanged(object sender, EventArgs e)
@@ -1587,14 +1637,68 @@ namespace LALE
                 return;
             }
 
-            EntityLoader entityLoader = new EntityLoader(LAGame);
-            entityLoader.loadEntities();
+            //entityLoader = new EntityLoader(LAGame);
+            //entityLoader.loadEntities();
 
-            Entity ent = new Entity();
-            ent = entityLoader.entities[(byte)nEntitySelected.Value];
-            nEntityID.Value = (byte)ent.id;
-            selectedEntity = ent;
-            toolStripStatusLabelHoverCoords.Text = "X: " + ent.xPos.ToString("X") + " Y: " + ent.yPos.ToString("X");
+            selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
+            nEntityID.Value = (byte)selectedEntity.id;        
+            SpriteBox.Image = selectedEntity.sprite;
+            drawEntities();
+
+            toolStripStatusLabelHoverCoords.Text = "X: " + selectedEntity.xPos.ToString("X") + " Y: " + selectedEntity.yPos.ToString("X");
+        }
+
+        private void nEntityID_ValueChanged(object sender, EventArgs e)
+        {
+            if (nEntitySelected.Value == -1)
+            {
+                return;
+            }
+            
+            selectedEntity.id = (byte)nEntityID.Value;
+            selectedEntity.loadSprite();
+
+            if (entityLoader.entities != null)
+                entityLoader.saveEntities();
+
+            SpriteBox.Image = selectedEntity.sprite;
+            drawEntities();
+        }
+        private void drawEntities()
+        {
+            if (cEntities.Checked)
+            {
+                redrawMap();
+
+                TileDrawer tileDrawer = new TileDrawer();
+                gridBoxMap.Image = tileDrawer.drawEntities((Bitmap)gridBoxMap.Image, entityLoader.entities);
+                if (selectedEntity != null)
+                    gridBoxMap.Image = tileDrawer.drawSelectedEntity((Bitmap)gridBoxMap.Image, selectedEntity);
+
+            }
+        }
+
+        private int getSelectedEntityID(int x, int y)
+        {
+            x /= 16;
+            y /= 16;
+            for (int i = entityLoader.entities.Count - 1; i > -1; i--)
+            {
+                if (entityLoader.entities[i].xPos == x && entityLoader.entities[i].yPos == y)
+                    return i;
+            }
+            return -1;
+        }
+
+        private void selectEntity(int index)
+        {
+            if (index == -1)
+            {
+                nEntitySelected.Value = -1;
+                nEntityID.Value = 0;
+            }
+            else
+                nEntitySelected.Value = index;
         }
     }
 }
