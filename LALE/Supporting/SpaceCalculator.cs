@@ -314,24 +314,43 @@ namespace LALE
             int map = 0;
             int index;
             int space = 0;
-            while (map < 256)
+
+            if (LAGame.dungeon == 0xFF)
             {
-                if (LAGame.overworldFlag)
-                    LAGame.gbROM.BufferLocation = 0x58000;
-                else
+                pointers = new int[0x16];
+                while (map < 0x16)
                 {
-                    LAGame.gbROM.BufferLocation = 0x58200;
-                    if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
-                        LAGame.gbROM.BufferLocation = 0x58400;
-                    else if (LAGame.dungeon == 0xFF)
-                        LAGame.gbROM.BufferLocation = 0x58600;
+                    LAGame.gbROM.BufferLocation = 0x58600 + (map * 2);
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
+                    if (map == LAGame.map)
+                        cMapPointer = LAGame.gbROM.BufferLocation;
+                    pointers[map] = LAGame.gbROM.BufferLocation;
+                    map++;
                 }
-                LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (map * 2));
-                if (map == LAGame.map)
-                    cMapPointer = LAGame.gbROM.BufferLocation;
-                pointers[map] = LAGame.gbROM.BufferLocation;
-                map++;
             }
+            else
+            {
+                while (map < 256)
+                {
+                    if (LAGame.overworldFlag)
+                        LAGame.gbROM.BufferLocation = 0x58000;
+                    else
+                    {
+                        LAGame.gbROM.BufferLocation = 0x58200;
+                        if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                            LAGame.gbROM.BufferLocation = 0x58400;
+                        else if (LAGame.dungeon == 0xFF)
+                            LAGame.gbROM.BufferLocation = 0x58600;
+                    }
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (map * 2));
+                    if (map == LAGame.map)
+                        cMapPointer = LAGame.gbROM.BufferLocation;
+                    pointers[map] = LAGame.gbROM.BufferLocation;
+                    map++;
+                }
+            }
+
+
             foreach (int point in pointers)
                 unSortedPointers.Add(point);
             Array.Sort(pointers);
@@ -342,6 +361,8 @@ namespace LALE
             {
                 if (LAGame.overworldFlag)
                     space = 0x59663 - cMapPointer;
+                else if (LAGame.dungeon == 0xFF)
+                    space = 0x596FF - cMapPointer;
                 else if (LAGame.dungeon >= 0x1A || LAGame.dungeon < 6)
                     space = 0x58CA3 - cMapPointer;
                 else

@@ -59,6 +59,7 @@
     <Compile Include="Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
+    <Compile Include="EntityRepointer.cs" />
     <Compile Include="MinimapEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,11 +100,11 @@
     <Compile Include="Supporting\Entity.cs" />
     <Compile Include="Supporting\EntityLoader.cs" />
     <Compile Include="Supporting\MinimapLoader.cs" />
-    <Compile Include="RepointCollisions.cs">
+    <Compile Include="RepointerTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RepointCollisions.Designer.cs">
-      <DependentUpon>RepointCollisions.cs</DependentUpon>
+    <Compile Include="RepointerTool.Designer.cs">
+      <DependentUpon>RepointerTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Supporting\CollisionObject.cs" />
     <Compile Include="Core\Game.cs" />
@@ -178,8 +179,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RepointCollisions.resx">
-      <DependentUpon>RepointCollisions.cs</DependentUpon>
+    <EmbeddedResource Include="RepointerTool.resx">
+      <DependentUpon>RepointerTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignEditor.resx">
       <DependentUpon>SignEditor.cs</DependentUpon>

@@ -12,18 +12,48 @@ using System.Windows.Forms;
 
 namespace LALE
 {
-    public partial class RepointCollisions : Form
+    public partial class RepointerTool : Form
     {
         private Game LAGame;
         private MapTileData mapTileData;
+        private EntityLoader entityLoader;
+        private bool entities;
 
-        public RepointCollisions(Game game, MapTileData mtd)
+        public RepointerTool(Game game, MapTileData mtd, EntityLoader entityL, bool entity)
         {
             InitializeComponent();
             LAGame = game;
             mapTileData = mtd;
+            entityLoader = entityL;
+            entities = entity;
 
-            if (LAGame.overworldFlag)
+            if (entities)
+            {
+                if (LAGame.overworldFlag)
+                {
+                    nAddress.Minimum = 0x59186;
+                    nAddress.Maximum = 0x59661;
+                }
+                else
+                {
+                    if (LAGame.dungeon == 0xFF)
+                    {
+                        nAddress.Minimum = 0x59664;
+                        nAddress.Maximum = 0x596FD;
+                    }
+                    else if (LAGame.dungeon >= 0x1A || LAGame.dungeon < 6)
+                    {
+                        nAddress.Minimum = 0x58640;
+                        nAddress.Maximum = 0x58CA1;
+                    }
+                    else
+                    {
+                        nAddress.Minimum = 0x58CA4;
+                        nAddress.Maximum = 0x59183;
+                    }
+                }
+            }
+            else if (LAGame.overworldFlag)
             {
                 if (LAGame.map < 0x80)
                 {
@@ -66,8 +96,18 @@ namespace LALE
 
         private void bAccept_Click(object sender, EventArgs e)
         {
-            CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
-            collisionRepointer.repointMapCollisions((int)nAddress.Value);
+            if (entities)
+            {
+                SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                EntityRepointer entityRepointer = new EntityRepointer(LAGame, entityLoader, spaceCalculator);
+                entityRepointer.repointMapEntities((int)nAddress.Value);
+
+            }
+            else
+            {
+                CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
+                collisionRepointer.repointMapCollisions((int)nAddress.Value);
+            }
 
             this.DialogResult = DialogResult.OK;
             this.Close();

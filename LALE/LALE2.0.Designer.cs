@@ -113,6 +113,8 @@
             this.nEntitySelected = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.cEntities = new System.Windows.Forms.CheckBox();
+            this.numericUpDownSpriteBank = new System.Windows.Forms.NumericUpDown();
+            this.labelSpriteBank = new System.Windows.Forms.Label();
             this.SpriteBox = new LALE.GridBox();
             this.pMinimap = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
@@ -135,6 +137,7 @@
             this.groupBoxEntities.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nEntityID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntitySelected)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpriteBank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
@@ -225,7 +228,7 @@
             this.trimCollisionAddressToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.T)));
             this.trimCollisionAddressToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
-            this.trimCollisionAddressToolStripMenuItem.Text = "Trim Collision Address";
+            this.trimCollisionAddressToolStripMenuItem.Text = "Trim Collision/Entity Address";
             this.trimCollisionAddressToolStripMenuItem.Click += new System.EventHandler(this.trimCollisionAddressToolStripMenuItem_Click);
             // 
             // autoRepointCollisionsToolStripMenuItem
@@ -235,7 +238,7 @@
             this.autoRepointCollisionsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoRepointCollisionsToolStripMenuItem.Name = "autoRepointCollisionsToolStripMenuItem";
             this.autoRepointCollisionsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
-            this.autoRepointCollisionsToolStripMenuItem.Text = "Auto Repoint Collisions";
+            this.autoRepointCollisionsToolStripMenuItem.Text = "Auto Repoint Collisions/Entities";
             // 
             // viewToolStripMenuItem
             // 
@@ -1002,6 +1005,9 @@
             // 
             // groupBoxEntities
             // 
+            this.groupBoxEntities.Controls.Add(this.SpriteBox);
+            this.groupBoxEntities.Controls.Add(this.labelSpriteBank);
+            this.groupBoxEntities.Controls.Add(this.numericUpDownSpriteBank);
             this.groupBoxEntities.Controls.Add(this.bDeleteEntity);
             this.groupBoxEntities.Controls.Add(this.bAddEntity);
             this.groupBoxEntities.Controls.Add(this.label15);
@@ -1011,7 +1017,7 @@
             this.groupBoxEntities.Controls.Add(this.cEntities);
             this.groupBoxEntities.Location = new System.Drawing.Point(699, 240);
             this.groupBoxEntities.Name = "groupBoxEntities";
-            this.groupBoxEntities.Size = new System.Drawing.Size(169, 182);
+            this.groupBoxEntities.Size = new System.Drawing.Size(169, 195);
             this.groupBoxEntities.TabIndex = 51;
             this.groupBoxEntities.TabStop = false;
             this.groupBoxEntities.Text = "Entities";
@@ -1019,22 +1025,24 @@
             // bDeleteEntity
             // 
             this.bDeleteEntity.Enabled = false;
-            this.bDeleteEntity.Location = new System.Drawing.Point(6, 146);
+            this.bDeleteEntity.Location = new System.Drawing.Point(6, 136);
             this.bDeleteEntity.Name = "bDeleteEntity";
             this.bDeleteEntity.Size = new System.Drawing.Size(154, 26);
             this.bDeleteEntity.TabIndex = 57;
             this.bDeleteEntity.Text = "Remove Entity";
             this.bDeleteEntity.UseVisualStyleBackColor = true;
+            this.bDeleteEntity.Click += new System.EventHandler(this.bDeleteEntity_Click);
             // 
             // bAddEntity
             // 
             this.bAddEntity.Enabled = false;
-            this.bAddEntity.Location = new System.Drawing.Point(6, 108);
+            this.bAddEntity.Location = new System.Drawing.Point(6, 104);
             this.bAddEntity.Name = "bAddEntity";
             this.bAddEntity.Size = new System.Drawing.Size(154, 26);
             this.bAddEntity.TabIndex = 56;
             this.bAddEntity.Text = "Add Entity";
             this.bAddEntity.UseVisualStyleBackColor = true;
+            this.bAddEntity.Click += new System.EventHandler(this.bAddEntity_Click);
             // 
             // label15
             // 
@@ -1100,16 +1108,40 @@
             this.cEntities.UseVisualStyleBackColor = true;
             this.cEntities.CheckedChanged += new System.EventHandler(this.cEntities_CheckedChanged);
             // 
+            // numericUpDownSpriteBank
+            // 
+            this.numericUpDownSpriteBank.Enabled = false;
+            this.numericUpDownSpriteBank.Hexadecimal = true;
+            this.numericUpDownSpriteBank.Location = new System.Drawing.Point(77, 169);
+            this.numericUpDownSpriteBank.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDownSpriteBank.Name = "numericUpDownSpriteBank";
+            this.numericUpDownSpriteBank.Size = new System.Drawing.Size(83, 20);
+            this.numericUpDownSpriteBank.TabIndex = 58;
+            this.numericUpDownSpriteBank.ValueChanged += new System.EventHandler(this.numericUpDownSpriteBank_ValueChanged);
+            // 
+            // labelSpriteBank
+            // 
+            this.labelSpriteBank.AutoSize = true;
+            this.labelSpriteBank.Location = new System.Drawing.Point(6, 171);
+            this.labelSpriteBank.Name = "labelSpriteBank";
+            this.labelSpriteBank.Size = new System.Drawing.Size(65, 13);
+            this.labelSpriteBank.TabIndex = 59;
+            this.labelSpriteBank.Text = "Sprite Bank:";
+            // 
             // SpriteBox
             // 
             this.SpriteBox.AllowMultiSelection = false;
             this.SpriteBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SpriteBox.BoxSize = new System.Drawing.Size(16, 16);
             this.SpriteBox.CanvasSize = new System.Drawing.Size(20, 20);
-            this.SpriteBox.HoverBox = true;
+            this.SpriteBox.HoverBox = false;
             this.SpriteBox.HoverColor = System.Drawing.Color.White;
             this.SpriteBox.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.SpriteBox.Location = new System.Drawing.Point(673, 353);
+            this.SpriteBox.Location = new System.Drawing.Point(140, 16);
             this.SpriteBox.Name = "SpriteBox";
             this.SpriteBox.Selectable = false;
             this.SpriteBox.SelectedIndex = 0;
@@ -1207,7 +1239,6 @@
             // LALE2
             // 
             this.ClientSize = new System.Drawing.Size(885, 462);
-            this.Controls.Add(this.SpriteBox);
             this.Controls.Add(this.groupBoxEntities);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.checkBoxSpecialMap);
@@ -1255,6 +1286,7 @@
             this.groupBoxEntities.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nEntityID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntitySelected)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpriteBank)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
@@ -1366,6 +1398,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox cEntities;
         private GridBox SpriteBox;
+        private System.Windows.Forms.Label labelSpriteBank;
+        private System.Windows.Forms.NumericUpDown numericUpDownSpriteBank;
     }
 }
 

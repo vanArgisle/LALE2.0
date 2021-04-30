@@ -10,7 +10,7 @@ namespace LALE
     class Sprite
     {
         private Game LAGame;
-        private byte spriteBank;
+        public byte spriteBank;
         private byte[] spriteInfo;
         private byte[] spriteGraphics;
         public byte[,,] spriteData;
@@ -62,6 +62,8 @@ namespace LALE
                     i++;
                 }
             }
+            else
+                spriteInfo = new byte[4];
         }
 
         public void getSpriteLocation()
@@ -127,9 +129,10 @@ namespace LALE
                 return bmp;
             }
 
+            byte palOffset = 0;
             for (int i = 0; i < tileData.Length; i += 2)
             {
-                byte palOffset = ((byte)(tileData[i + 1] & 0x0f));
+                palOffset = ((byte)(tileData[i + 1] & 0x0f));
 
                 for (int y = 0; y < 8; y++)
                 {
@@ -165,9 +168,21 @@ namespace LALE
 
 
             }
+            
             fp.Unlock(true);
-
+            if (spriteBank != 0)
+                bmp.MakeTransparent(palette[palOffset, 0]);
             return bmp;
+        }
+
+        public void saveSpriteBank()
+        {
+            LAGame.gbROM.BufferLocation = 0x830DB + LAGame.map;
+            if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                LAGame.gbROM.BufferLocation = 0x831DB + LAGame.map;
+            if (!LAGame.overworldFlag)
+                LAGame.gbROM.BufferLocation += 0x100;
+            LAGame.gbROM.WriteByte(spriteBank);
         }
 
     }

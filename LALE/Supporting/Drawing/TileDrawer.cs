@@ -601,20 +601,27 @@ namespace LALE
 
             int x = selectedEntity.xPos * 16;
             int y = selectedEntity.yPos * 16;
-            for (int yy = 0; yy < 16; yy++)
+
+            if (selectedEntity.yPos < 8)
             {
-                for (int xx = 0; xx < 16; xx++)
+                if (selectedEntity.xPos < 10)
                 {
-                    if (yy > 0 && yy != 15)
+                    for (int yy = 0; yy < 16; yy++)
                     {
-                        if (xx == 0 || xx == 15)
+                        for (int xx = 0; xx < 16; xx++)
                         {
-                            fp.SetPixel(x + xx, y + yy, border);
+                            if (yy > 0 && yy != 15)
+                            {
+                                if (xx == 0 || xx == 15)
+                                {
+                                    fp.SetPixel(x + xx, y + yy, border);
+                                }
+                            }
+                            else
+                            {
+                                fp.SetPixel(x + xx, y + yy, border);
+                            }
                         }
-                    }
-                    else
-                    {
-                        fp.SetPixel(x + xx, y + yy, border);
                     }
                 }
             }
@@ -639,18 +646,33 @@ namespace LALE
                 int x = selectedEntity.xPos * 16;
                 int y = selectedEntity.yPos * 16;
 
-                for (int yy = 0; yy < 16; yy++)
+                if (selectedEntity.yPos < 8)
                 {
-                    for (int xx = 0; xx < 16; xx++)
+                    if (selectedEntity.xPos < 10)
                     {
-                        fp.SetPixel(x + xx, y + yy, src.GetPixel(xx, yy));
+                        for (int yy = 0; yy < 16; yy++)
+                        {
+                            for (int xx = 0; xx < 16; xx++)
+                            {
+                                try
+                                {
+                                    if (src.GetPixel(xx, yy).A == 0)
+                                        continue;
+                                    fp.SetPixel(x + xx, y + yy, src.GetPixel(xx, yy));
+                                }
+                                catch
+                                {
+                                    System.Console.WriteLine("Out of bounds Y or X position.");
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
-
                 src.Unlock(true);
             }
 
-            
+
             fp.Unlock(true);
             return image;
         }

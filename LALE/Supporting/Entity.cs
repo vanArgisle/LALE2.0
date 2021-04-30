@@ -36,6 +36,7 @@ namespace LALE.Supporting
         private void loadSpriteTileData()
         {
             entityTileOffset = 0;
+            spriteTileData = null;
 
             switch (id)
             {

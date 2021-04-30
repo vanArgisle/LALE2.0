@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LALE.Supporting
 {
-    class EntityLoader
+    public class EntityLoader
     {
         private Game LAGame;
         public List<Entity> entities;

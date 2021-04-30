@@ -19,6 +19,7 @@ namespace LALE
         private MapTileData mapTileData;
         private MinimapLoader minimapLoader;
         private EntityLoader entityLoader;
+        private Sprite spriteLoader;
         private int collisionDataAddress;
 
         private byte selectedTile;
@@ -68,10 +69,12 @@ namespace LALE
             radioButtonOverlay.Enabled = true;
             radioButtonOverlay.Checked = true;
             tabControl1.Enabled = true;
+            numericUpDownSpriteBank.Enabled = true;
 
             loadTileset();
             loadMap();
             loadMinimap();
+            loadSpriteBank();
         }
 
         /// <summary>
@@ -171,6 +174,7 @@ namespace LALE
             LAGame.map = (byte)numericUpDownMap.Value;
             loadTileset();
             loadMap();
+            loadSpriteBank();
 
 
             pMinimap.SelectedIndex = (int)numericUpDownMap.Value;
@@ -426,6 +430,7 @@ namespace LALE
                     }
                     else
                         selectEntity(ind);
+                    drawEntities();
                 }
             }
             lastMapHoverPoint = new Point(e.X / 16, e.Y / 16);
@@ -549,8 +554,11 @@ namespace LALE
 
                         entityLoader.entities[ind].xPos = (byte)(selectedObjectOrigX + (x - lastMapHoverPoint.X));
                         entityLoader.entities[ind].yPos = (byte)(selectedObjectOrigY + (y - lastMapHoverPoint.Y));
-                       
-                        entityLoader.saveEntities();
+
+                        SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                        if (spaceCalculator.getUsedSpaceEntities(entityLoader.entities) <= spaceCalculator.getFreeSpaceEntities())
+                            entityLoader.saveEntities();
+
                         drawEntities();
                     }
                 }
@@ -805,43 +813,55 @@ namespace LALE
         {
             x /= 16;
             y /= 16;
-            for (int i = mapTileData.collisionObjects.Count - 1; i > -1; i--)
+            if (radioButtonCollisions.Checked && !cEntities.Checked)
             {
-                if (mapTileData.collisionObjects[i].xPos == x && mapTileData.collisionObjects[i].yPos == y)
-                    return i;
-                else
+                for (int i = mapTileData.collisionObjects.Count - 1; i > -1; i--)
                 {
-                    CollisionObject o = mapTileData.collisionObjects[i];
-                    int dx = (o.xPos == 0xF ? (o.xPos - 16) : o.xPos);
-                    int dy = (o.yPos == 0xF ? (o.yPos - 16) : o.yPos);
-                    if (o.is3Byte)
+                    if (mapTileData.collisionObjects[i].xPos == x && mapTileData.collisionObjects[i].yPos == y)
+                        return i;
+                    else
                     {
-                        if (o.direction == 8)
+                        CollisionObject o = mapTileData.collisionObjects[i];
+                        int dx = (o.xPos == 0xF ? (o.xPos - 16) : o.xPos);
+                        int dy = (o.yPos == 0xF ? (o.yPos - 16) : o.yPos);
+                        if (o.is3Byte)
                         {
-                            if (o.multiTileFlag)
+                            if (o.direction == 8)
                             {
-                                if (x >= dx && y >= dy && y < dy + o.height && x < dx + (o.width * o.length))
+                                if (o.multiTileFlag)
+                                {
+                                    if (x >= dx && y >= dy && y < dy + o.height && x < dx + (o.width * o.length))
+                                        return i;
+                                }
+                                if (x >= dx && x < o.length + dx && y == dy)
                                     return i;
                             }
-                            if (x >= dx && x < o.length + dx && y == dy)
-                                return i;
+                            else
+                            {
+                                if (o.multiTileFlag)
+                                {
+                                    if (x >= dx && y >= dy && y < dy + (o.height * o.length) && x < dx + o.width)
+                                        return i;
+                                }
+                                if (x == dx && y >= dy && y < dy + o.length)
+                                    return i;
+                            }
                         }
-                        else
+                        else if (o.multiTileFlag)
                         {
-                            if (o.multiTileFlag)
-                            {
-                                if (x >= dx && y >= dy && y < dy + (o.height * o.length) && x < dx + o.width)
-                                    return i;
-                            }
-                            if (x == dx && y >= dy && y < dy + o.length)
+                            if (x >= dx && y >= dy && y < dy + o.height && x < dx + o.width)
                                 return i;
                         }
                     }
-                    else if (o.multiTileFlag)
-                    {
-                        if (x >= dx && y >= dy && y < dy + o.height && x < dx + o.width)
-                            return i;
-                    }
+                }
+            }
+            else if (cEntities.Checked)
+            {
+
+                for (int i = entityLoader.entities.Count - 1; i > -1; i--)
+                {
+                    if (entityLoader.entities[i].xPos == x && entityLoader.entities[i].yPos == y)
+                        return i;
                 }
             }
             return -1;
@@ -996,6 +1016,17 @@ namespace LALE
                     }
                 }
             }
+            else if (cEntities.Checked)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    int index = getSelectedObjectID(e.X, e.Y);
+                    if (index > -1)
+                    {
+                        deleteEntityObject(index);
+                    }
+                }
+            }
         }
 
         private void bDelete_Click(object sender, EventArgs e)
@@ -1091,7 +1122,7 @@ namespace LALE
         {
             if (LAGame.overworldFlag)
             {
-                if ((LAGame.map < 0x80 && collisionDataAddress + 2 >= 0x2668B) || (LAGame.map > 0x7F && collisionDataAddress + 2 >= 0x69E73))
+                if ((LAGame.map < 0x80 && collisionDataAddress + 2 >= 0x2668C) || (LAGame.map > 0x7F && collisionDataAddress + 2 >= 0x69E72))
                 {
                     MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -1101,7 +1132,7 @@ namespace LALE
             {
                 if (LAGame.dungeon == 0xFF)
                 {
-                    if (collisionDataAddress + 2 >= 0x2BF43)
+                    if (collisionDataAddress + 2 >= 0x2BF42)
                     {
                         MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1109,7 +1140,7 @@ namespace LALE
                 }
                 else if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
                 {
-                    if (collisionDataAddress + 2 >= 0x2BB77)
+                    if (collisionDataAddress + 2 >= 0x2BB76)
                     {
                         MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1117,7 +1148,7 @@ namespace LALE
                 }
                 else if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
                 {
-                    if (collisionDataAddress + 2 >= 0x2FFFF)
+                    if (collisionDataAddress + 2 >= 0x2FFFE)
                     {
                         MessageBox.Show("You are trying to add more collision objects than can fit in the allotted space. Delete some objects first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1245,7 +1276,7 @@ namespace LALE
 
         private void trimCollisionAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (radioButtonCollisions.Checked)
+            if (radioButtonCollisions.Checked && !cEntities.Checked)
             {
                 CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
                 collisionRepointer.trimCollisionAddress();
@@ -1256,19 +1287,32 @@ namespace LALE
                 else
                     toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
             }
+            else if (cEntities.Checked)
+            {
+                SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                EntityRepointer entityRepointer = new EntityRepointer(LAGame, entityLoader, spaceCalculator);
+                entityRepointer.trimEntityAddress();
+
+                spaceCalculator = new SpaceCalculator(LAGame, mapTileData); //We need to refresh space calculators instance of LAGame aftering trimming address;
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
+            }
         }
 
         private void repointCollisionAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (radioButtonCollisions.Checked)
+            if (radioButtonCollisions.Checked || cEntities.Checked)
             {
-                RepointCollisions rc = new RepointCollisions(LAGame, mapTileData);
+                RepointerTool rc = new RepointerTool(LAGame, mapTileData, entityLoader, cEntities.Checked);
                 rc.ShowDialog();
 
                 if (rc.DialogResult == DialogResult.OK)
                 {
                     loadMap();
-                    collisionListView();
+                    if (radioButtonCollisions.Checked)
+                        collisionListView();
+                    if (cEntities.Checked)
+                        loadEntities();
+
                 }
             }
         }
@@ -1287,6 +1331,8 @@ namespace LALE
                     loadMinimap();
                     loadTileset();
                     loadMap();
+                    loadSpriteBank();
+                    loadEntities();
                     if (radioButtonCollisions.Checked)
                         collisionListView();
                 }
@@ -1300,6 +1346,8 @@ namespace LALE
 
                     loadTileset();
                     loadMap();
+                    loadSpriteBank();
+                    loadEntities();
 
                     comboBox1.SelectedIndex = 0;
 
@@ -1315,6 +1363,8 @@ namespace LALE
                     comboBox1.SelectedIndex = 0;
                     loadTileset();
                     loadMap();
+                    loadSpriteBank();
+                    loadEntities();
                     collisionListView();
                 }
             }
@@ -1369,6 +1419,8 @@ namespace LALE
             }
             loadTileset();
             loadMap();
+            loadSpriteBank();
+            loadEntities();
             collisionListView();
             loadMinimap();
         }
@@ -1606,25 +1658,30 @@ namespace LALE
 
         private void loadEntities()
         {
+            
             entityLoader = new EntityLoader(LAGame);
             entityLoader.loadEntities();
 
             nEntitySelected.Maximum = entityLoader.entities.Count - 1;
-
-            if (nEntitySelected.Value != -1)
+            
+            if (cEntities.Checked)
             {
-                selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
-                nEntityID.Value = (byte)selectedEntity.id;           
-                SpriteBox.Image = selectedEntity.sprite;
-                toolStripStatusLabelHoverCoords.Text = "X: " + selectedEntity.xPos.ToString("X") + " Y: " + selectedEntity.yPos.ToString("X");
+                if (nEntitySelected.Value != -1)
+                {
+                    selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
+                    nEntityID.Value = (byte)selectedEntity.id;
+                    SpriteBox.Image = selectedEntity.sprite;
+                    toolStripStatusLabelHoverCoords.Text = "X: " + selectedEntity.xPos.ToString("X") + " Y: " + selectedEntity.yPos.ToString("X");
+                }
+
+                drawEntities();
+
+                SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+
+                collisionDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
+                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
+                toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + entityLoader.entityAddress.ToString("X");
             }
-
-            drawEntities();
-            SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-
-            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
-            toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + entityLoader.entityAddress.ToString("X");
-
             
         }
 
@@ -1634,11 +1691,9 @@ namespace LALE
             {
                 nEntityID.Value = 0;
                 selectedEntity = null;
+                SpriteBox.Image = null;
                 return;
             }
-
-            //entityLoader = new EntityLoader(LAGame);
-            //entityLoader.loadEntities();
 
             selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
             nEntityID.Value = (byte)selectedEntity.id;        
@@ -1658,8 +1713,13 @@ namespace LALE
             selectedEntity.id = (byte)nEntityID.Value;
             selectedEntity.loadSprite();
 
+            SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+
             if (entityLoader.entities != null)
-                entityLoader.saveEntities();
+            {
+                if (spaceCalculator.getUsedSpaceEntities(entityLoader.entities) <= spaceCalculator.getFreeSpaceEntities())
+                    entityLoader.saveEntities();
+            }
 
             SpriteBox.Image = selectedEntity.sprite;
             drawEntities();
@@ -1699,6 +1759,132 @@ namespace LALE
             }
             else
                 nEntitySelected.Value = index;
+        }
+
+        private void loadSpriteBank()
+        {
+            spriteLoader = new Sprite(LAGame);
+            spriteLoader.loadSpriteBanks();
+            numericUpDownSpriteBank.Value = spriteLoader.spriteBank;
+        }
+
+        private void numericUpDownSpriteBank_ValueChanged(object sender, EventArgs e)
+        {
+            spriteLoader.spriteBank = (byte)numericUpDownSpriteBank.Value;
+            spriteLoader.saveSpriteBank();
+            loadEntities();
+        }
+
+        private void bDeleteEntity_Click(object sender, EventArgs e)
+        {
+            if (nEntitySelected.Value == -1)
+                return;
+
+            deleteEntityObject((int)nEntitySelected.Value);
+        }
+
+        private void deleteEntityObject(int index)
+        {
+            entityLoader.entities.RemoveAt(index);
+          
+            if (nEntitySelected.Value == entityLoader.entities.Count)
+                nEntitySelected.Value--;
+
+            nEntitySelected.Maximum = entityLoader.entities.Count - 1;
+
+            if (nEntitySelected.Value != -1)
+            {
+                selectedEntity = entityLoader.entities[(int)nEntitySelected.Value];
+                toolStripStatusLabelHoverCoords.Text = "X: " + selectedEntity.xPos.ToString("X") + " Y: " + selectedEntity.yPos.ToString("X");
+            }
+
+            SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+            if (spaceCalculator.getUsedSpaceEntities(entityLoader.entities) <= spaceCalculator.getFreeSpaceEntities())
+                entityLoader.saveEntities();
+
+            loadEntities();
+
+          
+            collisionDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
+            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
+        }
+
+        private void bAddEntity_Click(object sender, EventArgs e)
+        {
+            if (LAGame.overworldFlag)
+            {
+                if (collisionDataAddress + 2 >= 0x59662)
+                {
+                    MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else
+            {
+                if (LAGame.dungeon == 0xFF)
+                {
+                    if (collisionDataAddress + 2 >= 0x596FE)
+                    {
+                        MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
+                {
+                    if (collisionDataAddress + 2 >= 0x58CA2)
+                    {
+                        MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                {
+                    if (collisionDataAddress + 2 >= 0x59184)
+                    {
+                        MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+
+
+            Entity ent = new Entity(LAGame);
+            ent.id = 0;
+            ent.xPos = 0;
+            ent.yPos = 0;
+            ent.loadSprite();
+
+            selectedEntity = ent;
+
+            if (nEntitySelected.Value == -1)
+                entityLoader.entities.Add(selectedEntity);
+            else
+                entityLoader.entities.Insert((byte)nEntitySelected.Value, selectedEntity);
+
+            nEntitySelected.Maximum = entityLoader.entities.Count;
+
+            drawEntities();
+
+            //Repoint map collisions if able to
+            SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+            if (autoRepointCollisionsToolStripMenuItem.Checked)
+            {
+                if (spaceCalculator.getUsedSpaceEntities(entityLoader.entities) > spaceCalculator.getFreeSpaceEntities())
+                {
+                    EntityRepointer entityRepointer = new EntityRepointer(LAGame, entityLoader, spaceCalculator);
+                    entityRepointer.expandEntityAddress();
+                }
+            }
+
+
+            if (nCollisionSelected.Value == -1)
+                nEntitySelected.Value = entityLoader.entities.Count - 1;
+
+            if (spaceCalculator.getUsedSpaceEntities(entityLoader.entities) <= spaceCalculator.getFreeSpaceEntities())
+                entityLoader.saveEntities();
+
+            collisionDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
+            toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
         }
     }
 }

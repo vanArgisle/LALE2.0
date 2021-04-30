@@ -1,6 +1,6 @@
 ﻿namespace LALE
 {
-    partial class RepointCollisions
+    partial class RepointerTool
     {
         /// <summary>
         /// Required designer variable.
@@ -77,7 +77,7 @@
             this.nAddress.Size = new System.Drawing.Size(107, 20);
             this.nAddress.TabIndex = 9;
             // 
-            // RepointCollisions
+            // RepointerTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,10 +88,10 @@
             this.Controls.Add(this.nAddress);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "RepointCollisions";
+            this.Name = "RepointerTool";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Repoint Collision Address";
+            this.Text = "Repoint Address";
             ((System.ComponentModel.ISupportInitialize)(this.nAddress)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

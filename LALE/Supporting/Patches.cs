@@ -15,9 +15,9 @@ namespace LALE.Supporting
             LAGame = game;
         }
 
-        public void defaultMusic(bool music)
+        public void defaultMusic(bool writePatch)
         {
-            if (music)
+            if (writePatch)
             {
                 LAGame.gbROM.WriteBytes(0x8156, new byte[] { 0x58, 0x41 });
                 LAGame.gbROM.WriteByte(0xBB47, 0);
