@@ -21,6 +21,7 @@ namespace LALE
         private EntityLoader entityLoader;
         private Sprite spriteLoader;
         private int collisionDataAddress;
+        private int entityDataAddress;
 
         private byte selectedTile;
         private List<byte[]> mapSnapshotsUndo = new List<byte[]>(); //Snapshot feature for the Ctrl+Z undo function
@@ -233,6 +234,7 @@ namespace LALE
             loadTileset();
             loadMap();
             loadMinimap();
+            loadEntities();
 
         }
 
@@ -247,6 +249,7 @@ namespace LALE
 
             loadTileset();
             loadMap();
+            loadEntities();
         }
 
         private void collisionBordersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,7 +257,8 @@ namespace LALE
             if (LAGame != null)
             {
                 redrawMap();
-                if (selectedCollisionObject != null)
+                loadEntities();
+                if (selectedCollisionObject != null && !cEntities.Checked)
                     drawSelectedObject();
             }
         }
@@ -312,6 +316,7 @@ namespace LALE
                 nObjectID.Value = selectedCollisionObject.id;
 
                 drawSelectedObject();
+                loadEntities();
 
                 toolStripStatusLabelHoverCoords.Text = "X: " + selectedCollisionObject.xPos.ToString("X") + " Y: " + selectedCollisionObject.yPos.ToString("X");
             }
@@ -349,6 +354,7 @@ namespace LALE
 
                 //Draw map to clear selected collision object border
                 redrawMap();
+                loadEntities();
             }
             else
             {
@@ -884,6 +890,7 @@ namespace LALE
             else
                 mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
+            loadEntities();
         }
 
         private void nLength_ValueChanged(object sender, EventArgs e)
@@ -933,6 +940,7 @@ namespace LALE
             else
                 mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
+            loadEntities();
 
             if (LAGame.overworldFlag)
                 toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
@@ -974,6 +982,7 @@ namespace LALE
             else
                 mapTileData.saveCollisionDungeonData();
             pObject.Invalidate();
+            loadEntities();
         }
 
         private void deleteCollisionObject(int index)
@@ -1387,7 +1396,7 @@ namespace LALE
             LAGame.specialFlag = checkBoxSpecialMap.Checked;
             loadMap();
             redrawMap();
-
+            loadEntities();
             if (radioButtonCollisions.Checked)
                 collisionListView();
         }
@@ -1430,6 +1439,8 @@ namespace LALE
             LAGame.sideviewFlag = !LAGame.sideviewFlag;
             loadTileset();
             loadMap();
+            loadEntities();
+            pObject.Invalidate();
         }
 
         private void nRegion_ValueChanged(object sender, EventArgs e)
@@ -1440,6 +1451,7 @@ namespace LALE
             loadMap();
             collisionListView();
             loadMinimap();
+            loadEntities();
         }
 
         private void saveROMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1457,6 +1469,8 @@ namespace LALE
             LAGame.raisingFloorFlag = !LAGame.raisingFloorFlag;
             loadTileset();
             loadMap();
+            loadEntities();
+            pObject.Invalidate();
         }
 
         private void warpEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1658,14 +1672,14 @@ namespace LALE
 
         private void loadEntities()
         {
-            
-            entityLoader = new EntityLoader(LAGame);
-            entityLoader.loadEntities();
-
-            nEntitySelected.Maximum = entityLoader.entities.Count - 1;
-            
             if (cEntities.Checked)
             {
+                entityLoader = new EntityLoader(LAGame);
+                entityLoader.loadEntities();
+
+                nEntitySelected.Maximum = entityLoader.entities.Count - 1;
+            
+           
                 if (nEntitySelected.Value != -1)
                 {
                     selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
@@ -1678,7 +1692,7 @@ namespace LALE
 
                 SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
 
-                collisionDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
+                entityDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
                 toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
                 toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + entityLoader.entityAddress.ToString("X");
             }
@@ -1805,7 +1819,7 @@ namespace LALE
             loadEntities();
 
           
-            collisionDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
+            entityDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
             toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
         }
 
@@ -1813,7 +1827,7 @@ namespace LALE
         {
             if (LAGame.overworldFlag)
             {
-                if (collisionDataAddress + 2 >= 0x59662)
+                if (entityDataAddress + 2 >= 0x59662)
                 {
                     MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -1823,7 +1837,7 @@ namespace LALE
             {
                 if (LAGame.dungeon == 0xFF)
                 {
-                    if (collisionDataAddress + 2 >= 0x596FE)
+                    if (entityDataAddress + 2 >= 0x596FE)
                     {
                         MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1831,7 +1845,7 @@ namespace LALE
                 }
                 else if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
                 {
-                    if (collisionDataAddress + 2 >= 0x58CA2)
+                    if (entityDataAddress + 2 >= 0x58CA2)
                     {
                         MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1839,7 +1853,7 @@ namespace LALE
                 }
                 else if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
                 {
-                    if (collisionDataAddress + 2 >= 0x59184)
+                    if (entityDataAddress + 2 >= 0x59184)
                     {
                         MessageBox.Show("You are trying to add more entities than can fit in the allotted space. Delete some entities first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1883,7 +1897,7 @@ namespace LALE
             if (spaceCalculator.getUsedSpaceEntities(entityLoader.entities) <= spaceCalculator.getFreeSpaceEntities())
                 entityLoader.saveEntities();
 
-            collisionDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
+            entityDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
             toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
         }
     }

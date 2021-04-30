@@ -27,30 +27,44 @@ namespace LALE
             entityLoader = entityL;
             entities = entity;
 
+            setAddressValue();
+        }
+
+        private void setAddressValue()
+        {
             if (entities)
             {
                 if (LAGame.overworldFlag)
                 {
                     nAddress.Minimum = 0x59186;
-                    nAddress.Maximum = 0x59661;
+                    nAddress.Maximum = 0x59663;
                 }
                 else
                 {
                     if (LAGame.dungeon == 0xFF)
                     {
                         nAddress.Minimum = 0x59664;
-                        nAddress.Maximum = 0x596FD;
+                        nAddress.Maximum = 0x596FF;
                     }
                     else if (LAGame.dungeon >= 0x1A || LAGame.dungeon < 6)
                     {
                         nAddress.Minimum = 0x58640;
-                        nAddress.Maximum = 0x58CA1;
+                        nAddress.Maximum = 0x58CA3;
                     }
                     else
                     {
                         nAddress.Minimum = 0x58CA4;
-                        nAddress.Maximum = 0x59183;
+                        nAddress.Maximum = 0x59185;
                     }
+                }
+
+                try
+                {
+                    nAddress.Value = entityLoader.entityAddress;
+                }
+                catch
+                {
+                    System.Console.WriteLine("Address out of range of address box values");
                 }
             }
             else if (LAGame.overworldFlag)
@@ -59,13 +73,20 @@ namespace LALE
                 {
                     nAddress.Minimum = 0x24200;
                     nAddress.Maximum = 0x2668B;
-                        //0x27FFD;
                 }
                 else
                 {
                     nAddress.Minimum = 0x68000;
                     nAddress.Maximum = 0x69E73;
-                        //0x6BFFD;
+                }
+
+                try
+                {
+                    nAddress.Value = mapTileData.mapAddress;
+                }
+                catch
+                {
+                    System.Console.WriteLine("Address out of range of address box values");
                 }
             }
             else
@@ -85,8 +106,16 @@ namespace LALE
                     nAddress.Minimum = 0x2BBB7;
                     nAddress.Maximum = 0x2BF41;
                 }
-            }
 
+                try
+                {
+                    nAddress.Value = mapTileData.mapAddress;
+                }
+                catch
+                {
+                    System.Console.WriteLine("Address out of range of address box values");
+                }
+            }
         }
         private void bCancel_Click(object sender, EventArgs e)
         {
