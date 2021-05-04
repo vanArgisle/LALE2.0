@@ -1706,6 +1706,7 @@ namespace LALE
                 nEntityID.Value = 0;
                 selectedEntity = null;
                 SpriteBox.Image = null;
+                drawEntities();
                 return;
             }
 
