@@ -338,6 +338,26 @@ namespace LALE.Supporting
                     spriteTileData = new byte[] { 0x74, 0x01, 0x74, 0x21 };
                     //0x54B17 something weirds going on with the data split and palette.
                     break;
+                case 0xEC: //Colour dungeon ghoul red
+                    LAGame.gbROM.BufferLocation = 0xDA3A9;
+                    spriteTileData = LAGame.gbROM.ReadBytes(4);
+                    break;
+                case 0xED: //Colour dungeon ghoul green
+                    LAGame.gbROM.BufferLocation = 0xDA3B9;
+                    spriteTileData = LAGame.gbROM.ReadBytes(4);
+                    break;
+                case 0xEE: //Colour dungeon ghoul blue
+                    LAGame.gbROM.BufferLocation = 0xDA3C9;
+                    spriteTileData = LAGame.gbROM.ReadBytes(4);
+                    break;
+                case 0xF6: //Colour dungeon guardian blue
+                    LAGame.gbROM.BufferLocation = 0xD9A9B;
+                    spriteTileData = LAGame.gbROM.ReadBytes(4);
+                    break;
+                case 0xF7: //Colour dungeon guardian red
+                    LAGame.gbROM.BufferLocation = 0xD9AB3;
+                    spriteTileData = LAGame.gbROM.ReadBytes(4);
+                    break;
                 default:
                     break;
             }

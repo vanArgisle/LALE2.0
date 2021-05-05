@@ -59,7 +59,13 @@
     <Compile Include="Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntityRepointer.cs" />
+    <Compile Include="SpritesheetEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SpritesheetEditor.Designer.cs">
+      <DependentUpon>SpritesheetEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supporting\EntityRepointer.cs" />
     <Compile Include="MinimapEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,7 +96,7 @@
     <Compile Include="SignEditor.Designer.cs">
       <DependentUpon>SignEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sprite.cs" />
+    <Compile Include="Supporting\Sprite.cs" />
     <Compile Include="StartEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SignEditor.resx">
       <DependentUpon>SignEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritesheetEditor.resx">
+      <DependentUpon>SpritesheetEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartEditor.resx">
       <DependentUpon>StartEditor.cs</DependentUpon>

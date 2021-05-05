@@ -33,7 +33,15 @@ namespace LALE
             numericUpDownMusic.Value = LAGame.gbROM.ReadByte();
             
             getTilePresetOffset();
-            numericUpDownPresetTiles.Value = LAGame.gbROM.ReadByte(); 
+            numericUpDownPresetTiles.Value = LAGame.gbROM.ReadByte();
+
+            if (LAGame.overworldFlag)
+                gEventData.Enabled = false;
+            else
+            {
+                gEventData.Enabled = true;
+                getEventData();
+            }
 
             drawMapAndTiles();
         }
@@ -278,6 +286,42 @@ namespace LALE
                     LAGame.gbROM.BufferLocation = 0x2BB77;
                 LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2));
             }
+        }
+        private int getEventDataLocation()
+        {
+
+            if (LAGame.dungeon == 0xFF)
+                LAGame.gbROM.BufferLocation = 0x50200 + LAGame.map;
+            else if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                LAGame.gbROM.BufferLocation = 0x50100 + LAGame.map;
+            else
+                LAGame.gbROM.BufferLocation = 0x50000 + LAGame.map;
+
+            return LAGame.gbROM.BufferLocation;
+        }
+        private void getEventData()
+        {
+            getEventDataLocation();
+            byte b = LAGame.gbROM.ReadByte();
+            nEventID.Value = (byte)(b >> 4);
+            nEventTrigger.Value = (byte)(b & 0xF);
+        }
+
+        private void saveEventData()
+        {
+            getEventDataLocation();
+            byte b = (byte)((nEventID.Value * 0x10) + nEventTrigger.Value);
+            LAGame.gbROM.WriteByte(b);
+        }
+
+        private void nEventID_ValueChanged(object sender, EventArgs e)
+        {
+            saveEventData();
+        }
+
+        private void nEventTrigger_ValueChanged(object sender, EventArgs e)
+        {
+            saveEventData();
         }
     }
 }

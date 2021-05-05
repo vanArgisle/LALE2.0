@@ -1107,7 +1107,7 @@ namespace LALE
                     if (selectedCollisionObject.multiTileFlag == false)
                     {
                         pObject.Width = (selectedCollisionObject.width * 16) + 4;
-                        pObject.Height = (selectedCollisionObject.height * 16) + 4; 
+                        pObject.Height = (selectedCollisionObject.height * 16) + 4;
                         e.Graphics.DrawImage(gridBoxTileset.Image, new Rectangle(0, 0, 16, 16), (selectedCollisionObject.id % 16) * 16, (selectedCollisionObject.id / 16) * 16, 16, 16, GraphicsUnit.Pixel);
                     }
                     else
@@ -1347,7 +1347,7 @@ namespace LALE
                 }
                 else if (tabControl1.SelectedIndex == 1)
                 {
-                   
+
                     LAGame.dungeon = 0;
                     LAGame.overworldFlag = false;
                     radioButtonOverlay.Enabled = false;
@@ -1360,7 +1360,7 @@ namespace LALE
 
                     comboBox1.SelectedIndex = 0;
 
-                    loadMinimap();   
+                    loadMinimap();
                     collisionListView();
                 }
                 else
@@ -1420,11 +1420,13 @@ namespace LALE
             {
                 LAGame.dungeon = 0xFF;
                 numericUpDownMap.Maximum = 0x15;
+                numericUpDownSpriteBank.Enabled = false;
             }
             else
             {
                 LAGame.dungeon = (byte)(comboBox1.SelectedIndex);
                 numericUpDownMap.Maximum = 0xFF;
+                numericUpDownSpriteBank.Enabled = true;
             }
             loadTileset();
             loadMap();
@@ -1678,8 +1680,8 @@ namespace LALE
                 entityLoader.loadEntities();
 
                 nEntitySelected.Maximum = entityLoader.entities.Count - 1;
-            
-           
+
+
                 if (nEntitySelected.Value != -1)
                 {
                     selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
@@ -1696,7 +1698,7 @@ namespace LALE
                 toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
                 toolStripStatusLabelAddressPointer.Text = "Data Address: 0x" + entityLoader.entityAddress.ToString("X");
             }
-            
+
         }
 
         private void nEntitySelected_ValueChanged(object sender, EventArgs e)
@@ -1711,7 +1713,7 @@ namespace LALE
             }
 
             selectedEntity = entityLoader.entities[(byte)nEntitySelected.Value];
-            nEntityID.Value = (byte)selectedEntity.id;        
+            nEntityID.Value = (byte)selectedEntity.id;
             SpriteBox.Image = selectedEntity.sprite;
             drawEntities();
 
@@ -1724,7 +1726,7 @@ namespace LALE
             {
                 return;
             }
-            
+
             selectedEntity.id = (byte)nEntityID.Value;
             selectedEntity.loadSprite();
 
@@ -1801,7 +1803,7 @@ namespace LALE
         private void deleteEntityObject(int index)
         {
             entityLoader.entities.RemoveAt(index);
-          
+
             if (nEntitySelected.Value == entityLoader.entities.Count)
                 nEntitySelected.Value--;
 
@@ -1819,7 +1821,7 @@ namespace LALE
 
             loadEntities();
 
-          
+
             entityDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
             toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
         }
@@ -1900,6 +1902,30 @@ namespace LALE
 
             entityDataAddress = entityLoader.entityAddress + spaceCalculator.getUsedSpaceEntities(entityLoader.entities);
             toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
+        }
+
+        private void spritesheetEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                SpritesheetEditor SpriteSheetEditorForm = new SpritesheetEditor(LAGame);
+                SpriteSheetEditorForm.ShowDialog();
+
+                if (SpriteSheetEditorForm.DialogResult == DialogResult.OK)
+                {
+                    LAGame = new Game(SpriteSheetEditorForm.LAGame);
+                    mapTileData = new MapTileData(LAGame);
+                    loadTileset();
+                    loadMap();
+
+                    spriteLoader = new Sprite(LAGame);
+                    spriteLoader.loadSpriteBanks();
+                    spriteLoader.getSpriteLocation();
+                    numericUpDownSpriteBank.Value = (byte)spriteLoader.spriteBank;
+                    
+                    loadEntities();
+                }
+            }
         }
     }
 }

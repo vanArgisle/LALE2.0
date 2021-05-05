@@ -86,6 +86,7 @@
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.labelAddress);
             this.Controls.Add(this.nAddress);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RepointerTool";
