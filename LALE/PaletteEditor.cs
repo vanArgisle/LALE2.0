@@ -161,7 +161,7 @@ namespace LALE
             {
                 if (k == 7)
                 {
-                    if (LAGame.map == 0x1)
+                    if (LAGame.map == 0x1 || LAGame.map == 0x7 || LAGame.map == 0x9)
                         LAGame.gbROM.BufferLocation = 0xDACF0;
                     else if (LAGame.map == 0x13 || LAGame.map == 0xF)
                         LAGame.gbROM.BufferLocation = 0xDACE0;

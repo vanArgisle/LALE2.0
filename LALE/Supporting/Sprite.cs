@@ -148,26 +148,23 @@ namespace LALE
                         }
                     }
                 }
-
-
             }
             
             fp.Unlock(true);
-            if (spriteBank != 0)
+            if (spriteBank != 0 || LAGame.dungeon == 0xFF)
                 bmp.MakeTransparent(palette[palOffset, 0]);
             return bmp;
         }
 
         public void saveSpriteBank()
         {
-            if (LAGame.dungeon != 0xFF) //Colour dungeon has 4 sprite banks so we need to save each of these individually elsewhere in the program. The single spritebank on LALE2.0 is not enough.
+            if (LAGame.dungeon != 0xFF)
             {
                 LAGame.gbROM.BufferLocation = 0x830DB + LAGame.map;
                 if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
                     LAGame.gbROM.BufferLocation = 0x831DB + LAGame.map;
                 if (!LAGame.overworldFlag)
                     LAGame.gbROM.BufferLocation += 0x100;
-
 
                 if (LAGame.dungeon == 0x10 && LAGame.map == 0xB5)
                 {

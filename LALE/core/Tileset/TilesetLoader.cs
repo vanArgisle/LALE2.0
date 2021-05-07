@@ -412,7 +412,7 @@ namespace LALE.Tileset
                 {
                     LAGame.gbROM.BufferLocation = 0x867D0;
                     paletteLocation = LAGame.gbROM.BufferLocation;
-                    if (LAGame.map != 0x1 && LAGame.map != 0x13 && LAGame.map != 0xF)
+                    if (LAGame.map != 0x1 && LAGame.map != 0x13 && LAGame.map != 0xF && LAGame.map == 0x7 && LAGame.map == 0x9)
                         palette = LAGame.gbROM.GetPalette(LAGame.gbROM.BufferLocation);
                     else
                     {
@@ -420,7 +420,7 @@ namespace LALE.Tileset
                         {
                             if (i == 7)
                             {
-                                if (LAGame.map == 0x1)
+                                if (LAGame.map == 0x1 || LAGame.map == 0x7 || LAGame.map == 0x9)
                                     LAGame.gbROM.BufferLocation = 0xDACF0;
                                 else
                                     LAGame.gbROM.BufferLocation = 0xDACE0;

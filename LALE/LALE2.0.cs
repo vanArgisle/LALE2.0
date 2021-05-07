@@ -1,5 +1,6 @@
 ﻿using LALE.Core;
 using LALE.Supporting;
+using LALE.Supporting.Text_Editor;
 using LALE.Tileset;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace LALE
         private List<byte[]> mapSnapshotsRedo = new List<byte[]>(); //Snapshot feature for the Ctrl+Y redo function
         private List<List<CollisionObject>> collisionSnapshotsUndo = new List<List<CollisionObject>>();
         private List<List<CollisionObject>> collisionSnapshotsRedo = new List<List<CollisionObject>>();
+        private Color[,] paletteCopy;
 
         private int selectedObjectOrigX;
         private int selectedObjectOrigY;
@@ -1334,6 +1336,7 @@ namespace LALE
                 if (tabControl1.SelectedIndex == 0)
                 {
                     LAGame.dungeon = 0;
+                    numericUpDownMap.Maximum = 0xFF;
                     LAGame.overworldFlag = true;
                     radioButtonOverlay.Enabled = true;
                     cSideview.Checked = false;
@@ -1349,6 +1352,7 @@ namespace LALE
                 {
 
                     LAGame.dungeon = 0;
+                    numericUpDownMap.Maximum = 0xFF;
                     LAGame.overworldFlag = false;
                     radioButtonOverlay.Enabled = false;
                     radioButtonCollisions.Checked = true;
@@ -1370,6 +1374,7 @@ namespace LALE
                     radioButtonOverlay.Enabled = false;
                     radioButtonCollisions.Checked = true;
                     comboBox1.SelectedIndex = 0;
+                    numericUpDownMap.Maximum = 0xFF;
                     loadTileset();
                     loadMap();
                     loadSpriteBank();
@@ -1924,6 +1929,86 @@ namespace LALE
                     numericUpDownSpriteBank.Value = (byte)spriteLoader.spriteBank;
                     
                     loadEntities();
+                }
+            }
+        }
+
+        private void textEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                TextEditor textEditorForm = new TextEditor(LAGame);
+                textEditorForm.ShowDialog();
+
+            }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            undoSnapshot();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            redoSnapshot();
+        }
+
+        private void copyPaletteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                TilesetLoader tilesetLoader = new TilesetLoader(LAGame);
+                tilesetLoader.loadPalette();
+
+                paletteCopy = tilesetLoader.palette;
+            }
+        }
+
+        private void pastePaletteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                TilesetLoader tilesetLoader = new TilesetLoader(LAGame);
+                tilesetLoader.loadPalette();
+
+                LAGame.gbROM.BufferLocation = tilesetLoader.paletteLocation;
+
+                if (LAGame.dungeon == 0xFF)
+                    saveColorDungeonPalette();
+                else
+                    LAGame.gbROM.WritePalette(paletteCopy);
+
+                loadTileset();
+                loadMap();
+            }
+        }
+
+        private void saveColorDungeonPalette()
+        {
+            int r, g, blu;
+
+            for (int k = 0; k < 8; k++)
+            {
+                if (k == 7)
+                {
+                    if (LAGame.map == 0x1 || LAGame.map == 0x7 || LAGame.map == 0x9)
+                        LAGame.gbROM.BufferLocation = 0xDACF0;
+                    else if (LAGame.map == 0x13 || LAGame.map == 0xF)
+                        LAGame.gbROM.BufferLocation = 0xDACE0;
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    r = paletteCopy[k, i].R / 8;
+                    g = paletteCopy[k, i].G / 8;
+                    blu = paletteCopy[k, i].B / 8;
+                    blu *= 4;
+                    g *= 2;
+
+                    blu *= 256;
+                    g *= 16;
+                    int value = r + g + blu;
+                    LAGame.gbROM.WriteByte((byte)(value & 0xFF));
+                    LAGame.gbROM.WriteByte((byte)(value >> 8));
                 }
             }
         }

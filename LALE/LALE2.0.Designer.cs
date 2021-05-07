@@ -29,12 +29,16 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.repointCollisionAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trimCollisionAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoRepointCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collisionBordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.signEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.owlStatueEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -44,6 +48,7 @@
             this.minimapEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paletteEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spritesheetEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.patchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeIntroMusicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeIntroMusicToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +99,7 @@
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonTextEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSignEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -103,6 +109,7 @@
             this.toolStripButtonMinimapEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPortalEditor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPaletteEditor = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSpritesheetEditor = new System.Windows.Forms.ToolStripButton();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxEntities = new System.Windows.Forms.GroupBox();
@@ -115,13 +122,14 @@
             this.nEntitySelected = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.cEntities = new System.Windows.Forms.CheckBox();
-            this.spritesheetEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SpriteBox = new LALE.GridBox();
             this.pMinimap = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
             this.gridBoxMap = new LALE.GridBox();
             this.gridBoxTileset = new LALE.GridBox();
-            this.toolStripButtonSpritesheetEditor = new System.Windows.Forms.ToolStripButton();
+            this.copyPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pastePaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMap)).BeginInit();
             this.gBoxCollisions.SuspendLayout();
@@ -194,6 +202,12 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearOverlayToolStripMenuItem,
             this.toolStripSeparator1,
+            this.undoToolStripMenuItem,
+            this.redoToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.copyPaletteToolStripMenuItem,
+            this.pastePaletteToolStripMenuItem,
+            this.toolStripSeparator6,
             this.repointCollisionAddressToolStripMenuItem,
             this.trimCollisionAddressToolStripMenuItem,
             this.autoRepointCollisionsToolStripMenuItem});
@@ -214,6 +228,27 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(314, 6);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(314, 6);
             // 
             // repointCollisionAddressToolStripMenuItem
             // 
@@ -265,6 +300,7 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.textEditorToolStripMenuItem,
             this.signEditorToolStripMenuItem,
             this.owlStatueEditorToolStripMenuItem,
             this.toolStripSeparator4,
@@ -279,11 +315,19 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
+            // textEditorToolStripMenuItem
+            // 
+            this.textEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("textEditorToolStripMenuItem.Image")));
+            this.textEditorToolStripMenuItem.Name = "textEditorToolStripMenuItem";
+            this.textEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.textEditorToolStripMenuItem.Text = "Text Editor";
+            this.textEditorToolStripMenuItem.Click += new System.EventHandler(this.textEditorToolStripMenuItem_Click);
+            // 
             // signEditorToolStripMenuItem
             // 
             this.signEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("signEditorToolStripMenuItem.Image")));
             this.signEditorToolStripMenuItem.Name = "signEditorToolStripMenuItem";
-            this.signEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.signEditorToolStripMenuItem.Text = "Sign Editor";
             this.signEditorToolStripMenuItem.Click += new System.EventHandler(this.signEditorToolStripMenuItem_Click);
             // 
@@ -291,20 +335,20 @@
             // 
             this.owlStatueEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("owlStatueEditorToolStripMenuItem.Image")));
             this.owlStatueEditorToolStripMenuItem.Name = "owlStatueEditorToolStripMenuItem";
-            this.owlStatueEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.owlStatueEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.owlStatueEditorToolStripMenuItem.Text = "Owl Statue Editor";
             this.owlStatueEditorToolStripMenuItem.Click += new System.EventHandler(this.owlStatueEditorToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(175, 6);
             // 
             // warpEditorToolStripMenuItem
             // 
             this.warpEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("warpEditorToolStripMenuItem.Image")));
             this.warpEditorToolStripMenuItem.Name = "warpEditorToolStripMenuItem";
-            this.warpEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.warpEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.warpEditorToolStripMenuItem.Text = "Warp Editor";
             this.warpEditorToolStripMenuItem.Click += new System.EventHandler(this.warpEditorToolStripMenuItem_Click);
             // 
@@ -312,7 +356,7 @@
             // 
             this.chestEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("chestEditorToolStripMenuItem.Image")));
             this.chestEditorToolStripMenuItem.Name = "chestEditorToolStripMenuItem";
-            this.chestEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chestEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.chestEditorToolStripMenuItem.Text = "Chest Editor";
             this.chestEditorToolStripMenuItem.Click += new System.EventHandler(this.chestEditorToolStripMenuItem_Click);
             // 
@@ -320,7 +364,7 @@
             // 
             this.startPositionEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startPositionEditorToolStripMenuItem.Image")));
             this.startPositionEditorToolStripMenuItem.Name = "startPositionEditorToolStripMenuItem";
-            this.startPositionEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startPositionEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.startPositionEditorToolStripMenuItem.Text = "Start Position Editor";
             this.startPositionEditorToolStripMenuItem.Click += new System.EventHandler(this.startPositionEditorToolStripMenuItem_Click);
             // 
@@ -329,7 +373,7 @@
             this.minimapEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("minimapEditorToolStripMenuItem.Image")));
             this.minimapEditorToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.minimapEditorToolStripMenuItem.Name = "minimapEditorToolStripMenuItem";
-            this.minimapEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.minimapEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.minimapEditorToolStripMenuItem.Text = "Minimap Editor";
             this.minimapEditorToolStripMenuItem.Click += new System.EventHandler(this.minimapEditorToolStripMenuItem_Click);
             // 
@@ -337,7 +381,7 @@
             // 
             this.portalEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("portalEditorToolStripMenuItem.Image")));
             this.portalEditorToolStripMenuItem.Name = "portalEditorToolStripMenuItem";
-            this.portalEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.portalEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.portalEditorToolStripMenuItem.Text = "Portal Editor";
             this.portalEditorToolStripMenuItem.Click += new System.EventHandler(this.portalEditorToolStripMenuItem_Click);
             // 
@@ -345,9 +389,17 @@
             // 
             this.paletteEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("paletteEditorToolStripMenuItem.Image")));
             this.paletteEditorToolStripMenuItem.Name = "paletteEditorToolStripMenuItem";
-            this.paletteEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.paletteEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.paletteEditorToolStripMenuItem.Text = "Palette Editor";
             this.paletteEditorToolStripMenuItem.Click += new System.EventHandler(this.paletteEditorToolStripMenuItem_Click);
+            // 
+            // spritesheetEditorToolStripMenuItem
+            // 
+            this.spritesheetEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("spritesheetEditorToolStripMenuItem.Image")));
+            this.spritesheetEditorToolStripMenuItem.Name = "spritesheetEditorToolStripMenuItem";
+            this.spritesheetEditorToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.spritesheetEditorToolStripMenuItem.Text = "Spritesheet Editor";
+            this.spritesheetEditorToolStripMenuItem.Click += new System.EventHandler(this.spritesheetEditorToolStripMenuItem_Click);
             // 
             // patchesToolStripMenuItem
             // 
@@ -865,6 +917,7 @@
             this.toolStripButtonOpen,
             this.toolStripButtonSave,
             this.toolStripSeparator2,
+            this.toolStripButtonTextEditor,
             this.toolStripButtonSignEditor,
             this.toolStripButton1,
             this.toolStripSeparator3,
@@ -905,6 +958,16 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButtonTextEditor
+            // 
+            this.toolStripButtonTextEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonTextEditor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonTextEditor.Image")));
+            this.toolStripButtonTextEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonTextEditor.Name = "toolStripButtonTextEditor";
+            this.toolStripButtonTextEditor.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonTextEditor.Text = "Text Editor";
+            this.toolStripButtonTextEditor.Click += new System.EventHandler(this.textEditorToolStripMenuItem_Click);
             // 
             // toolStripButtonSignEditor
             // 
@@ -991,6 +1054,16 @@
             this.toolStripButtonPaletteEditor.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonPaletteEditor.Text = "Palette Editor";
             this.toolStripButtonPaletteEditor.Click += new System.EventHandler(this.paletteEditorToolStripMenuItem_Click);
+            // 
+            // toolStripButtonSpritesheetEditor
+            // 
+            this.toolStripButtonSpritesheetEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSpritesheetEditor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSpritesheetEditor.Image")));
+            this.toolStripButtonSpritesheetEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSpritesheetEditor.Name = "toolStripButtonSpritesheetEditor";
+            this.toolStripButtonSpritesheetEditor.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSpritesheetEditor.Text = "Spritesheet Editor";
+            this.toolStripButtonSpritesheetEditor.Click += new System.EventHandler(this.spritesheetEditorToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1136,14 +1209,6 @@
             this.cEntities.UseVisualStyleBackColor = true;
             this.cEntities.CheckedChanged += new System.EventHandler(this.cEntities_CheckedChanged);
             // 
-            // spritesheetEditorToolStripMenuItem
-            // 
-            this.spritesheetEditorToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("spritesheetEditorToolStripMenuItem.Image")));
-            this.spritesheetEditorToolStripMenuItem.Name = "spritesheetEditorToolStripMenuItem";
-            this.spritesheetEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.spritesheetEditorToolStripMenuItem.Text = "Spritesheet Editor";
-            this.spritesheetEditorToolStripMenuItem.Click += new System.EventHandler(this.spritesheetEditorToolStripMenuItem_Click);
-            // 
             // SpriteBox
             // 
             this.SpriteBox.AllowMultiSelection = false;
@@ -1248,15 +1313,28 @@
             this.gridBoxTileset.TabStop = false;
             this.gridBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxTileset_MouseClick);
             // 
-            // toolStripButtonSpritesheetEditor
+            // copyPaletteToolStripMenuItem
             // 
-            this.toolStripButtonSpritesheetEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSpritesheetEditor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSpritesheetEditor.Image")));
-            this.toolStripButtonSpritesheetEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSpritesheetEditor.Name = "toolStripButtonSpritesheetEditor";
-            this.toolStripButtonSpritesheetEditor.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSpritesheetEditor.Text = "Spritesheet Editor";
-            this.toolStripButtonSpritesheetEditor.Click += new System.EventHandler(this.spritesheetEditorToolStripMenuItem_Click);
+            this.copyPaletteToolStripMenuItem.Name = "copyPaletteToolStripMenuItem";
+            this.copyPaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.copyPaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.copyPaletteToolStripMenuItem.Text = "Copy Palette";
+            this.copyPaletteToolStripMenuItem.Click += new System.EventHandler(this.copyPaletteToolStripMenuItem_Click);
+            // 
+            // pastePaletteToolStripMenuItem
+            // 
+            this.pastePaletteToolStripMenuItem.Name = "pastePaletteToolStripMenuItem";
+            this.pastePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.V)));
+            this.pastePaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.pastePaletteToolStripMenuItem.Text = "Paste Palette";
+            this.pastePaletteToolStripMenuItem.Click += new System.EventHandler(this.pastePaletteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(314, 6);
             // 
             // LALE2
             // 
@@ -1424,6 +1502,14 @@
         private System.Windows.Forms.NumericUpDown numericUpDownSpriteBank;
         private System.Windows.Forms.ToolStripMenuItem spritesheetEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButtonSpritesheetEditor;
+        private System.Windows.Forms.ToolStripMenuItem textEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonTextEditor;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem copyPaletteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pastePaletteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 
