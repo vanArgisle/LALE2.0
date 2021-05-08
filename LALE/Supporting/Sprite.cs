@@ -53,6 +53,8 @@ namespace LALE
             for (int i = 0; i < 4; i++)
             {
                 byte B1 = spriteInfo[i];
+                if (B1 == 0xFF)
+                    B1 = 0;
 
                 if (B1 != 0)
                 {
@@ -258,8 +260,6 @@ namespace LALE
 
                 while (i < 4)
                 {
-                    if (h == 0xFF)
-                        h = 0;
                     spriteInfo[i] = h;
                     h = LAGame.gbROM.ReadByte();
                     i++;

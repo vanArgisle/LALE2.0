@@ -708,6 +708,8 @@ namespace LALE
 
                 redrawMap();
 
+                mapTileData.saveOverlayOverworldMapData();
+
                 for (int i = 0; i < mapData2.Length; i++)
                     mapData2[i] = mapSnapshotsUndo[mapSnapshotsUndo.Count - 1][i];
 
@@ -764,6 +766,8 @@ namespace LALE
 
                 mapTileData.overlayMapData = mapData;
 
+                mapTileData.saveOverlayOverworldMapData();
+
                 redrawMap();
 
                 for (int i = 0; i < mapData2.Length; i++)
@@ -777,11 +781,7 @@ namespace LALE
 
         private void LALE_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode.ToString() == "Z")
-                undoSnapshot();
-            else if (e.Control && e.KeyCode.ToString() == "Y")
-                redoSnapshot();
-            else if (e.Control && e.KeyCode.ToString() == "A")
+            if (e.Control && e.KeyCode.ToString() == "A")
                 bAdd.PerformClick();
             else if (e.KeyCode == Keys.Delete)
                 bDelete.PerformClick();
