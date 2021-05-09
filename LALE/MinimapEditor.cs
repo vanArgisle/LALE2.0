@@ -360,5 +360,10 @@ namespace LALE
                     selectedTile -= 0x8A;
             }
         }
+
+        private void pMinimapD_MouseMove(object sender, MouseEventArgs e)
+        {
+            lblHoverPos.Text = "Minimap Byte: " + ((e.X / 8) + ((e.Y / 8) * 8)).ToString("X");
+        }
     }
 }

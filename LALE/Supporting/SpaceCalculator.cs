@@ -353,7 +353,11 @@ namespace LALE
         public int getFreeSpaceDungeon()
         {
             List<Pointer> unSortedPointers = new List<Pointer>();
-            Pointer[] pointers = new Pointer[257];
+            Pointer[] pointers;
+            if (LAGame.dungeon < 6 || LAGame.dungeon >= 0x1A)
+                pointers = new Pointer[257];
+            else
+                pointers = new Pointer[256];
             Pointer cMapPointer = new Pointer();
             int map = 0;
             int index;

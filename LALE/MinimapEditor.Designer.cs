@@ -30,6 +30,8 @@ namespace LALE
         private void InitializeComponent()
         {
             this.gBoxOverWorld = new System.Windows.Forms.GroupBox();
+            this.labelPaletteLocation = new System.Windows.Forms.Label();
+            this.gridBoxOverworldTile = new LALE.GridBox();
             this.bAccept1 = new System.Windows.Forms.Button();
             this.bCancel1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,9 +55,9 @@ namespace LALE
             this.nMap = new System.Windows.Forms.NumericUpDown();
             this.pTiles = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
-            this.gridBoxOverworldTile = new LALE.GridBox();
-            this.labelPaletteLocation = new System.Windows.Forms.Label();
+            this.lblHoverPos = new System.Windows.Forms.Label();
             this.gBoxOverWorld.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBoxOverworldTile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPalette)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nTile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pTile)).BeginInit();
@@ -68,7 +70,6 @@ namespace LALE
             ((System.ComponentModel.ISupportInitialize)(this.nMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pTiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBoxOverworldTile)).BeginInit();
             this.SuspendLayout();
             // 
             // gBoxOverWorld
@@ -89,6 +90,36 @@ namespace LALE
             this.gBoxOverWorld.Size = new System.Drawing.Size(265, 224);
             this.gBoxOverWorld.TabIndex = 4;
             this.gBoxOverWorld.TabStop = false;
+            // 
+            // labelPaletteLocation
+            // 
+            this.labelPaletteLocation.AutoSize = true;
+            this.labelPaletteLocation.Location = new System.Drawing.Point(141, 141);
+            this.labelPaletteLocation.Name = "labelPaletteLocation";
+            this.labelPaletteLocation.Size = new System.Drawing.Size(88, 13);
+            this.labelPaletteLocation.TabIndex = 9;
+            this.labelPaletteLocation.Text = "Palette: 0x8786E";
+            // 
+            // gridBoxOverworldTile
+            // 
+            this.gridBoxOverworldTile.AllowMultiSelection = false;
+            this.gridBoxOverworldTile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.gridBoxOverworldTile.BoxSize = new System.Drawing.Size(8, 8);
+            this.gridBoxOverworldTile.CanvasSize = new System.Drawing.Size(128, 64);
+            this.gridBoxOverworldTile.HoverBox = true;
+            this.gridBoxOverworldTile.HoverColor = System.Drawing.Color.White;
+            this.gridBoxOverworldTile.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.gridBoxOverworldTile.Location = new System.Drawing.Point(6, 146);
+            this.gridBoxOverworldTile.Name = "gridBoxOverworldTile";
+            this.gridBoxOverworldTile.Selectable = true;
+            this.gridBoxOverworldTile.SelectedIndex = 0;
+            this.gridBoxOverworldTile.SelectionColor = System.Drawing.Color.Red;
+            this.gridBoxOverworldTile.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.gridBoxOverworldTile.Size = new System.Drawing.Size(132, 68);
+            this.gridBoxOverworldTile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.gridBoxOverworldTile.TabIndex = 8;
+            this.gridBoxOverworldTile.TabStop = false;
+            this.gridBoxOverworldTile.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridBoxOverworldTile_MouseDown);
             // 
             // bAccept1
             // 
@@ -188,6 +219,7 @@ namespace LALE
             // gBoxDungeon
             // 
             this.gBoxDungeon.BackColor = System.Drawing.SystemColors.Control;
+            this.gBoxDungeon.Controls.Add(this.lblHoverPos);
             this.gBoxDungeon.Controls.Add(this.nDeathMinimap);
             this.gBoxDungeon.Controls.Add(this.label7);
             this.gBoxDungeon.Controls.Add(this.nDeathDungeon);
@@ -383,36 +415,16 @@ namespace LALE
             this.pMinimapD.TabIndex = 0;
             this.pMinimapD.TabStop = false;
             this.pMinimapD.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pMinimapD_MouseDown);
+            this.pMinimapD.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pMinimapD_MouseMove);
             // 
-            // gridBoxOverworldTile
+            // lblHoverPos
             // 
-            this.gridBoxOverworldTile.AllowMultiSelection = false;
-            this.gridBoxOverworldTile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.gridBoxOverworldTile.BoxSize = new System.Drawing.Size(8, 8);
-            this.gridBoxOverworldTile.CanvasSize = new System.Drawing.Size(128, 64);
-            this.gridBoxOverworldTile.HoverBox = true;
-            this.gridBoxOverworldTile.HoverColor = System.Drawing.Color.White;
-            this.gridBoxOverworldTile.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.gridBoxOverworldTile.Location = new System.Drawing.Point(6, 146);
-            this.gridBoxOverworldTile.Name = "gridBoxOverworldTile";
-            this.gridBoxOverworldTile.Selectable = true;
-            this.gridBoxOverworldTile.SelectedIndex = 0;
-            this.gridBoxOverworldTile.SelectionColor = System.Drawing.Color.Red;
-            this.gridBoxOverworldTile.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
-            this.gridBoxOverworldTile.Size = new System.Drawing.Size(132, 68);
-            this.gridBoxOverworldTile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.gridBoxOverworldTile.TabIndex = 8;
-            this.gridBoxOverworldTile.TabStop = false;
-            this.gridBoxOverworldTile.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridBoxOverworldTile_MouseDown);
-            // 
-            // labelPaletteLocation
-            // 
-            this.labelPaletteLocation.AutoSize = true;
-            this.labelPaletteLocation.Location = new System.Drawing.Point(141, 141);
-            this.labelPaletteLocation.Name = "labelPaletteLocation";
-            this.labelPaletteLocation.Size = new System.Drawing.Size(88, 13);
-            this.labelPaletteLocation.TabIndex = 9;
-            this.labelPaletteLocation.Text = "Palette: 0x8786E";
+            this.lblHoverPos.AutoSize = true;
+            this.lblHoverPos.Location = new System.Drawing.Point(6, 204);
+            this.lblHoverPos.Name = "lblHoverPos";
+            this.lblHoverPos.Size = new System.Drawing.Size(73, 13);
+            this.lblHoverPos.TabIndex = 16;
+            this.lblHoverPos.Text = "Minimap Byte:";
             // 
             // MinimapEditor
             // 
@@ -427,6 +439,7 @@ namespace LALE
             this.Text = "Minimap Editor";
             this.gBoxOverWorld.ResumeLayout(false);
             this.gBoxOverWorld.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBoxOverworldTile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPalette)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nTile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pTile)).EndInit();
@@ -440,7 +453,6 @@ namespace LALE
             ((System.ComponentModel.ISupportInitialize)(this.nMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pTiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBoxOverworldTile)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -473,5 +485,6 @@ namespace LALE
         public GridBox pMinimapD;
         public GridBox gridBoxOverworldTile;
         private System.Windows.Forms.Label labelPaletteLocation;
+        private System.Windows.Forms.Label lblHoverPos;
     }
 }

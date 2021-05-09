@@ -1945,12 +1945,14 @@ namespace LALE
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            undoSnapshot();
+            if (LAGame != null)
+                undoSnapshot();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            redoSnapshot();
+            if (LAGame != null)
+                redoSnapshot();
         }
 
         private void copyPaletteToolStripMenuItem_Click(object sender, EventArgs e)
