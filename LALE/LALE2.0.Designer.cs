@@ -122,14 +122,15 @@
             this.nEntitySelected = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.cEntities = new System.Windows.Forms.CheckBox();
+            this.copyPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pastePaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.SpriteBox = new LALE.GridBox();
             this.pMinimap = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
             this.gridBoxMap = new LALE.GridBox();
             this.gridBoxTileset = new LALE.GridBox();
-            this.copyPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pastePaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.lADXDisassemblyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMap)).BeginInit();
             this.gBoxCollisions.SuspendLayout();
@@ -443,7 +444,8 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.creditsToolStripMenuItem1});
+            this.creditsToolStripMenuItem1,
+            this.lADXDisassemblyToolStripMenuItem});
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem1.Text = "Help";
@@ -451,7 +453,7 @@
             // creditsToolStripMenuItem1
             // 
             this.creditsToolStripMenuItem1.Name = "creditsToolStripMenuItem1";
-            this.creditsToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.creditsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.creditsToolStripMenuItem1.Text = "Credits";
             this.creditsToolStripMenuItem1.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
             // 
@@ -1209,6 +1211,29 @@
             this.cEntities.UseVisualStyleBackColor = true;
             this.cEntities.CheckedChanged += new System.EventHandler(this.cEntities_CheckedChanged);
             // 
+            // copyPaletteToolStripMenuItem
+            // 
+            this.copyPaletteToolStripMenuItem.Name = "copyPaletteToolStripMenuItem";
+            this.copyPaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.copyPaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.copyPaletteToolStripMenuItem.Text = "Copy Palette";
+            this.copyPaletteToolStripMenuItem.Click += new System.EventHandler(this.copyPaletteToolStripMenuItem_Click);
+            // 
+            // pastePaletteToolStripMenuItem
+            // 
+            this.pastePaletteToolStripMenuItem.Name = "pastePaletteToolStripMenuItem";
+            this.pastePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.V)));
+            this.pastePaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.pastePaletteToolStripMenuItem.Text = "Paste Palette";
+            this.pastePaletteToolStripMenuItem.Click += new System.EventHandler(this.pastePaletteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(314, 6);
+            // 
             // SpriteBox
             // 
             this.SpriteBox.AllowMultiSelection = false;
@@ -1313,28 +1338,12 @@
             this.gridBoxTileset.TabStop = false;
             this.gridBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxTileset_MouseClick);
             // 
-            // copyPaletteToolStripMenuItem
+            // lADXDisassemblyToolStripMenuItem
             // 
-            this.copyPaletteToolStripMenuItem.Name = "copyPaletteToolStripMenuItem";
-            this.copyPaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.C)));
-            this.copyPaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
-            this.copyPaletteToolStripMenuItem.Text = "Copy Palette";
-            this.copyPaletteToolStripMenuItem.Click += new System.EventHandler(this.copyPaletteToolStripMenuItem_Click);
-            // 
-            // pastePaletteToolStripMenuItem
-            // 
-            this.pastePaletteToolStripMenuItem.Name = "pastePaletteToolStripMenuItem";
-            this.pastePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.V)));
-            this.pastePaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
-            this.pastePaletteToolStripMenuItem.Text = "Paste Palette";
-            this.pastePaletteToolStripMenuItem.Click += new System.EventHandler(this.pastePaletteToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(314, 6);
+            this.lADXDisassemblyToolStripMenuItem.Name = "lADXDisassemblyToolStripMenuItem";
+            this.lADXDisassemblyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lADXDisassemblyToolStripMenuItem.Text = "LADX Disassembly";
+            this.lADXDisassemblyToolStripMenuItem.Click += new System.EventHandler(this.lADXDisassemblyToolStripMenuItem_Click);
             // 
             // LALE2
             // 
@@ -1510,6 +1519,7 @@
         private System.Windows.Forms.ToolStripMenuItem copyPaletteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pastePaletteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem lADXDisassemblyToolStripMenuItem;
     }
 }
 

@@ -56,7 +56,26 @@ namespace LALE
                 filename = ofd.FileName;
 
                 br.Close();
-                InitializeLALE();
+
+                LAGame.gbROM.BufferLocation = 0x13F;
+                byte[] ROMVersion = LAGame.gbROM.ReadBytes(4);
+                byte[] Version = new byte[] { 0x41, 0x5A, 0x4C, 0x45 };//AZLE
+                bool correctVersion = true;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (ROMVersion[i] != Version[i])
+                    {
+                        correctVersion = false;
+                        break;
+                    }           
+                }
+
+                if (!correctVersion)
+                    MessageBox.Show("This is not a valid Link's Awakening DX V1.2 ROM. The editor will not function correctly. Please use a compatible V1.2 LADX ROM with this editor.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    InitializeLALE();
+
             }
         }
 
@@ -2013,6 +2032,11 @@ namespace LALE
                     LAGame.gbROM.WriteByte((byte)(value >> 8));
                 }
             }
+        }
+
+        private void lADXDisassemblyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/zladx/LADX-Disassembly");
         }
     }
 }

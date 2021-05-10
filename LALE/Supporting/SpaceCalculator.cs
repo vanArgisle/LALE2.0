@@ -365,10 +365,12 @@ namespace LALE
             if (LAGame.dungeon == 0xFF)
             {
                 pointers = new Pointer[0x16];
-                Pointer point = new Pointer();
-                point.map = map;
+                
                 while (map < 0x16)
                 {
+                    Pointer point = new Pointer();
+                    point.map = map;
+
                     LAGame.gbROM.BufferLocation = 0x2BB77 + (map * 2);
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation);
                  

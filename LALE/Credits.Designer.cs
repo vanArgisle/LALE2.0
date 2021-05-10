@@ -88,7 +88,7 @@ namespace LALE
             this.Name = "Credits";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Credits - V2.0";
+            this.Text = "Credits - V2.01";
             this.ResumeLayout(false);
             this.PerformLayout();
 
