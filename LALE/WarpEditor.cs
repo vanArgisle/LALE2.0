@@ -134,5 +134,10 @@ namespace LALE
             nDestX.Value = warpList[index].x;
             nDestY.Value = warpList[index].y;
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

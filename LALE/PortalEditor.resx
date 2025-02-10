@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="label2.HelpString" xml:space="preserve">
+    <value>For the Overworld, this value is the map you want to edit the portal of. Portals are not linked both ways. This is just the map you want to change the portal of. For dungeons this map will have a portal linked to it. Use both value boxes to create a linked dungeon portal.</value>
+  </data>
+  <data name="nMap1.HelpString" xml:space="preserve">
+    <value>For the Overworld, this value is the map you want to edit the portal of. Portals are not linked both ways. This is just the map you want to change the portal of. For dungeons this map will have a portal linked to it. Use both value boxes to create a linked dungeon portal.</value>
+  </data>
 </root>

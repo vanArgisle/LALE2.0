@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="pMinimapD.HelpString" xml:space="preserve">
+    <value>This is the dungeon minimap editor. Left click to place the selected tile below. Right click to copy the existing tile underneath the mouse cursor. The actual tile used for a visited room is based off of the room data itself.</value>
+  </data>
 </root>

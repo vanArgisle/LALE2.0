@@ -124,7 +124,7 @@
   <data name="openROMToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
-        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsTAAALEwEAmpwYAAACG0lE
+        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsMAAALDAE/QCLIAAACG0lE
         QVQ4T4WSXUhTYRjHvcnEizGysi8aQipdNcEIGUzDLgSdSYOIsqt0dFNaF9lm4VizwNhNheIHqIMureYq
         CdJkI5TKphXpYjGhIslIpczOPs6/93nPzvEcnXjxO89z3vf5/3hfzskAsI7sS1uiDGy7mo2Dnj1gfYhR
         k2523YIMCxgZzrybO9D0rhol3QdI1Lt2TvOSDhYqo/Ct2VMoumcgieYkmuGNYKEXLWErrk3X0LWi6j3+
@@ -140,7 +140,7 @@
   <data name="saveROMToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
-        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsTAAALEwEAmpwYAAABQElE
+        JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsMAAALDAE/QCLIAAABQElE
         QVQ4T9XTvUrDUACG4V5JlW5m6h04WDp0FScNLdqkLehgJsE7cBEUFPxBlzZIEEHQvUWLLQktFps4xPwn
         Copzps+cgIIlh4hODm+m7zwcAicD4E/Fn9m5fT4KYRimRnZkPwmgxsuJByYjO7KnAoqiUPsRkNY/uEFa
         VGB+4Robmx0cHY/QFFW0RA3NloaTUzXqAeKZCknS6MDKsoJK5Q61Wg+CIGNd6KPR6KJavcHqmhwd7INl
@@ -152,7 +152,7 @@
   <data name="textEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAwRJREFUOE9Vk81PU1kYxu/Sf2FWLlzNYpIxceHWuBmcaExcGCcZzWTiTEajEQWh
+        vAAADrwBlbxySQAAAwRJREFUOE9Vk81PU1kYxu/Sf2FWLlzNYpIxceHWuBmcaExcGCcZzWTiTEajEQWh
         QKGUwdsP4NZLqVLZSNCIVhQtrQKDdgAjAqX1XloQLH6E8DE4ItbSUtqfp4AhfZM3uSfnPr/nec+5V/pW
         0alRLI4aWlpbsSkq9zrvY7PW0nGnDVedDf9ND2pVLdPBYbYk2xWd0DCUnyNLkr9rZdLrYKw0k0gkMJQW
         kYovY7xQBOk0lrJC3ow9z4f0PQlgrCjlWaCPypJKhvpHMZSYCQYjG6CxcBCDqZQXw/9gLjzBLUs5usdD
@@ -190,7 +190,7 @@
   <data name="owlStatueEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAl9JREFUOE9tk9tLVFEYxU8ZZRbd75glGWX3IiSQSvIpwqBewpdu0p/QkymFNlKD
+        vAAADrwBlbxySQAAAl9JREFUOE9tk9tLVFEYxU8ZZRbd75glGWX3IiSQSvIpwqBewpdu0p/QkymFNlKD
         9KBUZIoNjVRUIOncr46RU0KYYFbCOI4wExRDD722Wms302C04Xf2Ot+3vr3P3vtsK99KLAsryEqi993s
         q8hhIq2YcsuJvHqf04oZnIr7MOHvQxn1UHsDAs11CN84i/Dti9jK2Ae3w3jkzZUVWnGRhfFIP1KhR/jq
         7TCzRuyXSAMqqb8F7mIm2IuJ2AAWzvvPAItoWk22kSwHSLs7sJN6B8l4Ok1sF/UaspjkygpNa9tEstFe
@@ -206,7 +206,7 @@
   <data name="warpEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAb1JREFUOE+dkF1PUgEYgPktXUrWmopxSF1qpzh8xEFxiS4aH4o7evDwEQcbBiY1
+        vAAADrwBlbxySQAAAb1JREFUOE+dkF1PUgEYgPktXUrWmopxSF1qpzh8xEFxiS4aH4o7evDwEQcbBiY1
         V86KcUFF9MGF5RiG2tqyXLW866Zu+jdP0dqao1ye5+q9eZ733Ws6jGfNBr9HYwyOTJAvVo1HeqQZnKEC
         Ss5gxOLJo63uMRp7jF8r/jtikYJ0OUKYxRCdDo1jZ2McdyzTYV9BK34lXvqCR3uEGMn/PWL1zKPeaZIo
         fWT23mfCt/dJlL+j3P+G/8YnXOktImsfcMTLCJOp9kjn+Sjq3XfIeoMLyVd4FneR0k3Oxes4F3aQ9C0c
@@ -238,7 +238,7 @@
   <data name="startPositionEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAiNJREFUOE+NU+1rUnEUPnpNZ+rCahD0IfpX+mDLOSu3pi1W0Bt92afFKBa9iva5
+        vAAADrwBlbxySQAAAiNJREFUOE+NU+1rUnEUPnpNZ+rCahD0IfpX+mDLOSu3pi1W0Bt92afFKBa9iva5
         P2GBwbai0WqtsFaslrSV4WzqVdyQQYP6G56e470R0RX2wOH+OL/z8pzze644IiRwdQkkSDtEO0jbMQKC
         s+MJ1Dde49vmHCJ3Izh6Pw4J76SIj0EMHL56EmF293p5Th/B0IME4pnTkD28NzoU8rgExe+voAyUemn1
         Merrs1iuzSDfmkPfxABkn6Bu5tEtDkXU2Vx7AYOzF2vv4WKnoN+DAL9afKWyCGXYWHuGHjKz0/4iSGe9
@@ -253,7 +253,7 @@
   <data name="minimapEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAAAvf+5AAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAW5JREFUKFOVkttKQkEUhld5KDKNIryomy7Mhwkq0yCMiArstE2iA1QXvUYPU5j7
+        vAAADrwBlbxySQAAAW5JREFUKFOVkttKQkEUhld5KDKNIryomy7Mhwkq0yCMiArstE2iA1QXvUYPU5j7
         5C4wAkPN1O1WKivwqgf4W2MWe9dFtGBg1sw/35p/zdC/Y6CH4OPRTamvl9AnctsaeXmxkN7Dy+0hhtyE
         oJ9wr+2goJ3Cw3tdGdOI8GhIaKlzqOkJlJU1mOoMzGzyk/oVwywsnqfwrMyjrcbwKs+iocygrKcgIF0Z
         UUAIL/cR9hJa6Sm0tQgmeV6SJQz+vGPj5gBNY57HCmpKHA1tFlV9Ez470eXh01oCIR8hn1nGmCDnFlBV
@@ -265,7 +265,7 @@
   <data name="portalEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAPdJREFUOE/lUk1Lw0AU3P6HHvw8teSjJCUpUYyStKce/GuKob0pLZTeUoUoVPGU
+        vAAADrwBlbxySQAAAPdJREFUOE/lUk1Lw0AU3P6HHvw8teSjJCUpUYyStKce/GuKob0pLZTeUoUoVPGU
         oCehlx76f8addXuR4PZsBx5syMzbefNW7AFaQqAjGtCfu8GVolDWtazKHqA4uUAsz/r330gk8d6/xCyO
         kHsWvo7a2HgJJkECz9TEkYTHgwhrJ0YeHAOvd8ByjLnbxPQ8VK40tR6ct7T6WJ3awLMUf9z81PsIRc/D
         0NSAIIlkipT48xZ4yVTT0krASzS1HrRJu7RN+3jL1Dgc6+nwDAxYU+vBoBgYg2OAC99WgT50r5CaxFtw
@@ -275,7 +275,7 @@
   <data name="paletteEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAsNJREFUOE+tkHtMzWEYxx9WFp3T5ZwuTrfzO6nQdEahiESnUSwallC5lXTSKHSQ
+        vAAADrwBlbxySQAAAsNJREFUOE+tkHtMzWEYxx9WFp3T5ZwuTrfzO6nQdEahiESnUSwallC5lXTSKHSQ
         FQdbHUP5g5nN+sNlNqbN5lJjbLSh2hIjl83arAzNfW34eJnt52/zbJ893+3d83mfPfJf6siMJE6MjeJC
         XBgtY3y5FmukJcqPc/FWnOaR5I4aQUGgmXyjkRVhPswPEhwWE3/GRU7aA7gcKXQpHkUI3RahU/WrmlDp
         LZSrgTKDsMpLWG0SitRbVrDoggF3JlTHQ3kobFCUB4FrtELjaJLQlB5I/SQjTWkW3NNGsX26H64Mmy64
@@ -293,11 +293,20 @@
   <data name="spritesheetEditorToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAMJJREFUOE+lUUsKxSAM9AS1yy7rThA8QW/k3kUReinv5+vkpeKr/QTewKAJmTGJ
+        vAAADrwBlbxySQAAAMJJREFUOE+lUUsKxSAM9AS1yy7rThA8QW/k3kUReinv5+vkpeKr/QTewKAJmTGJ
         SooQQjHGEHHntAzOuTIMQ7HWErXWxXsvM8k5kzjGWAXrupKJqBMU41UOK5DDOBze428DjIB2U0q1eNu2
         Mo6jfJlYIgR4FcT9Z4nLsnRtIkaeQ+oE44C4c/or3g/iYcInsTW5xDzPtfiK0zThfAYXdRSJG3QGO2Vo
         Z255Xuwl7sQHX01ag2PmdifiLs4Lw++8i5X6ANQrkTa2bvvgAAAAAElFTkSuQmCC
 </value>
+  </data>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>353, 17</value>
+  </metadata>
+  <data name="numericUpDownMap.HelpString" xml:space="preserve">
+    <value>The map selection box will display the map associated with the value, which depends on the region value. There is the Overworld region, Dungeon regions, and Indoor maps can be selected from a list of different regions.</value>
+  </data>
+  <data name="radioButtonCollisions.HelpString" xml:space="preserve">
+    <value>Collisions are the main building block for map design in Link's Awakening. Collisions make up how your maps look (with the exception of the Overworld) and how you interact with your map. Each collision takes up 2 or 3 bytes of space. In order to save space, the Overworld has an overlay map which dictates what you see on screen, but not how you interact with tiles. This is because a lot of tiles share interaction data and it would be a waste to add an entire collision to draw interactables that share data with default tiles (take for example a flower patch versus a path).</value>
   </data>
   <data name="bAdd.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -336,9 +345,40 @@
         SUVORK5CYII=
 </value>
   </data>
+  <data name="CollisionList.HelpString" xml:space="preserve">
+    <value>Collisions currently on the selected map appear here. Collisions can be either 2-Byte or 3-Byte. The difference is that 3-Byte collisions have a length and direction associated with them. Collisions lower on the list have loading priority over those higher on the list than them.</value>
+  </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <data name="toolStripStatusLabelSpace.ToolTipText" xml:space="preserve">
+    <value>This shows how many bytes of space are being used by collision and warp data, or entity data, as well as how many bytes are allocated for the current map. Use the data repointer (Edit -&gt; Repoint Collision/Entity Address) to change these values.
+</value>
+  </data>
+  <data name="toolStripStatusLabelAddressPointer.ToolTipText" xml:space="preserve">
+    <value>The following value changes depending what data is loaded. Typically it will point to the map data location of the currently selected map. It will also show the location of entities when they are enabled.</value>
+  </data>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>353, 17</value>
+  </metadata>
+  <data name="tabControl1.HelpString" xml:space="preserve">
+    <value>This is the region selection box. You can use the tabs at the top to switch between Overworld, Dungeon and Indoor map view. Each view comes with a minimap which can be interacted with to quickly select what map you want to view.</value>
+  </data>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>353, 17</value>
+  </metadata>
+  <data name="checkBoxRaisingTile.HelpString" xml:space="preserve">
+    <value>Raising and lowering dungeon blocks use a  specific set of special object graphics that are loaded when certain tiles are used. LALE will try to automatically load raised tile data if it detects the tile 0xDB or 0xDC on a dungeon map. You can manually turn the graphic changes on or off with this toggle. You can turn off the automatic detection in the View dropdown menu.</value>
+  </data>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>353, 17</value>
+  </metadata>
+  <data name="cSideview.HelpString" xml:space="preserve">
+    <value>Side view maps are determined via the warp editor. This checkbox is purly cosmetic. By checking this you can view the tileset as if you are editing a side scrolling map. Again, this is purely cosmetic. To make a map actually use side view tiles, you have to set the warp map to enable side scrolling.</value>
+  </data>
+  <data name="checkBoxSpecialMap.HelpString" xml:space="preserve">
+    <value>Alternative maps are a small set of maps that have multiple versions typically triggered by a game event/flag. On a normal game file theses maps for the Overworld are: 06, 0E, 1B, 2B, 79, and 8C. For dungeon/indoor maps, they are: F5 when dungeon region is &gt;= 1A or &lt; 06.</value>
+  </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>
@@ -518,6 +558,21 @@
         4XwGF3UUiRt0BjtlaGdueV7sJe7EB19NWoNj5nYn4i7OC8PvvIuV+gDUK5E2tm774AAAAABJRU5ErkJg
         gg==
 </value>
+  </data>
+  <data name="labelSpriteBank.HelpString" xml:space="preserve">
+    <value>The sprite bank will determine what default tiles are used to make up an entity's sprite on the map. Due to limitations, not all entities will be compatible with others. Using the sprite sheet editor, you can modify a sprite sheet as well as compare entities to see what works.</value>
+  </data>
+  <data name="numericUpDownSpriteBank.HelpString" xml:space="preserve">
+    <value>The sprite bank will determine what default tiles are used to make up an entity's sprite on the map. Due to limitations, not all entities will be compatible with others. Using the sprite sheet editor, you can modify a sprite sheet as well as compare entities to see what works.</value>
+  </data>
+  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>480, 17</value>
+  </metadata>
+  <data name="groupBoxGraphics.HelpString" xml:space="preserve">
+    <value>Some maps uses tiles that you may not see in the default tileset. Side scrolling maps use the normal tileset but load in graphics differently. Settings to view different versions of the tileset are found here. By default, LALE will detect when to draw an alternate tileset. You can turn off automatic detection in the View dropdown menu.</value>
+  </data>
+  <data name="gridBoxTileset.HelpString" xml:space="preserve">
+    <value>This is the tileset box. Tiles are what make up maps. To add a tile to your map, first select the tile in the tileset box, and if on collision editing mode: Click the + button in the collision view box. If on overworld overlay mode, simply click the map data box and draw with your mouse.</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

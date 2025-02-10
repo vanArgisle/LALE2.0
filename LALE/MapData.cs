@@ -14,10 +14,11 @@ namespace LALE
     public partial class MapData : Form
     {
         private Game LAGame;
+        private byte mapValue;
         private TilesetLoader tilesetLoader;
         private CollisionObject[,] wallTiles = new CollisionObject[16, 64];
 
-        public MapData(Game gameValues)
+        public MapData(Game gameValues, byte map)
         {
             InitializeComponent();
 
@@ -32,7 +33,8 @@ namespace LALE
             getMusicOffset();
             numericUpDownMusic.Value = LAGame.gbROM.ReadByte();
             
-            getTilePresetOffset();
+            mapValue = map;
+            getTilePresetOffset(mapValue);
             numericUpDownPresetTiles.Value = LAGame.gbROM.ReadByte();
 
             if (LAGame.overworldFlag)
@@ -49,9 +51,9 @@ namespace LALE
         private void drawMapAndTiles()
         {
             TileDrawer tileDrawer = new TileDrawer();
-            tilesetLoader.loadPalette();
+            tilesetLoader.loadPalette(LAGame.map);
 
-            gridBoxTileset.Image = tileDrawer.drawTileset(tilesetLoader.loadTileset(), tilesetLoader.paletteTiles, tilesetLoader.formationData, tilesetLoader.palette);
+            gridBoxTileset.Image = tileDrawer.drawTileset(tilesetLoader.loadTileset(LAGame.map), tilesetLoader.paletteTiles, tilesetLoader.formationData, tilesetLoader.palette);
 
             byte[] mapData = new byte[80];
             if (LAGame.overworldFlag)
@@ -137,7 +139,7 @@ namespace LALE
             }
         }
 
-        private void getTilePresetOffset()
+        private void getTilePresetOffset(byte map)
         {
             if (LAGame.overworldFlag)
             {
@@ -145,7 +147,7 @@ namespace LALE
                 int i = -1;
                 if (LAGame.specialFlag)
                 {
-                    switch (LAGame.map)
+                    switch (map)
                     {
                         case 0x06: i = 0x31F4; break;
                         case 0x0E: i = 0x31C4; break;
@@ -158,7 +160,7 @@ namespace LALE
                 if (i > 0)
                 {
                     secondhalf = LAGame.gbROM.Get2BytePointerAtAddress(i) + 1;
-                    if (LAGame.map > 0x7F)
+                    if (map > 0x7F)
                         secondhalf += 0x68000;
                     else
                         secondhalf += 0x24000;
@@ -166,16 +168,16 @@ namespace LALE
                 }
                 else
                 {
-                    secondhalf = 0x24000 + (LAGame.map * 2);
+                    secondhalf = 0x24000 + (map * 2);
                     secondhalf = LAGame.gbROM.Get2BytePointerAtAddress(secondhalf) + 1;
-                    if (LAGame.map > 0x7F)
+                    if (map > 0x7F)
                         secondhalf = 0x68000 + (secondhalf - 0x24000);
                     LAGame.gbROM.BufferLocation = secondhalf;
                 }
             }
             else
             {
-                if (LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.specialFlag && LAGame.map == 0xF5 && LAGame.dungeon < 6)
+                if (LAGame.specialFlag && map == 0xF5 && LAGame.dungeon >= 0x1A || LAGame.specialFlag && map == 0xF5 && LAGame.dungeon < 6)
                 {
                     LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(0x3198);
                     LAGame.gbROM.BufferLocation += 0x28001;
@@ -187,7 +189,7 @@ namespace LALE
                         LAGame.gbROM.BufferLocation += 0x4000;
                     else if (LAGame.dungeon == 0xFF)
                         LAGame.gbROM.BufferLocation = 0x2BB77;
-                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (LAGame.map * 2)) + 1;
+                    LAGame.gbROM.BufferLocation = LAGame.gbROM.Get2BytePointerAtAddress(LAGame.gbROM.BufferLocation + (map * 2)) + 1;
                 }
             }
             //byte TilePreset = LAGame.gbROM.ReadByte();
@@ -201,7 +203,7 @@ namespace LALE
         {
             gridBoxTileset.SelectedIndex = (byte)numericUpDownPresetTiles.Value;
 
-            getTilePresetOffset();
+            getTilePresetOffset(mapValue);
             LAGame.gbROM.WriteByte((byte)numericUpDownPresetTiles.Value);
 
             drawMapAndTiles();

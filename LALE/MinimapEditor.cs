@@ -35,7 +35,7 @@ namespace LALE
             if (!LAGame.overworldFlag)
             {
                 drawDungeonItems();
-                this.Width = 230;
+                this.Width = 270;
                 this.Height = 277;
                 gBoxDungeon.Visible = true;
                 gBoxOverWorld.Visible = false;
@@ -50,7 +50,7 @@ namespace LALE
                 drawOverworldItems();
                 pTile.Image = drawOverworldTile();
             }
-            
+
         }
         private void loadMinimaps()
         {
@@ -126,7 +126,7 @@ namespace LALE
             {
                 for (int x = 0; x < 16; x++)
                 {
-                    
+
                     for (int y1 = 0; y1 < 8; y1++)
                     {
                         for (int x1 = 0; x1 < 8; x1++)
@@ -139,7 +139,7 @@ namespace LALE
                             else
                                 fp.SetPixel(x1 + (x * 8), y1 + ((y - 1) * 8), palette[(byte)nPalette.Value, graphicsData[x + (y * 16), x1, y1]]);
 
-                           
+
                         }
                     }
 
@@ -228,6 +228,21 @@ namespace LALE
                         }
                     }
                 }
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                selectedTile = minimapData[index];
+
+                if (selectedTile == 0x7D)
+                {
+                    pTiles.SelectedIndex = 3;
+                }
+                else
+                {
+                    pTiles.SelectedIndex = selectedTile - 0xED;
+                }
+
+                selectedTile = (byte)pTiles.SelectedIndex;
             }
         }
 
@@ -353,7 +368,7 @@ namespace LALE
                 overworldPalette[((e.X / 8) + (e.Y / 8) * 16)] = selectedPalette;
                 LAGame.gbROM.WriteByte((0x81797 + ((e.X / 8) + (e.Y / 8) * 16)), selectedPalette);
                 if (selectedTile > 0x6F)
-                    selectedTile += 0x8A;    
+                    selectedTile += 0x8A;
                 minimapData[(e.X / 8) + (e.Y / 8) * 16] = selectedTile;
                 LAGame.gbROM.WriteByte(0x81697 + ((e.X / 8) + (e.Y / 8) * 16), selectedTile);
                 if (selectedTile > 0x6F)
@@ -364,6 +379,11 @@ namespace LALE
         private void pMinimapD_MouseMove(object sender, MouseEventArgs e)
         {
             lblHoverPos.Text = "Minimap Byte: " + ((e.X / 8) + ((e.Y / 8) * 8)).ToString("X");
+        }
+
+        private void MinimapEditor_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

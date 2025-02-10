@@ -69,7 +69,7 @@ namespace LALE
 
         private void loadTileset()
         {
-            pTileset.Image = tileDrawer.drawTileset(tilesetLoader.loadTileset(), tilesetLoader.paletteTiles, tilesetLoader.formationData, palette);
+            pTileset.Image = tileDrawer.drawTileset(tilesetLoader.loadTileset(LAGame.map), tilesetLoader.paletteTiles, tilesetLoader.formationData, palette);
         }
         private void loadPalette()
         {
@@ -88,7 +88,7 @@ namespace LALE
 
         private void getPalette()
         {
-            tilesetLoader.loadPalette();
+            tilesetLoader.loadPalette(LAGame.map);
             palette = tilesetLoader.palette;
             if (LAGame.overworldFlag)
                 nIndex.Value = tilesetLoader.paletteIndexOffset;

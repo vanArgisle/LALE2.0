@@ -62,7 +62,7 @@ namespace LALE
             this.labelText.Size = new System.Drawing.Size(159, 144);
             this.labelText.TabIndex = 7;
             this.labelText.Text = "LALE is a tool created by Vanisle (Van Argisle).\r\n\r\nVisit LALE\'s github page at \r" +
-    "\n\r\n\r\n\r\n to contribute or learn more about LALE.\r\n\r\n\r\n";
+    "\n\r\n\r\n\r\n to view the source code and learn more about LALE.\r\n\r\n\r\n";
             this.labelText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelTitle
@@ -88,7 +88,7 @@ namespace LALE
             this.Name = "Credits";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Credits - V2.01";
+            this.Text = "Credits - V2.10";
             this.ResumeLayout(false);
             this.PerformLayout();
 

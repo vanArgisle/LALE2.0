@@ -28,6 +28,17 @@ namespace LALE.Supporting.Text_Editor
             LAGame = game;
             getTextAddresses();
         }
+        
+        public TextEditor(Game game, int pointerToGoTo)
+        {
+            InitializeComponent();
+            LAGame = game;
+            getTextAddresses();
+
+            textBank = pointerToGoTo;
+            nTextBank.Value = textBank;
+        }
+
         private void bAccept_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;

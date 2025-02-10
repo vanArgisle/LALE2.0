@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static LALE.Tileset.TilesetLoader;
 
 namespace LALE
 {
@@ -68,7 +69,7 @@ namespace LALE
                     {
                         correctVersion = false;
                         break;
-                    }           
+                    }
                 }
 
                 if (!correctVersion)
@@ -87,28 +88,40 @@ namespace LALE
             numericUpDownMap.Enabled = true;
             //Turn on the map viewer
             radioButtonCollisions.Enabled = true;
+            radioButtonCollisions.Checked = true;
+            checkBoxSpecialMap.Enabled = true;
+            gBoxCollisions.Enabled = true;
             cEntities.Enabled = true;
             radioButtonOverlay.Enabled = true;
-            radioButtonOverlay.Checked = true;
             tabControl1.Enabled = true;
             numericUpDownSpriteBank.Enabled = true;
 
             loadTileset();
             loadMap();
+            collisionListView();
             loadMinimap();
             loadSpriteBank();
+            mapTileData.getRegionsSideScrollerMaps();
         }
 
         /// <summary>
         /// Loads in the tileset using current game values
         /// </summary>
+        /// 
         private void loadTileset()
         {
             TilesetLoader tilesetLoader = new TilesetLoader(LAGame);
-            tilesetLoader.loadPalette();
+            tilesetLoader.loadPalette(LAGame.map);
+
+            gridBoxTileset.Image = tilesetDrawer.drawTileset(tilesetLoader.loadTileset(LAGame.map), tilesetLoader.paletteTiles, tilesetLoader.formationData, tilesetLoader.palette);
+        }
+        private Bitmap loadTileset(byte map)
+        {
+            TilesetLoader tilesetLoader = new TilesetLoader(LAGame);
+            tilesetLoader.loadPalette(map);
 
 
-            gridBoxTileset.Image = tilesetDrawer.drawTileset(tilesetLoader.loadTileset(), tilesetLoader.paletteTiles, tilesetLoader.formationData, tilesetLoader.palette);
+            return tilesetDrawer.drawTileset(tilesetLoader.loadTileset(map), tilesetLoader.paletteTiles, tilesetLoader.formationData, tilesetLoader.palette);
         }
 
         /// <summary>
@@ -124,12 +137,29 @@ namespace LALE
             {
                 if (LAGame.overworldFlag)
                 {
+                    this.Width = 904;
                     pMinimap.Image = tileDrawer.drawOverworldMinimapTiles(minimapLoader.loadMinimapOverworld(), minimapLoader.minimapGraphics, minimapLoader.overworldPal, minimapLoader.palette);
+                }
+                else if (tabControl1.SelectedIndex == 1)
+                {
+                    this.Width = 904;
+                    minimapLoader.loadMinimapDData();
+                    pMinimapD.Image = tileDrawer.drawDungeonMinimapTiles(minimapLoader.loadMinimapDungeon(), minimapLoader.minimapGraphics);
                 }
                 else
                 {
-                    minimapLoader.loadMinimapDData();
-                    pMinimapD.Image = tileDrawer.drawDungeonMinimapTiles(minimapLoader.loadMinimapDungeon(), minimapLoader.minimapGraphics);
+                    this.Width = 1416;
+                    Bitmap bigMapImage = new Bitmap(2560, 2048);
+                    bigMapImage = DrawBigMap();
+                        
+                    Bitmap bigMapReduced = new Bitmap(480, 384);
+                    Graphics g = Graphics.FromImage(bigMapReduced);
+
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(bigMapImage, 0, 0, 480, 384);
+                    IndoorRegionMap.Image = bigMapReduced;
+                    
+
                 }
             }
 
@@ -142,7 +172,7 @@ namespace LALE
             //We can assume that overlay checked means overworld
             if (radioButtonOverlay.Checked)
             {
-                gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.GetOverlayMapData());
+                gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.GetOverlayMapData(LAGame.map));
 
                 mapSnapshotsUndo.Clear();
                 mapSnapshotsRedo.Clear();
@@ -154,7 +184,7 @@ namespace LALE
                 if (LAGame.overworldFlag)
                 {
                     mapTileData.LoadCollisionDataOverworld();
-                    gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData());
+                    gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData(LAGame.map));
                     if (collisionBordersToolStripMenuItem.Checked)
                         gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
 
@@ -167,8 +197,14 @@ namespace LALE
                 }
                 else
                 {
-                    mapTileData.getWallsandFloor();
-                    mapTileData.loadCollisionDataDungeon();
+                    mapTileData.getWallsandFloor(LAGame.map);
+                    mapTileData.loadCollisionDataDungeon(LAGame.map);
+
+                    if (automaticAlternateTilesetsToolStripMenuItem.Checked)
+                    {
+                        checkRaisingFloors(checkBoxRaisingTileClicked);
+                        checkSideScrollingMaps(LAGame.map, checkBoxSideViewClicked);
+                    }
 
                     gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.loadMapDataDungeon());
                     if (collisionBordersToolStripMenuItem.Checked)
@@ -209,37 +245,6 @@ namespace LALE
             if (cEntities.Checked)
             {
                 loadEntities();
-            }
-
-            if (LAGame.overworldFlag)
-            {
-                switch (LAGame.map)
-                {
-                    case 0x06:
-                    case 0x0E:
-                    case 0x1B:
-                    case 0x2B:
-                    case 0x79:
-                    case 0x8C:
-                        checkBoxSpecialMap.Enabled = true;
-                        break;
-                    default:
-                        checkBoxSpecialMap.Checked = false;
-                        checkBoxSpecialMap.Enabled = false;
-                        break;
-                }
-            }
-            else
-            {
-                if ((LAGame.map == 0xF5 && LAGame.dungeon < 6) || LAGame.map == 0xF5 && LAGame.dungeon >= 0x1A)
-                {
-                    checkBoxSpecialMap.Enabled = true;
-                }
-                else
-                {
-                    checkBoxSpecialMap.Checked = false;
-                    checkBoxSpecialMap.Enabled = false;
-                }
             }
         }
 
@@ -288,7 +293,7 @@ namespace LALE
         {
             if (LAGame != null)
             {
-                MapData MapDataForm = new MapData(LAGame);
+                MapData MapDataForm = new MapData(LAGame, LAGame.map);
                 MapDataForm.ShowDialog();
                 loadTileset();
                 loadMap();
@@ -392,7 +397,7 @@ namespace LALE
         {
             if (radioButtonCollisions.Checked && LAGame.overworldFlag)
             {
-                gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData());
+                gridBoxMap.Image = tilesetDrawer.drawMap((Bitmap)gridBoxTileset.Image, mapTileData.getCollisionOverworldMapData(LAGame.map));
                 if (collisionBordersToolStripMenuItem.Checked)
                     gridBoxMap.Image = tilesetDrawer.drawBorders((Bitmap)gridBoxMap.Image, mapTileData.collisionObjects);
             }
@@ -1004,6 +1009,9 @@ namespace LALE
                 mapTileData.saveCollisionDungeonData();
             pObject.Invalidate();
             loadEntities();
+
+            if (automaticAlternateTilesetsToolStripMenuItem.Checked)
+                checkRaisingFloors(checkBoxRaisingTileClicked);
         }
 
         private void deleteCollisionObject(int index)
@@ -1022,6 +1030,9 @@ namespace LALE
             else
                 mapTileData.saveCollisionDungeonData();
             drawSelectedObject();
+
+            if (automaticAlternateTilesetsToolStripMenuItem.Checked)
+                checkRaisingFloors(checkBoxRaisingTileClicked);
 
             SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
 
@@ -1306,43 +1317,49 @@ namespace LALE
 
         private void trimCollisionAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (radioButtonCollisions.Checked && !cEntities.Checked)
+            if (LAGame != null)
             {
-                CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
-                collisionRepointer.trimCollisionAddress();
+                if (radioButtonCollisions.Checked && !cEntities.Checked)
+                {
+                    CollisionRepointer collisionRepointer = new CollisionRepointer(LAGame, mapTileData);
+                    collisionRepointer.trimCollisionAddress();
 
-                SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-                if (LAGame.overworldFlag)
-                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
-                else
-                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
-            }
-            else if (cEntities.Checked)
-            {
-                SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
-                EntityRepointer entityRepointer = new EntityRepointer(LAGame, entityLoader, spaceCalculator);
-                entityRepointer.trimEntityAddress();
+                    SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                    if (LAGame.overworldFlag)
+                        toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
+                    else
+                        toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
+                }
+                else if (cEntities.Checked)
+                {
+                    SpaceCalculator spaceCalculator = new SpaceCalculator(LAGame, mapTileData);
+                    EntityRepointer entityRepointer = new EntityRepointer(LAGame, entityLoader, spaceCalculator);
+                    entityRepointer.trimEntityAddress();
 
-                spaceCalculator = new SpaceCalculator(LAGame, mapTileData); //We need to refresh space calculators instance of LAGame aftering trimming address;
-                toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
+                    spaceCalculator = new SpaceCalculator(LAGame, mapTileData); //We need to refresh space calculators instance of LAGame aftering trimming address;
+                    toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceEntities(entityLoader.entities).ToString() + "/" + spaceCalculator.getFreeSpaceEntities().ToString();
+                }
             }
         }
 
         private void repointCollisionAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (radioButtonCollisions.Checked || cEntities.Checked)
+            if (LAGame != null)
             {
-                RepointerTool rc = new RepointerTool(LAGame, mapTileData, entityLoader, cEntities.Checked);
-                rc.ShowDialog();
-
-                if (rc.DialogResult == DialogResult.OK)
+                if (radioButtonCollisions.Checked || cEntities.Checked)
                 {
-                    loadMap();
-                    if (radioButtonCollisions.Checked)
-                        collisionListView();
-                    if (cEntities.Checked)
-                        loadEntities();
+                    RepointerTool rc = new RepointerTool(LAGame, mapTileData, entityLoader, cEntities.Checked);
+                    rc.ShowDialog();
 
+                    if (rc.DialogResult == DialogResult.OK)
+                    {
+                        loadMap();
+                        if (radioButtonCollisions.Checked)
+                            collisionListView();
+                        if (cEntities.Checked)
+                            loadEntities();
+
+                    }
                 }
             }
         }
@@ -1358,7 +1375,15 @@ namespace LALE
                     numericUpDownMap.Maximum = 0xFF;
                     LAGame.overworldFlag = true;
                     radioButtonOverlay.Enabled = true;
+                    checkBoxRaisingTile.Checked = false;
+                    checkBoxRaisingTileClicked = false;
                     cSideview.Checked = false;
+                    if (!automaticAlternateTilesetsToolStripMenuItem.Checked)
+                    {
+                        checkBoxRaisingTile.Enabled = false;
+                        cSideview.Enabled = false;
+                    }
+
                     loadMinimap();
                     loadTileset();
                     loadMap();
@@ -1375,6 +1400,11 @@ namespace LALE
                     LAGame.overworldFlag = false;
                     radioButtonOverlay.Enabled = false;
                     radioButtonCollisions.Checked = true;
+                    if (!automaticAlternateTilesetsToolStripMenuItem.Checked)
+                    {
+                        checkBoxRaisingTile.Enabled = true;
+                        cSideview.Enabled = true;
+                    }
 
                     loadTileset();
                     loadMap();
@@ -1394,10 +1424,18 @@ namespace LALE
                     radioButtonCollisions.Checked = true;
                     comboBox1.SelectedIndex = 0;
                     numericUpDownMap.Maximum = 0xFF;
+                    if (!automaticAlternateTilesetsToolStripMenuItem.Checked)
+                    {
+                        checkBoxRaisingTile.Enabled = true;
+                        cSideview.Enabled = true;
+                    }
+
                     loadTileset();
                     loadMap();
                     loadSpriteBank();
                     loadEntities();
+
+                    loadMinimap();
                     collisionListView();
                 }
             }
@@ -1458,20 +1496,29 @@ namespace LALE
             loadEntities();
             collisionListView();
             loadMinimap();
+
         }
 
         private void cSideview_CheckedChanged(object sender, EventArgs e)
         {
-            LAGame.sideviewFlag = !LAGame.sideviewFlag;
+            LAGame.sideviewFlag = cSideview.Checked;
             loadTileset();
-            loadMap();
-            loadEntities();
-            pObject.Invalidate();
+            if (checkBoxSideViewClicked)
+            {
+
+                loadMap();
+                loadEntities();
+                pObject.Invalidate();
+            }
+            redrawMap();
+
+
         }
 
         private void nRegion_ValueChanged(object sender, EventArgs e)
         {
             LAGame.dungeon = (byte)nRegion.Value;
+            mapTileData.getRegionsSideScrollerMaps();
 
             loadTileset();
             loadMap();
@@ -1490,13 +1537,20 @@ namespace LALE
             }
         }
 
+        bool checkBoxRaisingTileClicked = false;
         private void checkBoxRaisingTile_CheckedChanged(object sender, EventArgs e)
         {
-            LAGame.raisingFloorFlag = !LAGame.raisingFloorFlag;
+            LAGame.raisingFloorFlag = checkBoxRaisingTile.Checked;
             loadTileset();
-            loadMap();
-            loadEntities();
-            pObject.Invalidate();
+            if (checkBoxRaisingTileClicked)
+            {
+            
+                loadMap();
+                loadEntities();
+                pObject.Invalidate();
+            }
+            redrawMap();
+
         }
 
         private void warpEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1527,6 +1581,8 @@ namespace LALE
 
                                 toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceOverworld().ToString();
                                 collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpaceCollisions();
+
+                                mapTileData.getRegionsSideScrollerMaps();
                             }
                             else
                             {
@@ -1542,6 +1598,8 @@ namespace LALE
 
                                 toolStripStatusLabelSpace.Text = "Used/Free Space: " + spaceCalculator.getUsedSpaceCollisions().ToString() + "/" + spaceCalculator.getFreeSpaceDungeon().ToString();
                                 collisionDataAddress = mapTileData.mapAddress + spaceCalculator.getUsedSpaceCollisions();
+
+                                mapTileData.getRegionsSideScrollerMaps();
                             }
                             else
                             {
@@ -1946,7 +2004,7 @@ namespace LALE
                     spriteLoader.loadSpriteBanks();
                     spriteLoader.getSpriteLocation();
                     numericUpDownSpriteBank.Value = (byte)spriteLoader.spriteBank;
-                    
+
                     loadEntities();
                 }
             }
@@ -1979,7 +2037,7 @@ namespace LALE
             if (LAGame != null)
             {
                 TilesetLoader tilesetLoader = new TilesetLoader(LAGame);
-                tilesetLoader.loadPalette();
+                tilesetLoader.loadPalette(LAGame.map);
 
                 paletteCopy = tilesetLoader.palette;
             }
@@ -1990,7 +2048,7 @@ namespace LALE
             if (LAGame != null)
             {
                 TilesetLoader tilesetLoader = new TilesetLoader(LAGame);
-                tilesetLoader.loadPalette();
+                tilesetLoader.loadPalette(LAGame.map);
 
                 LAGame.gbROM.BufferLocation = tilesetLoader.paletteLocation;
 
@@ -2034,9 +2092,211 @@ namespace LALE
             }
         }
 
+        private void checkRaisingFloors(bool checkBoxClicked)
+        {
+            if (!checkBoxClicked)
+            {
+                if (mapTileData.containsRaisedFloor)
+                    checkBoxRaisingTile.Checked = true;
+                else if (!mapTileData.containsRaisedFloor)
+                    checkBoxRaisingTile.Checked = false;
+
+
+            }
+            checkBoxRaisingTileClicked = false;
+        }
+
         private void lADXDisassemblyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/zladx/LADX-Disassembly");
+        }
+
+        private void LALE2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void automaticAlternateTilesetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (automaticAlternateTilesetsToolStripMenuItem.Checked)
+            {
+                checkBoxRaisingTile.Enabled = false;
+                cSideview.Enabled = false;
+
+                loadTileset();
+                loadMap();
+            }
+            else
+            {
+                if (!LAGame.overworldFlag)
+                {
+                    checkBoxRaisingTile.Enabled = true;
+                    cSideview.Enabled = true;
+                }
+            }
+        }
+
+        bool checkBoxSideViewClicked = false;
+        private void checkSideScrollingMaps(byte map, bool checkBoxClicked)
+        {
+            if (!checkBoxClicked)
+            {
+                bool sideScrollingMapFound = false;
+
+                foreach (Warps w in mapTileData.sideScrollingWarpList)
+                {
+                    if (w.map == map)
+                    {
+                        if (w.region < 6)
+                        {
+                            if (LAGame.dungeon < 6)
+                            {
+                                cSideview.Checked = true;
+                                sideScrollingMapFound = true;
+                                break;
+                            }
+                        }
+                        else if (w.region >= 6 && w.region < 0x1A)
+                        {
+                            if (LAGame.dungeon >= 6 && LAGame.dungeon < 0x1A)
+                            {
+                                cSideview.Checked = true;
+                                sideScrollingMapFound = true;
+                                break;
+                            }
+                        }
+                        else if (w.region >= 0x1A)
+                        {
+                            if (LAGame.dungeon >= 0x1A)
+                            {
+                                cSideview.Checked = true;
+                                sideScrollingMapFound = true;
+                                break;
+                            }
+                        }    
+                    }
+                }
+
+                if (!sideScrollingMapFound)
+                    cSideview.Checked = false;
+
+            }
+            checkBoxSideViewClicked = false;
+
+        }
+
+        private void exportMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+                SaveFileDialog s = new SaveFileDialog();
+                s.Title = "Export Map Group";
+                s.Filter = "PNG Files (*.png)|*.png";
+                if (s.ShowDialog() != DialogResult.OK)
+                    return;
+                String exportFileName = s.FileName;
+                if (!exportFileName.Equals(""))
+                    DrawBigMap().Save(exportFileName);
+            }
+        }
+
+        private Bitmap DrawBigMap()
+        {
+            int mapIndex = 0;
+            int xPos = 0;
+            int yPos = 0;
+
+            TileDrawer mapDrawer = new TileDrawer();
+            Bitmap bigMapImage = new Bitmap(2560, 2048);
+
+
+            FastPixel fp = new FastPixel(bigMapImage);
+            fp.rgbValues = new byte[2560 * 2048 * 4];
+            fp.Lock();
+
+            while (mapIndex < 256)
+            {
+                Bitmap smallMapImage = new Bitmap(160, 128);
+
+                if (LAGame.overworldFlag)
+                {
+
+                    smallMapImage = mapDrawer.drawMap(loadTileset((byte)mapIndex), mapTileData.GetOverlayMapData((byte)mapIndex));
+                }
+                else
+                {
+                    mapTileData.getWallsandFloor((byte)mapIndex);
+                    mapTileData.loadCollisionDataDungeon((byte)mapIndex);
+
+                    if (automaticAlternateTilesetsToolStripMenuItem.Checked)
+                    {
+                        checkRaisingFloors(checkBoxRaisingTileClicked);
+                        checkSideScrollingMaps((byte)mapIndex, checkBoxSideViewClicked);
+                    }
+
+                    smallMapImage = mapDrawer.drawMap(loadTileset((byte)mapIndex), mapTileData.loadMapDataDungeon());
+                }
+
+                FastPixel src = new FastPixel(smallMapImage);
+                src.rgbValues = new byte[160 * 128 * 4];
+                src.Lock();
+
+                if (xPos == 16)
+                {
+                    xPos = 0;
+                    yPos++;
+                }
+
+                for (int localY = 0; localY < 8; localY++)
+                {
+                    for (int localX = 0; localX < 10; localX++)
+                    {
+                        for (int yy = 0; yy < 16; yy++)
+                        {
+                            for (int xx = 0; xx < 16; xx++)
+                            {
+                                fp.SetPixel((xPos * 160) + (localX * 16) + xx, (yPos * 128) + (localY * 16) + yy, src.GetPixel(localX * 16 + xx, localY * 16 + yy));
+                            }
+                        }
+                    }
+
+                }
+
+                mapIndex++;
+                xPos++;
+
+                src.Unlock(true);
+            }
+
+            fp.Unlock(true);
+
+            loadTileset();
+            loadMap();
+            collisionListView();
+
+            return bigMapImage;
+        }
+
+        private void cSideview_Click(object sender, EventArgs e)
+        {
+            checkBoxSideViewClicked = true;
+        }
+
+        private void checkBoxRaisingTile_Click(object sender, EventArgs e)
+        {
+            checkBoxRaisingTileClicked = true;
+        }
+
+        private void IndoorRegionMap_Click(object sender, EventArgs e)
+        {
+            if (gridBoxTileset.Image != null)
+            {
+                //Check if were on the overworld tab
+                if (tabControl1.SelectedIndex == 2)
+                {
+                    numericUpDownMap.Value = (byte)IndoorRegionMap.SelectedIndex;
+                }
+            }
         }
     }
 }

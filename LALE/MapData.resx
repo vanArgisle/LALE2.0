@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="label2.HelpString" xml:space="preserve">
+    <value>The preset tiles differ depending on if you are editing the Overworld or a Dungeon. On the Overworld, the entire map uses the same tile based on the value (the value is the tile value of the tile you want to use in the tileset). For dungeons, the Preset Tiles is a combination value. The first value: 0X-FX will determine the placement of walls within the dungeon map. The second value: X0-XF determines the floor tile that covers the rest of the map.</value>
+  </data>
+  <data name="numericUpDownPresetTiles.HelpString" xml:space="preserve">
+    <value>The preset tiles differ depending on if you are editing the Overworld or a Dungeon. On the Overworld, the entire map uses the same tile based on the value (the value is the tile value of the tile you want to use in the tileset). For dungeons, the Preset Tiles is a combination value. The first value: 0X-FX will determine the placement of walls within the dungeon map. The second value: X0-XF determines the floor tile that covers the rest of the map.</value>
+  </data>
+  <data name="gridBoxTileset.HelpString" xml:space="preserve">
+    <value>This is a preview box of the map's tileset so that you can view how it changes when Special Object Graphics or Tile Animations are changed. You can select a tile to quickly change the Preset Tile value to the selected tile's value.</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LALE.Supporting.Text_Editor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -95,6 +96,18 @@ namespace LALE
             {
                 nPointer.Value = LAGame.gbROM.ReadByte(0x61EB5);
                 nMap.Enabled = false;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (LAGame != null)
+            {
+
+                int pointer = (2 * 0x100) + (int)nPointer.Value;
+
+                TextEditor textEditorForm = new TextEditor(LAGame, pointer);
+                textEditorForm.ShowDialog();
             }
         }
     }

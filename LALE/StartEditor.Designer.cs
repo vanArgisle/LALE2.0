@@ -40,6 +40,7 @@ namespace LALE
             this.nLinkYPos = new System.Windows.Forms.NumericUpDown();
             this.nDungeon = new System.Windows.Forms.NumericUpDown();
             this.nMap = new System.Windows.Forms.NumericUpDown();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.nLinkXPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nLinkYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nDungeon)).BeginInit();
@@ -48,7 +49,7 @@ namespace LALE
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(232, 37);
+            this.buttonAccept.Location = new System.Drawing.Point(259, 37);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 21;
@@ -58,7 +59,7 @@ namespace LALE
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(232, 75);
+            this.buttonCancel.Location = new System.Drawing.Point(259, 75);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 20;
@@ -69,8 +70,10 @@ namespace LALE
             // label4
             // 
             this.label4.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label4, "The map coordinates to spawn Link at.");
             this.label4.Location = new System.Drawing.Point(12, 87);
             this.label4.Name = "label4";
+            this.helpProvider1.SetShowHelp(this.label4, true);
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 19;
             this.label4.Text = "Link\'s Y Pos:";
@@ -78,8 +81,10 @@ namespace LALE
             // label3
             // 
             this.label3.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label3, "The map coordinates to spawn Link at.");
             this.label3.Location = new System.Drawing.Point(12, 61);
             this.label3.Name = "label3";
+            this.helpProvider1.SetShowHelp(this.label3, true);
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 18;
             this.label3.Text = "Link\'s X Pos:";
@@ -87,8 +92,10 @@ namespace LALE
             // label2
             // 
             this.label2.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label2, "The map value to spawn Link on.");
             this.label2.Location = new System.Drawing.Point(12, 35);
             this.label2.Name = "label2";
+            this.helpProvider1.SetShowHelp(this.label2, true);
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 17;
             this.label2.Text = "Map:";
@@ -96,17 +103,22 @@ namespace LALE
             // label1
             // 
             this.label1.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label1, "The region value to spawn Link in. This is only applicable if you are not spawnin" +
+        "g Link on the Overworld.");
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.helpProvider1.SetShowHelp(this.label1, true);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 16;
-            this.label1.Text = "Dungeon:";
+            this.label1.Text = "Dungeon/Region:";
             // 
             // cOverworld
             // 
             this.cOverworld.AutoSize = true;
-            this.cOverworld.Location = new System.Drawing.Point(214, 8);
+            this.helpProvider1.SetHelpString(this.cOverworld, "Allows the player to spawn on the Overworld rather than an indoor region.");
+            this.cOverworld.Location = new System.Drawing.Point(241, 8);
             this.cOverworld.Name = "cOverworld";
+            this.helpProvider1.SetShowHelp(this.cOverworld, true);
             this.cOverworld.Size = new System.Drawing.Size(114, 17);
             this.cOverworld.TabIndex = 15;
             this.cOverworld.Text = "Start on Overworld";
@@ -115,53 +127,62 @@ namespace LALE
             // 
             // nLinkXPos
             // 
+            this.helpProvider1.SetHelpString(this.nLinkXPos, "The map coordinates to spawn Link at.");
             this.nLinkXPos.Hexadecimal = true;
-            this.nLinkXPos.Location = new System.Drawing.Point(86, 59);
+            this.nLinkXPos.Location = new System.Drawing.Point(113, 59);
             this.nLinkXPos.Maximum = new decimal(new int[] {
             160,
             0,
             0,
             0});
             this.nLinkXPos.Name = "nLinkXPos";
+            this.helpProvider1.SetShowHelp(this.nLinkXPos, true);
             this.nLinkXPos.Size = new System.Drawing.Size(110, 20);
             this.nLinkXPos.TabIndex = 14;
             // 
             // nLinkYPos
             // 
+            this.helpProvider1.SetHelpString(this.nLinkYPos, "The map coordinates to spawn Link at.");
             this.nLinkYPos.Hexadecimal = true;
-            this.nLinkYPos.Location = new System.Drawing.Point(86, 85);
+            this.nLinkYPos.Location = new System.Drawing.Point(113, 85);
             this.nLinkYPos.Maximum = new decimal(new int[] {
             128,
             0,
             0,
             0});
             this.nLinkYPos.Name = "nLinkYPos";
+            this.helpProvider1.SetShowHelp(this.nLinkYPos, true);
             this.nLinkYPos.Size = new System.Drawing.Size(110, 20);
             this.nLinkYPos.TabIndex = 13;
             // 
             // nDungeon
             // 
+            this.helpProvider1.SetHelpString(this.nDungeon, "The region value to spawn Link in. This is only applicable if you are not spawnin" +
+        "g Link on the Overworld.");
             this.nDungeon.Hexadecimal = true;
-            this.nDungeon.Location = new System.Drawing.Point(86, 7);
+            this.nDungeon.Location = new System.Drawing.Point(113, 7);
             this.nDungeon.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nDungeon.Name = "nDungeon";
+            this.helpProvider1.SetShowHelp(this.nDungeon, true);
             this.nDungeon.Size = new System.Drawing.Size(110, 20);
             this.nDungeon.TabIndex = 12;
             // 
             // nMap
             // 
+            this.helpProvider1.SetHelpString(this.nMap, "The map value to spawn Link on.");
             this.nMap.Hexadecimal = true;
-            this.nMap.Location = new System.Drawing.Point(86, 33);
+            this.nMap.Location = new System.Drawing.Point(113, 33);
             this.nMap.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nMap.Name = "nMap";
+            this.helpProvider1.SetShowHelp(this.nMap, true);
             this.nMap.Size = new System.Drawing.Size(110, 20);
             this.nMap.TabIndex = 11;
             // 
@@ -169,7 +190,7 @@ namespace LALE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 121);
+            this.ClientSize = new System.Drawing.Size(366, 121);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label4);
@@ -181,7 +202,8 @@ namespace LALE
             this.Controls.Add(this.nLinkYPos);
             this.Controls.Add(this.nDungeon);
             this.Controls.Add(this.nMap);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartEditor";
@@ -210,5 +232,6 @@ namespace LALE
         private System.Windows.Forms.NumericUpDown nLinkYPos;
         private System.Windows.Forms.NumericUpDown nDungeon;
         private System.Windows.Forms.NumericUpDown nMap;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }

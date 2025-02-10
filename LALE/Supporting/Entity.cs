@@ -14,8 +14,8 @@ namespace LALE.Supporting
         public byte yPos { get; set; }
         public byte id { get; set; }
 
-        private byte[] spriteTileData;
-        private byte entityTileOffset;
+        public byte[] spriteTileData;
+        public byte entityTileOffset;
 
         public Bitmap sprite;
 
@@ -33,7 +33,7 @@ namespace LALE.Supporting
             sprite = spriteLoader.drawSpritePair16(spriteTileData, entityTileOffset);
         }
 
-        private void loadSpriteTileData()
+        public void loadSpriteTileData()
         {
             entityTileOffset = 0;
             spriteTileData = null;

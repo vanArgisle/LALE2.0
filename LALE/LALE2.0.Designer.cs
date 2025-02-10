@@ -32,6 +32,9 @@
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pastePaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.repointCollisionAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trimCollisionAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoRepointCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +59,7 @@
             this.restoreIntroMusicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.creditsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lADXDisassemblyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numericUpDownMap = new System.Windows.Forms.NumericUpDown();
             this.labelMap = new System.Windows.Forms.Label();
             this.radioButtonOverlay = new System.Windows.Forms.RadioButton();
@@ -90,8 +94,6 @@
             this.cSideview = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.cSideview2 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nRegion = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSpecialMap = new System.Windows.Forms.CheckBox();
@@ -122,15 +124,17 @@
             this.nEntitySelected = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.cEntities = new System.Windows.Forms.CheckBox();
-            this.copyPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pastePaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.groupBoxGraphics = new System.Windows.Forms.GroupBox();
+            this.automaticAlternateTilesetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SpriteBox = new LALE.GridBox();
             this.pMinimap = new LALE.GridBox();
             this.pMinimapD = new LALE.GridBox();
+            this.IndoorRegionMap = new LALE.GridBox();
             this.gridBoxMap = new LALE.GridBox();
             this.gridBoxTileset = new LALE.GridBox();
-            this.lADXDisassemblyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMap)).BeginInit();
             this.gBoxCollisions.SuspendLayout();
@@ -149,9 +153,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpriteBank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntityID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntitySelected)).BeginInit();
+            this.groupBoxGraphics.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IndoorRegionMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).BeginInit();
             this.SuspendLayout();
@@ -167,7 +173,7 @@
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(885, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(888, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -175,7 +181,8 @@
             // 
             this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openROMToolStripMenuItem,
-            this.saveROMToolStripMenuItem});
+            this.saveROMToolStripMenuItem,
+            this.exportMapToolStripMenuItem});
             this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
             this.fIleToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fIleToolStripMenuItem.Text = "File";
@@ -185,7 +192,7 @@
             this.openROMToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openROMToolStripMenuItem.Image")));
             this.openROMToolStripMenuItem.Name = "openROMToolStripMenuItem";
             this.openROMToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openROMToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.openROMToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.openROMToolStripMenuItem.Text = "Open ROM";
             this.openROMToolStripMenuItem.Click += new System.EventHandler(this.openROMToolStripMenuItem_Click);
             // 
@@ -215,6 +222,7 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
             // clearOverlayToolStripMenuItem
             // 
@@ -223,6 +231,8 @@
             | System.Windows.Forms.Keys.Delete)));
             this.clearOverlayToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.clearOverlayToolStripMenuItem.Text = "Clear Overlay";
+            this.clearOverlayToolStripMenuItem.ToolTipText = "This selection will turn the selected Overworld overlay map into a full map of ti" +
+    "le 0x0.";
             this.clearOverlayToolStripMenuItem.Click += new System.EventHandler(this.clearOverlayToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
@@ -251,6 +261,29 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(314, 6);
             // 
+            // copyPaletteToolStripMenuItem
+            // 
+            this.copyPaletteToolStripMenuItem.Name = "copyPaletteToolStripMenuItem";
+            this.copyPaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.copyPaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.copyPaletteToolStripMenuItem.Text = "Copy Palette";
+            this.copyPaletteToolStripMenuItem.Click += new System.EventHandler(this.copyPaletteToolStripMenuItem_Click);
+            // 
+            // pastePaletteToolStripMenuItem
+            // 
+            this.pastePaletteToolStripMenuItem.Name = "pastePaletteToolStripMenuItem";
+            this.pastePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.V)));
+            this.pastePaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
+            this.pastePaletteToolStripMenuItem.Text = "Paste Palette";
+            this.pastePaletteToolStripMenuItem.Click += new System.EventHandler(this.pastePaletteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(314, 6);
+            // 
             // repointCollisionAddressToolStripMenuItem
             // 
             this.repointCollisionAddressToolStripMenuItem.Name = "repointCollisionAddressToolStripMenuItem";
@@ -262,11 +295,14 @@
             // 
             // trimCollisionAddressToolStripMenuItem
             // 
+            this.trimCollisionAddressToolStripMenuItem.AutoToolTip = true;
             this.trimCollisionAddressToolStripMenuItem.Name = "trimCollisionAddressToolStripMenuItem";
             this.trimCollisionAddressToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.T)));
             this.trimCollisionAddressToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.trimCollisionAddressToolStripMenuItem.Text = "Trim Collision/Entity Address";
+            this.trimCollisionAddressToolStripMenuItem.ToolTipText = "This feature will take any unused space and trim it off the selected map. The dat" +
+    "a will be allocated to the next map in the list.";
             this.trimCollisionAddressToolStripMenuItem.Click += new System.EventHandler(this.trimCollisionAddressToolStripMenuItem_Click);
             // 
             // autoRepointCollisionsToolStripMenuItem
@@ -277,11 +313,15 @@
             this.autoRepointCollisionsToolStripMenuItem.Name = "autoRepointCollisionsToolStripMenuItem";
             this.autoRepointCollisionsToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
             this.autoRepointCollisionsToolStripMenuItem.Text = "Auto Repoint Collisions/Entities";
+            this.autoRepointCollisionsToolStripMenuItem.ToolTipText = "Enabling this will cause overflows in map data to be automatically resolved by sh" +
+    "ifting every map over and taking the needed data from the final map in a given r" +
+    "egion.";
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.collisionBordersToolStripMenuItem});
+            this.collisionBordersToolStripMenuItem,
+            this.automaticAlternateTilesetsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -294,8 +334,10 @@
             this.collisionBordersToolStripMenuItem.Name = "collisionBordersToolStripMenuItem";
             this.collisionBordersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.B)));
-            this.collisionBordersToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.collisionBordersToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.collisionBordersToolStripMenuItem.Text = "Collision Borders";
+            this.collisionBordersToolStripMenuItem.ToolTipText = "Enabling this feature will cause collisions to have borders around them, making t" +
+    "hem easier to spot and work with.";
             this.collisionBordersToolStripMenuItem.Click += new System.EventHandler(this.collisionBordersToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
@@ -421,9 +463,12 @@
             // 
             // removeIntroMusicToolStripMenuItem1
             // 
+            this.removeIntroMusicToolStripMenuItem1.AutoToolTip = true;
             this.removeIntroMusicToolStripMenuItem1.Name = "removeIntroMusicToolStripMenuItem1";
-            this.removeIntroMusicToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.removeIntroMusicToolStripMenuItem1.Text = "Remove Intro Music";
+            this.removeIntroMusicToolStripMenuItem1.Size = new System.Drawing.Size(212, 22);
+            this.removeIntroMusicToolStripMenuItem1.Text = "Remove Intro Music Block";
+            this.removeIntroMusicToolStripMenuItem1.ToolTipText = "Normally when you start a new game, music is blocked until you obtain the sword. " +
+    "This patch allows music to be played without obtaining the sword.";
             this.removeIntroMusicToolStripMenuItem1.Click += new System.EventHandler(this.removeIntroMusicToolStripMenuItem_Click);
             // 
             // removePatchesToolStripMenuItem
@@ -453,13 +498,21 @@
             // creditsToolStripMenuItem1
             // 
             this.creditsToolStripMenuItem1.Name = "creditsToolStripMenuItem1";
-            this.creditsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.creditsToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
             this.creditsToolStripMenuItem1.Text = "Credits";
             this.creditsToolStripMenuItem1.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            // 
+            // lADXDisassemblyToolStripMenuItem
+            // 
+            this.lADXDisassemblyToolStripMenuItem.Name = "lADXDisassemblyToolStripMenuItem";
+            this.lADXDisassemblyToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.lADXDisassemblyToolStripMenuItem.Text = "LADX Disassembly";
+            this.lADXDisassemblyToolStripMenuItem.Click += new System.EventHandler(this.lADXDisassemblyToolStripMenuItem_Click);
             // 
             // numericUpDownMap
             // 
             this.numericUpDownMap.Enabled = false;
+            this.helpProvider1.SetHelpString(this.numericUpDownMap, resources.GetString("numericUpDownMap.HelpString"));
             this.numericUpDownMap.Hexadecimal = true;
             this.numericUpDownMap.Location = new System.Drawing.Point(341, 53);
             this.numericUpDownMap.Maximum = new decimal(new int[] {
@@ -468,6 +521,7 @@
             0,
             0});
             this.numericUpDownMap.Name = "numericUpDownMap";
+            this.helpProvider1.SetShowHelp(this.numericUpDownMap, true);
             this.numericUpDownMap.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownMap.TabIndex = 2;
             this.numericUpDownMap.ValueChanged += new System.EventHandler(this.numericUpDownMap_ValueChanged);
@@ -484,13 +538,14 @@
             // radioButtonOverlay
             // 
             this.radioButtonOverlay.AutoSize = true;
-            this.radioButtonOverlay.Checked = true;
             this.radioButtonOverlay.Enabled = false;
+            this.helpProvider1.SetHelpString(this.radioButtonOverlay, "This enables editing the Overworld overlay tiles. This will be how your overworld" +
+        " maps look to the player. You will have to edit the collisions separately.");
             this.radioButtonOverlay.Location = new System.Drawing.Point(400, 217);
             this.radioButtonOverlay.Name = "radioButtonOverlay";
+            this.helpProvider1.SetShowHelp(this.radioButtonOverlay, true);
             this.radioButtonOverlay.Size = new System.Drawing.Size(61, 17);
             this.radioButtonOverlay.TabIndex = 6;
-            this.radioButtonOverlay.TabStop = true;
             this.radioButtonOverlay.Text = "Overlay";
             this.radioButtonOverlay.UseVisualStyleBackColor = true;
             this.radioButtonOverlay.CheckedChanged += new System.EventHandler(this.radioButtonOverlay_CheckedChanged);
@@ -498,19 +553,26 @@
             // radioButtonCollisions
             // 
             this.radioButtonCollisions.AutoSize = true;
+            this.radioButtonCollisions.Checked = true;
             this.radioButtonCollisions.Enabled = false;
+            this.helpProvider1.SetHelpString(this.radioButtonCollisions, resources.GetString("radioButtonCollisions.HelpString"));
             this.radioButtonCollisions.Location = new System.Drawing.Point(297, 217);
             this.radioButtonCollisions.Name = "radioButtonCollisions";
+            this.helpProvider1.SetShowHelp(this.radioButtonCollisions, true);
             this.radioButtonCollisions.Size = new System.Drawing.Size(68, 17);
             this.radioButtonCollisions.TabIndex = 7;
+            this.radioButtonCollisions.TabStop = true;
             this.radioButtonCollisions.Text = "Collisions";
             this.radioButtonCollisions.UseVisualStyleBackColor = true;
             this.radioButtonCollisions.CheckedChanged += new System.EventHandler(this.radioButtonCollisions_CheckedChanged);
             // 
             // buttonMapData
             // 
+            this.helpProvider1.SetHelpString(this.buttonMapData, "Map Data includes map specfic values such as: Music, Map Templates, and for dunge" +
+        "ons: Room Events.");
             this.buttonMapData.Location = new System.Drawing.Point(297, 240);
             this.buttonMapData.Name = "buttonMapData";
+            this.helpProvider1.SetShowHelp(this.buttonMapData, true);
             this.buttonMapData.Size = new System.Drawing.Size(164, 23);
             this.buttonMapData.TabIndex = 8;
             this.buttonMapData.Text = "Map Data";
@@ -535,8 +597,11 @@
             this.gBoxCollisions.Controls.Add(this.label9);
             this.gBoxCollisions.Controls.Add(this.nLength);
             this.gBoxCollisions.Enabled = false;
+            this.helpProvider1.SetHelpString(this.gBoxCollisions, "The collision view box contains everything needed to add new collisions and modif" +
+        "y existing ones.");
             this.gBoxCollisions.Location = new System.Drawing.Point(482, 48);
             this.gBoxCollisions.Name = "gBoxCollisions";
+            this.helpProvider1.SetShowHelp(this.gBoxCollisions, true);
             this.gBoxCollisions.Size = new System.Drawing.Size(211, 299);
             this.gBoxCollisions.TabIndex = 24;
             this.gBoxCollisions.TabStop = false;
@@ -544,9 +609,12 @@
             // 
             // bAdd
             // 
+            this.helpProvider1.SetHelpString(this.bAdd, "This button will add the currently selected tile in the tileset box to the map da" +
+        "ta box.");
             this.bAdd.Image = ((System.Drawing.Image)(resources.GetObject("bAdd.Image")));
             this.bAdd.Location = new System.Drawing.Point(151, 156);
             this.bAdd.Name = "bAdd";
+            this.helpProvider1.SetShowHelp(this.bAdd, true);
             this.bAdd.Size = new System.Drawing.Size(20, 20);
             this.bAdd.TabIndex = 39;
             this.bAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -555,9 +623,11 @@
             // 
             // bDelete
             // 
+            this.helpProvider1.SetHelpString(this.bDelete, "This button will delete the currently selected collision from the list.");
             this.bDelete.Image = ((System.Drawing.Image)(resources.GetObject("bDelete.Image")));
             this.bDelete.Location = new System.Drawing.Point(151, 182);
             this.bDelete.Name = "bDelete";
+            this.helpProvider1.SetShowHelp(this.bDelete, true);
             this.bDelete.Size = new System.Drawing.Size(20, 20);
             this.bDelete.TabIndex = 38;
             this.bDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -566,9 +636,13 @@
             // 
             // bCollisionDown
             // 
+            this.helpProvider1.SetHelpString(this.bCollisionDown, "You can use these buttons to reorder the collisions within the list. Collisions l" +
+        "ower down in the list will have priority over the collisions higher up on the li" +
+        "st.");
             this.bCollisionDown.Image = ((System.Drawing.Image)(resources.GetObject("bCollisionDown.Image")));
             this.bCollisionDown.Location = new System.Drawing.Point(125, 182);
             this.bCollisionDown.Name = "bCollisionDown";
+            this.helpProvider1.SetShowHelp(this.bCollisionDown, true);
             this.bCollisionDown.Size = new System.Drawing.Size(20, 20);
             this.bCollisionDown.TabIndex = 37;
             this.bCollisionDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -577,9 +651,13 @@
             // 
             // bCollisionUp
             // 
+            this.helpProvider1.SetHelpString(this.bCollisionUp, "You can use these buttons to reorder the collisions within the list. Collisions l" +
+        "ower down in the list will have priority over the collisions higher up on the li" +
+        "st.");
             this.bCollisionUp.Image = ((System.Drawing.Image)(resources.GetObject("bCollisionUp.Image")));
             this.bCollisionUp.Location = new System.Drawing.Point(125, 156);
             this.bCollisionUp.Name = "bCollisionUp";
+            this.helpProvider1.SetShowHelp(this.bCollisionUp, true);
             this.bCollisionUp.Size = new System.Drawing.Size(20, 20);
             this.bCollisionUp.TabIndex = 36;
             this.bCollisionUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -636,8 +714,10 @@
             // 
             this.CollisionList.AccessibleName = "";
             this.CollisionList.FormattingEnabled = true;
+            this.helpProvider1.SetHelpString(this.CollisionList, resources.GetString("CollisionList.HelpString"));
             this.CollisionList.Location = new System.Drawing.Point(9, 157);
             this.CollisionList.Name = "CollisionList";
+            this.helpProvider1.SetShowHelp(this.CollisionList, true);
             this.CollisionList.Size = new System.Drawing.Size(110, 134);
             this.CollisionList.TabIndex = 25;
             this.CollisionList.SelectedIndexChanged += new System.EventHandler(this.CollisionList_SelectedIndexChanged);
@@ -731,9 +811,11 @@
             this.toolStripStatusLabelSpace,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabelAddressPointer});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 438);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 493);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(885, 24);
+            this.helpProvider1.SetShowHelp(this.statusStrip1, false);
+            this.statusStrip1.ShowItemToolTips = true;
+            this.statusStrip1.Size = new System.Drawing.Size(888, 24);
             this.statusStrip1.TabIndex = 26;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -743,11 +825,13 @@
             this.toolStripStatusLabelHoverCoords.Name = "toolStripStatusLabelHoverCoords";
             this.toolStripStatusLabelHoverCoords.Size = new System.Drawing.Size(52, 19);
             this.toolStripStatusLabelHoverCoords.Text = "X: 0 Y: 0";
+            this.toolStripStatusLabelHoverCoords.ToolTipText = "These are the coordinates of the tile underneath the mouse cursor.";
             // 
             // toolStripStatusLabelSpace
             // 
             this.toolStripStatusLabelSpace.Name = "toolStripStatusLabelSpace";
             this.toolStripStatusLabelSpace.Size = new System.Drawing.Size(0, 19);
+            this.toolStripStatusLabelSpace.ToolTipText = resources.GetString("toolStripStatusLabelSpace.ToolTipText");
             // 
             // toolStripStatusLabel1
             // 
@@ -757,9 +841,11 @@
             // 
             // toolStripStatusLabelAddressPointer
             // 
+            this.toolStripStatusLabelAddressPointer.AutoToolTip = true;
             this.toolStripStatusLabelAddressPointer.Name = "toolStripStatusLabelAddressPointer";
             this.toolStripStatusLabelAddressPointer.Size = new System.Drawing.Size(79, 19);
             this.toolStripStatusLabelAddressPointer.Text = "Data Address:";
+            this.toolStripStatusLabelAddressPointer.ToolTipText = resources.GetString("toolStripStatusLabelAddressPointer.ToolTipText");
             // 
             // tabControl1
             // 
@@ -767,9 +853,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Enabled = false;
+            this.helpProvider1.SetHelpString(this.tabControl1, resources.GetString("tabControl1.HelpString"));
             this.tabControl1.Location = new System.Drawing.Point(699, 55);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
+            this.helpProvider1.SetShowHelp(this.tabControl1, true);
             this.tabControl1.Size = new System.Drawing.Size(173, 179);
             this.tabControl1.TabIndex = 27;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -787,8 +875,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.checkBoxRaisingTile);
-            this.tabPage2.Controls.Add(this.cSideview);
             this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.pMinimapD);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -802,24 +888,32 @@
             // checkBoxRaisingTile
             // 
             this.checkBoxRaisingTile.AutoSize = true;
-            this.checkBoxRaisingTile.Location = new System.Drawing.Point(6, 108);
+            this.checkBoxRaisingTile.Enabled = false;
+            this.helpProvider1.SetHelpString(this.checkBoxRaisingTile, resources.GetString("checkBoxRaisingTile.HelpString"));
+            this.checkBoxRaisingTile.Location = new System.Drawing.Point(6, 19);
             this.checkBoxRaisingTile.Name = "checkBoxRaisingTile";
-            this.checkBoxRaisingTile.Size = new System.Drawing.Size(82, 17);
+            this.helpProvider1.SetShowHelp(this.checkBoxRaisingTile, true);
+            this.checkBoxRaisingTile.Size = new System.Drawing.Size(152, 17);
             this.checkBoxRaisingTile.TabIndex = 20;
-            this.checkBoxRaisingTile.Text = "Raising tiles";
+            this.checkBoxRaisingTile.Text = "View Raising Tile Graphics";
             this.checkBoxRaisingTile.UseVisualStyleBackColor = true;
             this.checkBoxRaisingTile.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
+            this.checkBoxRaisingTile.Click += new System.EventHandler(this.checkBoxRaisingTile_Click);
             // 
             // cSideview
             // 
             this.cSideview.AutoSize = true;
-            this.cSideview.Location = new System.Drawing.Point(6, 85);
+            this.cSideview.Enabled = false;
+            this.helpProvider1.SetHelpString(this.cSideview, resources.GetString("cSideview.HelpString"));
+            this.cSideview.Location = new System.Drawing.Point(6, 42);
             this.cSideview.Name = "cSideview";
-            this.cSideview.Size = new System.Drawing.Size(73, 17);
+            this.helpProvider1.SetShowHelp(this.cSideview, true);
+            this.cSideview.Size = new System.Drawing.Size(161, 17);
             this.cSideview.TabIndex = 19;
-            this.cSideview.Text = "Side View";
+            this.cSideview.Text = "View Side Scrolling Graphics";
             this.cSideview.UseVisualStyleBackColor = true;
             this.cSideview.CheckedChanged += new System.EventHandler(this.cSideview_CheckedChanged);
+            this.cSideview.Click += new System.EventHandler(this.cSideview_Click);
             // 
             // comboBox1
             // 
@@ -836,16 +930,14 @@
             "Level 7",
             "Level 8",
             "Colour"});
-            this.comboBox1.Location = new System.Drawing.Point(80, 11);
+            this.comboBox1.Location = new System.Drawing.Point(6, 85);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(74, 21);
+            this.comboBox1.Size = new System.Drawing.Size(150, 21);
             this.comboBox1.TabIndex = 14;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBox1);
-            this.tabPage3.Controls.Add(this.cSideview2);
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.nRegion);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -855,28 +947,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Indoor";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 69);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(82, 17);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "Raising tiles";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBoxRaisingTile_CheckedChanged);
-            // 
-            // cSideview2
-            // 
-            this.cSideview2.AutoSize = true;
-            this.cSideview2.Location = new System.Drawing.Point(9, 46);
-            this.cSideview2.Name = "cSideview2";
-            this.cSideview2.Size = new System.Drawing.Size(73, 17);
-            this.cSideview2.TabIndex = 19;
-            this.cSideview2.Text = "Side View";
-            this.cSideview2.UseVisualStyleBackColor = true;
-            this.cSideview2.CheckedChanged += new System.EventHandler(this.cSideview_CheckedChanged);
             // 
             // label1
             // 
@@ -905,11 +975,13 @@
             // 
             this.checkBoxSpecialMap.AutoSize = true;
             this.checkBoxSpecialMap.Enabled = false;
+            this.helpProvider1.SetHelpString(this.checkBoxSpecialMap, resources.GetString("checkBoxSpecialMap.HelpString"));
             this.checkBoxSpecialMap.Location = new System.Drawing.Point(297, 269);
             this.checkBoxSpecialMap.Name = "checkBoxSpecialMap";
-            this.checkBoxSpecialMap.Size = new System.Drawing.Size(118, 17);
+            this.helpProvider1.SetShowHelp(this.checkBoxSpecialMap, true);
+            this.checkBoxSpecialMap.Size = new System.Drawing.Size(151, 17);
             this.checkBoxSpecialMap.TabIndex = 28;
-            this.checkBoxSpecialMap.Text = "View Alternate Map";
+            this.checkBoxSpecialMap.Text = "View Alternate/Event Map";
             this.checkBoxSpecialMap.UseVisualStyleBackColor = true;
             this.checkBoxSpecialMap.CheckedChanged += new System.EventHandler(this.checkBoxSpecialMap_CheckedChanged);
             // 
@@ -932,7 +1004,7 @@
             this.toolStripButtonSpritesheetEditor});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(885, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(888, 25);
             this.toolStrip1.TabIndex = 29;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1044,7 +1116,7 @@
             this.toolStripButtonPortalEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPortalEditor.Name = "toolStripButtonPortalEditor";
             this.toolStripButtonPortalEditor.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonPortalEditor.Text = "Miniboss Portal Editor";
+            this.toolStripButtonPortalEditor.Text = "Overworld/Miniboss Portal Editor";
             this.toolStripButtonPortalEditor.Click += new System.EventHandler(this.portalEditorToolStripMenuItem_Click);
             // 
             // toolStripButtonPaletteEditor
@@ -1094,8 +1166,11 @@
             this.groupBoxEntities.Controls.Add(this.nEntitySelected);
             this.groupBoxEntities.Controls.Add(this.label14);
             this.groupBoxEntities.Controls.Add(this.cEntities);
+            this.helpProvider1.SetHelpString(this.groupBoxEntities, "The entities box allows you to view and edit entities on the map. Entities includ" +
+        "e enemies, NPCs, item drops, etc.");
             this.groupBoxEntities.Location = new System.Drawing.Point(699, 240);
             this.groupBoxEntities.Name = "groupBoxEntities";
+            this.helpProvider1.SetShowHelp(this.groupBoxEntities, true);
             this.groupBoxEntities.Size = new System.Drawing.Size(169, 195);
             this.groupBoxEntities.TabIndex = 51;
             this.groupBoxEntities.TabStop = false;
@@ -1104,8 +1179,10 @@
             // labelSpriteBank
             // 
             this.labelSpriteBank.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.labelSpriteBank, resources.GetString("labelSpriteBank.HelpString"));
             this.labelSpriteBank.Location = new System.Drawing.Point(6, 171);
             this.labelSpriteBank.Name = "labelSpriteBank";
+            this.helpProvider1.SetShowHelp(this.labelSpriteBank, true);
             this.labelSpriteBank.Size = new System.Drawing.Size(65, 13);
             this.labelSpriteBank.TabIndex = 59;
             this.labelSpriteBank.Text = "Sprite Bank:";
@@ -1113,6 +1190,7 @@
             // numericUpDownSpriteBank
             // 
             this.numericUpDownSpriteBank.Enabled = false;
+            this.helpProvider1.SetHelpString(this.numericUpDownSpriteBank, resources.GetString("numericUpDownSpriteBank.HelpString"));
             this.numericUpDownSpriteBank.Hexadecimal = true;
             this.numericUpDownSpriteBank.Location = new System.Drawing.Point(77, 169);
             this.numericUpDownSpriteBank.Maximum = new decimal(new int[] {
@@ -1121,6 +1199,7 @@
             0,
             0});
             this.numericUpDownSpriteBank.Name = "numericUpDownSpriteBank";
+            this.helpProvider1.SetShowHelp(this.numericUpDownSpriteBank, true);
             this.numericUpDownSpriteBank.Size = new System.Drawing.Size(83, 20);
             this.numericUpDownSpriteBank.TabIndex = 58;
             this.numericUpDownSpriteBank.ValueChanged += new System.EventHandler(this.numericUpDownSpriteBank_ValueChanged);
@@ -1211,28 +1290,32 @@
             this.cEntities.UseVisualStyleBackColor = true;
             this.cEntities.CheckedChanged += new System.EventHandler(this.cEntities_CheckedChanged);
             // 
-            // copyPaletteToolStripMenuItem
+            // groupBoxGraphics
             // 
-            this.copyPaletteToolStripMenuItem.Name = "copyPaletteToolStripMenuItem";
-            this.copyPaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.C)));
-            this.copyPaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
-            this.copyPaletteToolStripMenuItem.Text = "Copy Palette";
-            this.copyPaletteToolStripMenuItem.Click += new System.EventHandler(this.copyPaletteToolStripMenuItem_Click);
+            this.groupBoxGraphics.Controls.Add(this.checkBoxRaisingTile);
+            this.groupBoxGraphics.Controls.Add(this.cSideview);
+            this.helpProvider1.SetHelpString(this.groupBoxGraphics, resources.GetString("groupBoxGraphics.HelpString"));
+            this.groupBoxGraphics.Location = new System.Drawing.Point(12, 364);
+            this.groupBoxGraphics.Name = "groupBoxGraphics";
+            this.helpProvider1.SetShowHelp(this.groupBoxGraphics, true);
+            this.groupBoxGraphics.Size = new System.Drawing.Size(200, 71);
+            this.groupBoxGraphics.TabIndex = 52;
+            this.groupBoxGraphics.TabStop = false;
+            this.groupBoxGraphics.Text = "Tileset Alternate Graphics";
             // 
-            // pastePaletteToolStripMenuItem
+            // automaticAlternateTilesetsToolStripMenuItem
             // 
-            this.pastePaletteToolStripMenuItem.Name = "pastePaletteToolStripMenuItem";
-            this.pastePaletteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.V)));
-            this.pastePaletteToolStripMenuItem.Size = new System.Drawing.Size(317, 22);
-            this.pastePaletteToolStripMenuItem.Text = "Paste Palette";
-            this.pastePaletteToolStripMenuItem.Click += new System.EventHandler(this.pastePaletteToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(314, 6);
+            this.automaticAlternateTilesetsToolStripMenuItem.Checked = true;
+            this.automaticAlternateTilesetsToolStripMenuItem.CheckOnClick = true;
+            this.automaticAlternateTilesetsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.automaticAlternateTilesetsToolStripMenuItem.Name = "automaticAlternateTilesetsToolStripMenuItem";
+            this.automaticAlternateTilesetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.A)));
+            this.automaticAlternateTilesetsToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.automaticAlternateTilesetsToolStripMenuItem.Text = "Automatic Alternate Tilesets";
+            this.automaticAlternateTilesetsToolStripMenuItem.ToolTipText = "Enabling this feature lets LALE try to automatically determine when an alternate " +
+    "tileset should be used.";
+            this.automaticAlternateTilesetsToolStripMenuItem.Click += new System.EventHandler(this.automaticAlternateTilesetsToolStripMenuItem_Click);
             // 
             // SpriteBox
             // 
@@ -1284,7 +1367,7 @@
             this.pMinimapD.HoverBox = true;
             this.pMinimapD.HoverColor = System.Drawing.Color.White;
             this.pMinimapD.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pMinimapD.Location = new System.Drawing.Point(6, 11);
+            this.pMinimapD.Location = new System.Drawing.Point(50, 7);
             this.pMinimapD.Name = "pMinimapD";
             this.pMinimapD.Selectable = true;
             this.pMinimapD.SelectedIndex = -2;
@@ -1295,12 +1378,33 @@
             this.pMinimapD.TabStop = false;
             this.pMinimapD.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pMinimapD_MouseClick);
             // 
+            // IndoorRegionMap
+            // 
+            this.IndoorRegionMap.AllowMultiSelection = false;
+            this.IndoorRegionMap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.IndoorRegionMap.BoxSize = new System.Drawing.Size(30, 24);
+            this.IndoorRegionMap.CanvasSize = new System.Drawing.Size(480, 384);
+            this.IndoorRegionMap.HoverBox = true;
+            this.IndoorRegionMap.HoverColor = System.Drawing.Color.White;
+            this.IndoorRegionMap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.IndoorRegionMap.Location = new System.Drawing.Point(891, 77);
+            this.IndoorRegionMap.Name = "IndoorRegionMap";
+            this.IndoorRegionMap.Selectable = true;
+            this.IndoorRegionMap.SelectedIndex = 0;
+            this.IndoorRegionMap.SelectionColor = System.Drawing.Color.Red;
+            this.IndoorRegionMap.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.IndoorRegionMap.Size = new System.Drawing.Size(484, 388);
+            this.IndoorRegionMap.TabIndex = 20;
+            this.IndoorRegionMap.TabStop = false;
+            this.IndoorRegionMap.Click += new System.EventHandler(this.IndoorRegionMap_Click);
+            // 
             // gridBoxMap
             // 
             this.gridBoxMap.AllowMultiSelection = false;
             this.gridBoxMap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gridBoxMap.BoxSize = new System.Drawing.Size(16, 16);
             this.gridBoxMap.CanvasSize = new System.Drawing.Size(160, 128);
+            this.helpProvider1.SetHelpString(this.gridBoxMap, "This is the map data box. You can view how your map looks here.");
             this.gridBoxMap.HoverBox = true;
             this.gridBoxMap.HoverColor = System.Drawing.Color.White;
             this.gridBoxMap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -1310,6 +1414,7 @@
             this.gridBoxMap.SelectedIndex = -1;
             this.gridBoxMap.SelectionColor = System.Drawing.Color.Red;
             this.gridBoxMap.SelectionRectangle = new System.Drawing.Rectangle(-1, 0, 1, 1);
+            this.helpProvider1.SetShowHelp(this.gridBoxMap, true);
             this.gridBoxMap.Size = new System.Drawing.Size(164, 132);
             this.gridBoxMap.TabIndex = 5;
             this.gridBoxMap.TabStop = false;
@@ -1324,6 +1429,7 @@
             this.gridBoxTileset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gridBoxTileset.BoxSize = new System.Drawing.Size(16, 16);
             this.gridBoxTileset.CanvasSize = new System.Drawing.Size(260, 260);
+            this.helpProvider1.SetHelpString(this.gridBoxTileset, resources.GetString("gridBoxTileset.HelpString"));
             this.gridBoxTileset.HoverBox = true;
             this.gridBoxTileset.HoverColor = System.Drawing.Color.White;
             this.gridBoxTileset.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -1333,21 +1439,26 @@
             this.gridBoxTileset.SelectedIndex = 0;
             this.gridBoxTileset.SelectionColor = System.Drawing.Color.Red;
             this.gridBoxTileset.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.helpProvider1.SetShowHelp(this.gridBoxTileset, true);
             this.gridBoxTileset.Size = new System.Drawing.Size(260, 260);
             this.gridBoxTileset.TabIndex = 4;
             this.gridBoxTileset.TabStop = false;
             this.gridBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBoxTileset_MouseClick);
             // 
-            // lADXDisassemblyToolStripMenuItem
+            // exportMapToolStripMenuItem
             // 
-            this.lADXDisassemblyToolStripMenuItem.Name = "lADXDisassemblyToolStripMenuItem";
-            this.lADXDisassemblyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lADXDisassemblyToolStripMenuItem.Text = "LADX Disassembly";
-            this.lADXDisassemblyToolStripMenuItem.Click += new System.EventHandler(this.lADXDisassemblyToolStripMenuItem_Click);
+            this.exportMapToolStripMenuItem.Name = "exportMapToolStripMenuItem";
+            this.exportMapToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.exportMapToolStripMenuItem.Text = "Export Entire Map Image";
+            this.exportMapToolStripMenuItem.ToolTipText = "This will create an image file of all maps within the selected region. If automat" +
+    "ic alternate tileset graphics is enabled, it will draw as such.";
+            this.exportMapToolStripMenuItem.Click += new System.EventHandler(this.exportMapToolStripMenuItem_Click);
             // 
             // LALE2
             // 
-            this.ClientSize = new System.Drawing.Size(885, 462);
+            this.ClientSize = new System.Drawing.Size(888, 517);
+            this.Controls.Add(this.IndoorRegionMap);
+            this.Controls.Add(this.groupBoxGraphics);
             this.Controls.Add(this.groupBoxEntities);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.checkBoxSpecialMap);
@@ -1364,12 +1475,18 @@
             this.Controls.Add(this.numericUpDownMap);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
+            this.helpProvider1.SetHelpKeyword(this, "");
+            this.helpProvider1.SetHelpString(this, "");
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LALE2";
+            this.helpProvider1.SetShowHelp(this, true);
             this.Text = "LALE";
+            this.Load += new System.EventHandler(this.LALE2_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LALE_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1385,7 +1502,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nRegion)).EndInit();
@@ -1396,9 +1512,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpriteBank)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntityID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nEntitySelected)).EndInit();
+            this.groupBoxGraphics.ResumeLayout(false);
+            this.groupBoxGraphics.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pMinimapD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IndoorRegionMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBoxTileset)).EndInit();
             this.ResumeLayout(false);
@@ -1459,13 +1578,11 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private GridBox pMinimapD;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.CheckBox cSideview2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nRegion;
         private System.Windows.Forms.CheckBox checkBoxSpecialMap;
         private System.Windows.Forms.ToolStripMenuItem saveROMToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxRaisingTile;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
         private System.Windows.Forms.ToolStripButton toolStripButtonSave;
@@ -1520,6 +1637,12 @@
         private System.Windows.Forms.ToolStripMenuItem pastePaletteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem lADXDisassemblyToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.GroupBox groupBoxGraphics;
+        private System.Windows.Forms.ToolStripMenuItem automaticAlternateTilesetsToolStripMenuItem;
+        private GridBox IndoorRegionMap;
+        private System.Windows.Forms.ToolStripMenuItem exportMapToolStripMenuItem;
     }
 }
 

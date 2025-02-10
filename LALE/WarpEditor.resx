@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="comboBox1.HelpString" xml:space="preserve">
+    <value>The type of warp determines how the game loads the warp destination. If you wish for a map to be side scrolling, you will need to set the type to side scrolling. To warp to the Overworld, select Overworld and the same goes for dungeon/indoor areas.</value>
+  </data>
+  <data name="label5.HelpString" xml:space="preserve">
+    <value>The type of warp determines how the game loads the warp destination. If you wish for a map to be side scrolling, you will need to set the type to side scrolling. To warp to the Overworld, select Overworld and the same goes for dungeon/indoor areas.</value>
+  </data>
+  <data name="label1.HelpString" xml:space="preserve">
+    <value>Each warp has an ID associated with it. The warp index will increase as warps are added or removed. Warps will attach themselves to the first available warp tile in a left to right order. Warps are stored in data alongside the collision map data. Each warp is 5 bytes.</value>
+  </data>
+  <data name="nIndex.HelpString" xml:space="preserve">
+    <value>Each warp has an ID associated with it. The warp index will increase as warps are added or removed. Warps will attach themselves to the first available warp tile in a left to right order. Warps are stored in data alongside the collision map data. Each warp is 5 bytes.</value>
+  </data>
 </root>

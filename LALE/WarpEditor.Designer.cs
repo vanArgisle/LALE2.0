@@ -29,6 +29,7 @@ namespace LALE
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WarpEditor));
             this.bDeleteWarp = new System.Windows.Forms.Button();
             this.bCreateWarp = new System.Windows.Forms.Button();
             this.nMap = new System.Windows.Forms.NumericUpDown();
@@ -45,6 +46,7 @@ namespace LALE
             this.label1 = new System.Windows.Forms.Label();
             this.nIndex = new System.Windows.Forms.NumericUpDown();
             this.bAccept = new System.Windows.Forms.Button();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.nMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nDestY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nDestX)).BeginInit();
@@ -75,6 +77,7 @@ namespace LALE
             // nMap
             // 
             this.nMap.Enabled = false;
+            this.helpProvider1.SetHelpString(this.nMap, "The map value to warp the player to.");
             this.nMap.Hexadecimal = true;
             this.nMap.Location = new System.Drawing.Point(87, 103);
             this.nMap.Maximum = new decimal(new int[] {
@@ -83,6 +86,7 @@ namespace LALE
             0,
             0});
             this.nMap.Name = "nMap";
+            this.helpProvider1.SetShowHelp(this.nMap, true);
             this.nMap.Size = new System.Drawing.Size(99, 20);
             this.nMap.TabIndex = 30;
             this.nMap.ValueChanged += new System.EventHandler(this.nMap_ValueChanged);
@@ -90,8 +94,10 @@ namespace LALE
             // label6
             // 
             this.label6.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label6, "The map value to warp the player to.");
             this.label6.Location = new System.Drawing.Point(12, 105);
             this.label6.Name = "label6";
+            this.helpProvider1.SetShowHelp(this.label6, true);
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 29;
             this.label6.Text = "Map:";
@@ -111,12 +117,14 @@ namespace LALE
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
+            this.helpProvider1.SetHelpString(this.comboBox1, resources.GetString("comboBox1.HelpString"));
             this.comboBox1.Items.AddRange(new object[] {
             "Overworld",
             "Dungeon",
             "Side-Scroller"});
             this.comboBox1.Location = new System.Drawing.Point(87, 39);
             this.comboBox1.Name = "comboBox1";
+            this.helpProvider1.SetShowHelp(this.comboBox1, true);
             this.comboBox1.Size = new System.Drawing.Size(99, 21);
             this.comboBox1.TabIndex = 27;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -124,17 +132,22 @@ namespace LALE
             // label5
             // 
             this.label5.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label5, resources.GetString("label5.HelpString"));
             this.label5.Location = new System.Drawing.Point(12, 42);
             this.label5.Name = "label5";
+            this.helpProvider1.SetShowHelp(this.label5, true);
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 26;
             this.label5.Text = "Type:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label4, "The coordinates the player will spawn at after using the warp.");
             this.label4.Location = new System.Drawing.Point(12, 169);
             this.label4.Name = "label4";
+            this.helpProvider1.SetShowHelp(this.label4, true);
             this.label4.Size = new System.Drawing.Size(66, 13);
             this.label4.TabIndex = 25;
             this.label4.Text = "Dest. Y Pos:";
@@ -142,6 +155,7 @@ namespace LALE
             // nDestY
             // 
             this.nDestY.Enabled = false;
+            this.helpProvider1.SetHelpString(this.nDestY, "The coordinates the player will spawn at after using the warp.");
             this.nDestY.Hexadecimal = true;
             this.nDestY.Location = new System.Drawing.Point(87, 167);
             this.nDestY.Maximum = new decimal(new int[] {
@@ -150,6 +164,7 @@ namespace LALE
             0,
             0});
             this.nDestY.Name = "nDestY";
+            this.helpProvider1.SetShowHelp(this.nDestY, true);
             this.nDestY.Size = new System.Drawing.Size(99, 20);
             this.nDestY.TabIndex = 24;
             this.nDestY.ValueChanged += new System.EventHandler(this.nDestY_ValueChanged);
@@ -157,6 +172,7 @@ namespace LALE
             // nDestX
             // 
             this.nDestX.Enabled = false;
+            this.helpProvider1.SetHelpString(this.nDestX, "The coordinates the player will spawn at after using the warp.");
             this.nDestX.Hexadecimal = true;
             this.nDestX.Location = new System.Drawing.Point(87, 135);
             this.nDestX.Maximum = new decimal(new int[] {
@@ -165,6 +181,7 @@ namespace LALE
             0,
             0});
             this.nDestX.Name = "nDestX";
+            this.helpProvider1.SetShowHelp(this.nDestX, true);
             this.nDestX.Size = new System.Drawing.Size(99, 20);
             this.nDestX.TabIndex = 23;
             this.nDestX.ValueChanged += new System.EventHandler(this.nDestX_ValueChanged);
@@ -172,8 +189,10 @@ namespace LALE
             // label3
             // 
             this.label3.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label3, "The coordinates the player will spawn at after using the warp.");
             this.label3.Location = new System.Drawing.Point(12, 137);
             this.label3.Name = "label3";
+            this.helpProvider1.SetShowHelp(this.label3, true);
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "Dest. X Pos:";
@@ -181,6 +200,7 @@ namespace LALE
             // nRegion
             // 
             this.nRegion.Enabled = false;
+            this.helpProvider1.SetHelpString(this.nRegion, "The region to change to when the player uses this warp.");
             this.nRegion.Hexadecimal = true;
             this.nRegion.Location = new System.Drawing.Point(87, 71);
             this.nRegion.Maximum = new decimal(new int[] {
@@ -189,6 +209,7 @@ namespace LALE
             0,
             0});
             this.nRegion.Name = "nRegion";
+            this.helpProvider1.SetShowHelp(this.nRegion, true);
             this.nRegion.Size = new System.Drawing.Size(99, 20);
             this.nRegion.TabIndex = 21;
             this.nRegion.ValueChanged += new System.EventHandler(this.nRegion_ValueChanged);
@@ -196,8 +217,10 @@ namespace LALE
             // label2
             // 
             this.label2.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label2, "The region to change to when the player uses this warp.");
             this.label2.Location = new System.Drawing.Point(12, 73);
             this.label2.Name = "label2";
+            this.helpProvider1.SetShowHelp(this.label2, true);
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 20;
             this.label2.Text = "Region:";
@@ -205,14 +228,17 @@ namespace LALE
             // label1
             // 
             this.label1.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label1, resources.GetString("label1.HelpString"));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
+            this.helpProvider1.SetShowHelp(this.label1, true);
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 19;
             this.label1.Text = "Warp Index:";
             // 
             // nIndex
             // 
+            this.helpProvider1.SetHelpString(this.nIndex, resources.GetString("nIndex.HelpString"));
             this.nIndex.Location = new System.Drawing.Point(87, 7);
             this.nIndex.Minimum = new decimal(new int[] {
             1,
@@ -220,6 +246,7 @@ namespace LALE
             0,
             -2147483648});
             this.nIndex.Name = "nIndex";
+            this.helpProvider1.SetShowHelp(this.nIndex, true);
             this.nIndex.Size = new System.Drawing.Size(99, 20);
             this.nIndex.TabIndex = 18;
             this.nIndex.Value = new decimal(new int[] {
@@ -260,7 +287,8 @@ namespace LALE
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nIndex);
             this.Controls.Add(this.bAccept);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WarpEditor";
@@ -295,5 +323,6 @@ namespace LALE
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nIndex;
         private System.Windows.Forms.Button bAccept;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }

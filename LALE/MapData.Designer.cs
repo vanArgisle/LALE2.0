@@ -29,6 +29,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapData));
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownMusic = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@
             this.nEventTrigger = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
             this.nEventID = new System.Windows.Forms.NumericUpDown();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSOG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnimations)).BeginInit();
@@ -60,14 +62,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label1, "This will change what music plays on the selected map.");
             this.label1.Location = new System.Drawing.Point(79, 185);
             this.label1.Name = "label1";
+            this.helpProvider1.SetShowHelp(this.label1, true);
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Music:";
             // 
             // numericUpDownMusic
             // 
+            this.helpProvider1.SetHelpString(this.numericUpDownMusic, "This will change what music plays on the selected map.");
             this.numericUpDownMusic.Hexadecimal = true;
             this.numericUpDownMusic.Location = new System.Drawing.Point(123, 183);
             this.numericUpDownMusic.Maximum = new decimal(new int[] {
@@ -76,6 +81,7 @@
             0,
             0});
             this.numericUpDownMusic.Name = "numericUpDownMusic";
+            this.helpProvider1.SetShowHelp(this.numericUpDownMusic, true);
             this.numericUpDownMusic.Size = new System.Drawing.Size(96, 20);
             this.numericUpDownMusic.TabIndex = 1;
             this.numericUpDownMusic.ValueChanged += new System.EventHandler(this.numericUpDownMusic_ValueChanged);
@@ -83,14 +89,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label2, resources.GetString("label2.HelpString"));
             this.label2.Location = new System.Drawing.Point(52, 157);
             this.label2.Name = "label2";
+            this.helpProvider1.SetShowHelp(this.label2, true);
             this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Preset Tiles:";
             // 
             // numericUpDownSOG
             // 
+            this.helpProvider1.SetHelpString(this.numericUpDownSOG, "This value will alter what data the tileset reads for special purpose tiles.");
             this.numericUpDownSOG.Hexadecimal = true;
             this.numericUpDownSOG.Location = new System.Drawing.Point(139, 210);
             this.numericUpDownSOG.Maximum = new decimal(new int[] {
@@ -99,6 +108,7 @@
             0,
             0});
             this.numericUpDownSOG.Name = "numericUpDownSOG";
+            this.helpProvider1.SetShowHelp(this.numericUpDownSOG, true);
             this.numericUpDownSOG.Size = new System.Drawing.Size(80, 20);
             this.numericUpDownSOG.TabIndex = 4;
             this.numericUpDownSOG.ValueChanged += new System.EventHandler(this.numericUpDownSOG_ValueChanged);
@@ -106,14 +116,17 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label3, "This value will alter what data the tileset reads for special purpose tiles.");
             this.label3.Location = new System.Drawing.Point(12, 213);
             this.label3.Name = "label3";
+            this.helpProvider1.SetShowHelp(this.label3, true);
             this.label3.Size = new System.Drawing.Size(124, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Special Object Graphics:";
             // 
             // numericUpDownAnimations
             // 
+            this.helpProvider1.SetHelpString(this.numericUpDownAnimations, "This value will alter what animation data the tileset reads for animated tiles.");
             this.numericUpDownAnimations.Hexadecimal = true;
             this.numericUpDownAnimations.Location = new System.Drawing.Point(139, 235);
             this.numericUpDownAnimations.Maximum = new decimal(new int[] {
@@ -122,6 +135,7 @@
             0,
             0});
             this.numericUpDownAnimations.Name = "numericUpDownAnimations";
+            this.helpProvider1.SetShowHelp(this.numericUpDownAnimations, true);
             this.numericUpDownAnimations.Size = new System.Drawing.Size(80, 20);
             this.numericUpDownAnimations.TabIndex = 6;
             this.numericUpDownAnimations.ValueChanged += new System.EventHandler(this.numericUpDownAnimations_ValueChanged);
@@ -129,14 +143,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label4, "This value will alter what animation data the tileset reads for animated tiles.");
             this.label4.Location = new System.Drawing.Point(52, 237);
             this.label4.Name = "label4";
+            this.helpProvider1.SetShowHelp(this.label4, true);
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Tile Animations:";
             // 
             // numericUpDownPresetTiles
             // 
+            this.helpProvider1.SetHelpString(this.numericUpDownPresetTiles, resources.GetString("numericUpDownPresetTiles.HelpString"));
             this.numericUpDownPresetTiles.Hexadecimal = true;
             this.numericUpDownPresetTiles.Location = new System.Drawing.Point(123, 155);
             this.numericUpDownPresetTiles.Maximum = new decimal(new int[] {
@@ -145,6 +162,7 @@
             0,
             0});
             this.numericUpDownPresetTiles.Name = "numericUpDownPresetTiles";
+            this.helpProvider1.SetShowHelp(this.numericUpDownPresetTiles, true);
             this.numericUpDownPresetTiles.Size = new System.Drawing.Size(96, 20);
             this.numericUpDownPresetTiles.TabIndex = 9;
             this.numericUpDownPresetTiles.ValueChanged += new System.EventHandler(this.numericUpDownPresetTiles_ValueChanged);
@@ -165,6 +183,7 @@
             this.gridBoxTileset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gridBoxTileset.BoxSize = new System.Drawing.Size(16, 16);
             this.gridBoxTileset.CanvasSize = new System.Drawing.Size(260, 260);
+            this.helpProvider1.SetHelpString(this.gridBoxTileset, resources.GetString("gridBoxTileset.HelpString"));
             this.gridBoxTileset.HoverBox = false;
             this.gridBoxTileset.HoverColor = System.Drawing.Color.White;
             this.gridBoxTileset.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -174,6 +193,7 @@
             this.gridBoxTileset.SelectedIndex = 0;
             this.gridBoxTileset.SelectionColor = System.Drawing.Color.Red;
             this.gridBoxTileset.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.helpProvider1.SetShowHelp(this.gridBoxTileset, true);
             this.gridBoxTileset.Size = new System.Drawing.Size(260, 260);
             this.gridBoxTileset.TabIndex = 8;
             this.gridBoxTileset.TabStop = false;
@@ -185,6 +205,8 @@
             this.gridBoxMap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gridBoxMap.BoxSize = new System.Drawing.Size(12, 10);
             this.gridBoxMap.CanvasSize = new System.Drawing.Size(160, 128);
+            this.helpProvider1.SetHelpString(this.gridBoxMap, "This is a preview of the map which will change depending on what the Preset Tiles" +
+        " value is.");
             this.gridBoxMap.HoverBox = false;
             this.gridBoxMap.HoverColor = System.Drawing.Color.White;
             this.gridBoxMap.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -194,6 +216,7 @@
             this.gridBoxMap.SelectedIndex = 0;
             this.gridBoxMap.SelectionColor = System.Drawing.Color.Red;
             this.gridBoxMap.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.helpProvider1.SetShowHelp(this.gridBoxMap, true);
             this.gridBoxMap.Size = new System.Drawing.Size(164, 132);
             this.gridBoxMap.TabIndex = 7;
             this.gridBoxMap.TabStop = false;
@@ -205,8 +228,12 @@
             this.gEventData.Controls.Add(this.nEventTrigger);
             this.gEventData.Controls.Add(this.label16);
             this.gEventData.Controls.Add(this.nEventID);
+            this.helpProvider1.SetHelpString(this.gEventData, "Room events are hardcoded, common dungeon events (such as a key falling from the " +
+        "ceiling after all monsters are defeated). They can only be used within dungeons." +
+        "");
             this.gEventData.Location = new System.Drawing.Point(64, 261);
             this.gEventData.Name = "gEventData";
+            this.helpProvider1.SetShowHelp(this.gEventData, true);
             this.gEventData.Size = new System.Drawing.Size(164, 78);
             this.gEventData.TabIndex = 45;
             this.gEventData.TabStop = false;
@@ -231,6 +258,8 @@
             // 
             // nEventTrigger
             // 
+            this.helpProvider1.SetHelpString(this.nEventTrigger, "The Trigger value is what needs to happen in order to get the selected Effect val" +
+        "ue to occur.");
             this.nEventTrigger.Hexadecimal = true;
             this.nEventTrigger.Location = new System.Drawing.Point(53, 51);
             this.nEventTrigger.Maximum = new decimal(new int[] {
@@ -239,6 +268,7 @@
             0,
             0});
             this.nEventTrigger.Name = "nEventTrigger";
+            this.helpProvider1.SetShowHelp(this.nEventTrigger, true);
             this.nEventTrigger.Size = new System.Drawing.Size(101, 20);
             this.nEventTrigger.TabIndex = 2;
             this.nEventTrigger.ValueChanged += new System.EventHandler(this.nEventTrigger_ValueChanged);
@@ -254,6 +284,8 @@
             // 
             // nEventID
             // 
+            this.helpProvider1.SetHelpString(this.nEventID, "The Effect value is the event that occurs after sucessfuly completing the selecte" +
+        "d Trigger value.");
             this.nEventID.Hexadecimal = true;
             this.nEventID.Location = new System.Drawing.Point(53, 19);
             this.nEventID.Maximum = new decimal(new int[] {
@@ -262,6 +294,7 @@
             0,
             0});
             this.nEventID.Name = "nEventID";
+            this.helpProvider1.SetShowHelp(this.nEventID, true);
             this.nEventID.Size = new System.Drawing.Size(101, 20);
             this.nEventID.TabIndex = 0;
             this.nEventID.ValueChanged += new System.EventHandler(this.nEventID_ValueChanged);
@@ -284,8 +317,13 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numericUpDownMusic);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
+            this.helpProvider1.SetHelpString(this, "These values will alter the tileset.");
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MapData";
+            this.helpProvider1.SetShowHelp(this, true);
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Map Data";
@@ -323,5 +361,6 @@
         private System.Windows.Forms.NumericUpDown nEventTrigger;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.NumericUpDown nEventID;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }

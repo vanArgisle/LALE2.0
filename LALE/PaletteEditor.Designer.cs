@@ -41,6 +41,7 @@ namespace LALE
             this.bCancel = new System.Windows.Forms.Button();
             this.bAccept = new System.Windows.Forms.Button();
             this.pTileset = new LALE.GridBox();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.nIndex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nDungeon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nMap)).BeginInit();
@@ -51,17 +52,21 @@ namespace LALE
             // labelIndex
             // 
             this.labelIndex.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.labelIndex, "The palette index that you want to edit.");
             this.labelIndex.Location = new System.Drawing.Point(146, 14);
             this.labelIndex.Name = "labelIndex";
+            this.helpProvider1.SetShowHelp(this.labelIndex, true);
             this.labelIndex.Size = new System.Drawing.Size(36, 13);
             this.labelIndex.TabIndex = 42;
             this.labelIndex.Text = "Index:";
             // 
             // nIndex
             // 
+            this.helpProvider1.SetHelpString(this.nIndex, "The palette index that you want to edit.");
             this.nIndex.Hexadecimal = true;
             this.nIndex.Location = new System.Drawing.Point(206, 12);
             this.nIndex.Name = "nIndex";
+            this.helpProvider1.SetShowHelp(this.nIndex, true);
             this.nIndex.Size = new System.Drawing.Size(66, 20);
             this.nIndex.TabIndex = 41;
             this.nIndex.ValueChanged += new System.EventHandler(this.nIndex_ValueChanged);
@@ -87,14 +92,17 @@ namespace LALE
             // labelDungeon
             // 
             this.labelDungeon.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.labelDungeon, "This will load the selected dungeon\'s palette into the editor.");
             this.labelDungeon.Location = new System.Drawing.Point(146, 62);
             this.labelDungeon.Name = "labelDungeon";
+            this.helpProvider1.SetShowHelp(this.labelDungeon, true);
             this.labelDungeon.Size = new System.Drawing.Size(54, 13);
             this.labelDungeon.TabIndex = 38;
             this.labelDungeon.Text = "Dungeon:";
             // 
             // nDungeon
             // 
+            this.helpProvider1.SetHelpString(this.nDungeon, "This will load the selected dungeon\'s palette into the editor.");
             this.nDungeon.Hexadecimal = true;
             this.nDungeon.Location = new System.Drawing.Point(206, 60);
             this.nDungeon.Maximum = new decimal(new int[] {
@@ -103,12 +111,14 @@ namespace LALE
             0,
             0});
             this.nDungeon.Name = "nDungeon";
+            this.helpProvider1.SetShowHelp(this.nDungeon, true);
             this.nDungeon.Size = new System.Drawing.Size(66, 20);
             this.nDungeon.TabIndex = 37;
             this.nDungeon.ValueChanged += new System.EventHandler(this.nDungeon_ValueChanged);
             // 
             // nMap
             // 
+            this.helpProvider1.SetHelpString(this.nMap, "This will load the selected map\'s palette into the editor.");
             this.nMap.Hexadecimal = true;
             this.nMap.Location = new System.Drawing.Point(206, 36);
             this.nMap.Maximum = new decimal(new int[] {
@@ -117,6 +127,7 @@ namespace LALE
             0,
             0});
             this.nMap.Name = "nMap";
+            this.helpProvider1.SetShowHelp(this.nMap, true);
             this.nMap.Size = new System.Drawing.Size(66, 20);
             this.nMap.TabIndex = 36;
             this.nMap.ValueChanged += new System.EventHandler(this.nMap_ValueChanged);
@@ -124,8 +135,10 @@ namespace LALE
             // labelMap
             // 
             this.labelMap.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.labelMap, "This will load the selected map\'s palette into the editor.");
             this.labelMap.Location = new System.Drawing.Point(146, 38);
             this.labelMap.Name = "labelMap";
+            this.helpProvider1.SetShowHelp(this.labelMap, true);
             this.labelMap.Size = new System.Drawing.Size(31, 13);
             this.labelMap.TabIndex = 35;
             this.labelMap.Text = "Map:";
@@ -136,6 +149,7 @@ namespace LALE
             this.pPalette.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pPalette.BoxSize = new System.Drawing.Size(32, 16);
             this.pPalette.CanvasSize = new System.Drawing.Size(128, 128);
+            this.helpProvider1.SetHelpString(this.pPalette, "The palette currently being edited.");
             this.pPalette.HoverBox = true;
             this.pPalette.HoverColor = System.Drawing.Color.White;
             this.pPalette.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -145,6 +159,7 @@ namespace LALE
             this.pPalette.SelectedIndex = 0;
             this.pPalette.SelectionColor = System.Drawing.Color.Red;
             this.pPalette.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.helpProvider1.SetShowHelp(this.pPalette, true);
             this.pPalette.Size = new System.Drawing.Size(128, 129);
             this.pPalette.TabIndex = 34;
             this.pPalette.TabStop = false;
@@ -177,6 +192,7 @@ namespace LALE
             this.pTileset.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pTileset.BoxSize = new System.Drawing.Size(16, 16);
             this.pTileset.CanvasSize = new System.Drawing.Size(256, 256);
+            this.helpProvider1.SetHelpString(this.pTileset, "A tileset to preview how the change in palettes affects the tileset.");
             this.pTileset.HoverBox = true;
             this.pTileset.HoverColor = System.Drawing.Color.White;
             this.pTileset.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
@@ -186,6 +202,7 @@ namespace LALE
             this.pTileset.SelectedIndex = 0;
             this.pTileset.SelectionColor = System.Drawing.Color.Red;
             this.pTileset.SelectionRectangle = new System.Drawing.Rectangle(0, 0, 1, 1);
+            this.helpProvider1.SetShowHelp(this.pTileset, true);
             this.pTileset.Size = new System.Drawing.Size(260, 260);
             this.pTileset.TabIndex = 31;
             this.pTileset.TabStop = false;
@@ -207,7 +224,11 @@ namespace LALE
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.bAccept);
             this.Controls.Add(this.pTileset);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PaletteEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Palette Editor";
@@ -235,5 +256,6 @@ namespace LALE
         private System.Windows.Forms.Button bCancel;
         private System.Windows.Forms.Button bAccept;
         private GridBox pTileset;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }

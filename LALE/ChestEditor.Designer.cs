@@ -34,6 +34,7 @@ namespace LALE
             this.label2 = new System.Windows.Forms.Label();
             this.nItem = new System.Windows.Forms.NumericUpDown();
             this.labelChestLocation = new System.Windows.Forms.Label();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.nItem)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,14 +61,17 @@ namespace LALE
             // label2
             // 
             this.label2.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.label2, "The value of the item to be found within every chest on the current map.");
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
+            this.helpProvider1.SetShowHelp(this.label2, true);
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Item:";
             // 
             // nItem
             // 
+            this.helpProvider1.SetHelpString(this.nItem, "The value of the item to be found within every chest on the current map.");
             this.nItem.Hexadecimal = true;
             this.nItem.Location = new System.Drawing.Point(61, 7);
             this.nItem.Maximum = new decimal(new int[] {
@@ -76,17 +80,20 @@ namespace LALE
             0,
             0});
             this.nItem.Name = "nItem";
+            this.helpProvider1.SetShowHelp(this.nItem, true);
             this.nItem.Size = new System.Drawing.Size(120, 20);
             this.nItem.TabIndex = 6;
             // 
             // labelChestLocation
             // 
             this.labelChestLocation.AutoSize = true;
+            this.helpProvider1.SetHelpString(this.labelChestLocation, "The location of the current map\'s chest data within the ROM file.");
             this.labelChestLocation.Location = new System.Drawing.Point(12, 31);
             this.labelChestLocation.Name = "labelChestLocation";
-            this.labelChestLocation.Size = new System.Drawing.Size(81, 13);
+            this.helpProvider1.SetShowHelp(this.labelChestLocation, true);
+            this.labelChestLocation.Size = new System.Drawing.Size(122, 13);
             this.labelChestLocation.TabIndex = 10;
-            this.labelChestLocation.Text = "Chest Location:";
+            this.labelChestLocation.Text = "Chest Address Location:";
             // 
             // ChestEditor
             // 
@@ -98,7 +105,9 @@ namespace LALE
             this.Controls.Add(this.bCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nItem);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ChestEditor";
             this.ShowIcon = false;
@@ -117,5 +126,6 @@ namespace LALE
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown nItem;
         private System.Windows.Forms.Label labelChestLocation;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
