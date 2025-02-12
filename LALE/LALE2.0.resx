@@ -358,21 +358,12 @@
   <data name="toolStripStatusLabelAddressPointer.ToolTipText" xml:space="preserve">
     <value>The following value changes depending what data is loaded. Typically it will point to the map data location of the currently selected map. It will also show the location of entities when they are enabled.</value>
   </data>
-  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>353, 17</value>
-  </metadata>
   <data name="tabControl1.HelpString" xml:space="preserve">
     <value>This is the region selection box. You can use the tabs at the top to switch between Overworld, Dungeon and Indoor map view. Each view comes with a minimap which can be interacted with to quickly select what map you want to view.</value>
   </data>
-  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>353, 17</value>
-  </metadata>
   <data name="checkBoxRaisingTile.HelpString" xml:space="preserve">
     <value>Raising and lowering dungeon blocks use a  specific set of special object graphics that are loaded when certain tiles are used. LALE will try to automatically load raised tile data if it detects the tile 0xDB or 0xDC on a dungeon map. You can manually turn the graphic changes on or off with this toggle. You can turn off the automatic detection in the View dropdown menu.</value>
   </data>
-  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>353, 17</value>
-  </metadata>
   <data name="cSideview.HelpString" xml:space="preserve">
     <value>Side view maps are determined via the warp editor. This checkbox is purly cosmetic. By checking this you can view the tileset as if you are editing a side scrolling map. Again, this is purely cosmetic. To make a map actually use side view tiles, you have to set the warp map to enable side scrolling.</value>
   </data>
@@ -565,15 +556,18 @@
   <data name="numericUpDownSpriteBank.HelpString" xml:space="preserve">
     <value>The sprite bank will determine what default tiles are used to make up an entity's sprite on the map. Due to limitations, not all entities will be compatible with others. Using the sprite sheet editor, you can modify a sprite sheet as well as compare entities to see what works.</value>
   </data>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>480, 17</value>
+  <metadata name="helpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>353, 17</value>
   </metadata>
   <data name="groupBoxGraphics.HelpString" xml:space="preserve">
     <value>Some maps uses tiles that you may not see in the default tileset. Side scrolling maps use the normal tileset but load in graphics differently. Settings to view different versions of the tileset are found here. By default, LALE will detect when to draw an alternate tileset. You can turn off automatic detection in the View dropdown menu.</value>
   </data>
   <data name="gridBoxTileset.HelpString" xml:space="preserve">
-    <value>This is the tileset box. Tiles are what make up maps. To add a tile to your map, first select the tile in the tileset box, and if on collision editing mode: Click the + button in the collision view box. If on overworld overlay mode, simply click the map data box and draw with your mouse.</value>
+    <value>This is the tileset box. Tiles are what make up maps. To add a tile to your map, first select the tile in the tileset box, and if on collision editing mode: Click the + button in the collision view box. If on overworld overlay mode, simply click the map data box and draw with your mouse. Note: on collisions: F5 to FD are special objects for the overworld, and EC to FD are special objects in dungeons.</value>
   </data>
+  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>480, 17</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using static LALE.Tileset.TilesetLoader;
 
@@ -38,6 +40,8 @@ namespace LALE
         private Entity selectedEntity;
 
         private Point lastMapHoverPoint = new Point(-1, -1);
+
+        LoadingIndicator loading = new LoadingIndicator(255);
 
         public LALE2()
         {
@@ -149,16 +153,22 @@ namespace LALE
                 else
                 {
                     this.Width = 1416;
-                    Bitmap bigMapImage = new Bitmap(2560, 2048);
-                    bigMapImage = DrawBigMap();
-                        
+
+                    Thread thread = new Thread(() => loading.ShowDialog());
+                    thread.Start();
+
+                    Bitmap bigMapImage = DrawBigMap();
+
+                    thread.Join();
+
+
                     Bitmap bigMapReduced = new Bitmap(480, 384);
                     Graphics g = Graphics.FromImage(bigMapReduced);
 
                     g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                     g.DrawImage(bigMapImage, 0, 0, 480, 384);
                     IndoorRegionMap.Image = bigMapReduced;
-                    
+
 
                 }
             }
@@ -1544,7 +1554,7 @@ namespace LALE
             loadTileset();
             if (checkBoxRaisingTileClicked)
             {
-            
+
                 loadMap();
                 loadEntities();
                 pObject.Invalidate();
@@ -2173,7 +2183,7 @@ namespace LALE
                                 sideScrollingMapFound = true;
                                 break;
                             }
-                        }    
+                        }
                     }
                 }
 
@@ -2195,8 +2205,16 @@ namespace LALE
                 if (s.ShowDialog() != DialogResult.OK)
                     return;
                 String exportFileName = s.FileName;
+
+                Thread thread = new Thread(() => loading.ShowDialog());
+                thread.Start();
+
+                Bitmap BigMap = DrawBigMap();
+
+                thread.Join();
+
                 if (!exportFileName.Equals(""))
-                    DrawBigMap().Save(exportFileName);
+                    BigMap.Save(exportFileName);
             }
         }
 
@@ -2216,6 +2234,8 @@ namespace LALE
 
             while (mapIndex < 256)
             {
+                loading.setValue(mapIndex, 255);
+
                 Bitmap smallMapImage = new Bitmap(160, 128);
 
                 if (LAGame.overworldFlag)
@@ -2275,6 +2295,7 @@ namespace LALE
             collisionListView();
 
             return bigMapImage;
+
         }
 
         private void cSideview_Click(object sender, EventArgs e)
